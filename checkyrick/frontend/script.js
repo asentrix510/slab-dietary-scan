@@ -309,15 +309,9 @@ function generateReportHTML(analysis, restrictions, citations = []) {
             <div style="background: #161B22; border: 1px solid #30363D; border-left: 4px solid ${statusColor}; color: #F0F6FC; padding: 1.5rem; border-radius: 8px; margin-bottom: 1.5rem; max-width: 100%; ${textWrapStyle}">
                 <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
                     <h2 style="margin: 0; font-size: 1.3rem; font-weight: 700; color: #F0F6FC; ${textWrapStyle}">Dietary Deep Scan Report</h2>
-<<<<<<< HEAD
-                    <span style="font-size: 0.8rem; background: rgba(88, 166, 255, 0.15); color: #58A6FF; padding: 4px 10px; border-radius: 9999px; border: 1px solid rgba(88, 166, 255, 0.3);">Verified Research</span>
-                </div>
-                <p style="margin: 0.5rem 0 0 0; color: #8B949E; font-size: 0.88rem; ${textWrapStyle}">Analysis completed • Verified against global regulatory directives</p>
-=======
                     <span style="font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; background: rgba(88, 166, 255, 0.15); color: #58A6FF; padding: 2px 8px; border-radius: 4px; border: 1px solid rgba(88, 166, 255, 0.3);">WebCMD Powered</span>
                 </div>
                 <p style="margin: 0.5rem 0 0 0; color: #8B949E; font-size: 0.88rem; ${textWrapStyle}">Analysis completed • Verified with WebCMD web research</p>
->>>>>>> 3ad040284ed9aca2914e76de21fd455e7020fc17
             </div>
             
             <!-- User Restrictions -->
@@ -454,13 +448,9 @@ function generateReportHTML(analysis, restrictions, citations = []) {
 
     // Footer
     html += `
-<<<<<<< HEAD
-        <div style="background: #161B22; border: 1px solid #30363D; padding: 1rem; border-radius: 8px; text-align: center; color: #8B949E; font-size: 0.84rem; max-width: 100%; ${textWrapStyle}">
-            <p style="margin: 0; ${textWrapStyle}">Verified with live web research and regulatory cross-checks</p>
-=======
         <div style="background: #161B22; border: 1px solid #30363D; padding: 1rem; border-radius: 8px; text-align: center; color: #8B949E; font-size: 0.84rem; font-family: 'JetBrains Mono', monospace; max-width: 100%; ${textWrapStyle}">
             <p style="margin: 0; ${textWrapStyle}">Information verified using WebCMD web research + Gemini AI.</p>
->>>>>>> 3ad040284ed9aca2914e76de21fd455e7020fc17
+        </div>
         </div>
     </div>
     `;
