@@ -1,4 +1,4 @@
-// CheckyRick — Landing Page Interactive Demo & Interactions
+// DietXplore — Landing Page Interactive Demo & Interactions
 
 const sampleProducts = {
     'ramen': {
@@ -61,17 +61,17 @@ function renderDemoProduct(productKey) {
 
     displayContainer.innerHTML = `
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 8px;">
-            <h4 style="margin: 0; font-size: 1.1rem; color: var(--text-heading);">${product.title}</h4>
-            <span class="badge badge-${product.status === 'safe' ? 'safe' : 'warning'}" style="background: ${product.status === 'safe' ? 'var(--status-safe-bg)' : product.status === 'danger' ? 'var(--status-danger-bg)' : 'var(--status-warn-bg)'}; color: ${product.status === 'safe' ? 'var(--status-safe)' : product.status === 'danger' ? 'var(--status-danger)' : 'var(--status-warn)'};">
+            <h4 style="margin: 0; font-size: 1.1rem; color: var(--text-headings);">${product.title}</h4>
+            <span class="badge badge-${product.status}" style="background: ${product.status === 'safe' ? 'var(--status-success-subtle)' : product.status === 'danger' ? 'var(--status-danger-subtle)' : 'var(--status-warning-subtle)'}; color: ${product.status === 'safe' ? 'var(--status-success)' : product.status === 'danger' ? 'var(--status-danger)' : 'var(--status-warning)'};">
                 ${product.statusLabel}
             </span>
         </div>
         <div class="preview-results-list" style="padding: 0; gap: 8px;">
             ${itemsHtml}
         </div>
-        <div style="margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--border-subtle); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; font-size: 0.78rem; color: var(--text-muted);">
+        <div style="margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--border-subtle); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; font-size: 0.78rem; color: var(--text-muted); font-family: var(--font-mono);">
             <span>📚 <strong>Source Basis:</strong> ${product.citations}</span>
-            <a href="scanner.html" style="color: var(--primary); text-decoration: underline;">Scan your own food →</a>
+            <a href="scanner.html" style="color: var(--primary-accent); text-decoration: underline;">Scan your own food →</a>
         </div>
     `;
 }

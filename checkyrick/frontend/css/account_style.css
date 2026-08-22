@@ -1,41 +1,48 @@
 /* ==========================================================================
-   CheckyRick — Account, Auth & Profile Stylesheet
+   DietXplore — Account, Auth & Profile Stylesheet (webcmd.dev Theme)
    ========================================================================== */
 
 :root {
-    --bg-page: #0B0F17;
-    --bg-surface: #111726;
-    --bg-surface-elevated: #172033;
-    --bg-surface-hover: #1C273E;
+    --bg-primary: #0D1117;
+    --bg-secondary: #161B22;
+    --bg-tertiary: #21262D;
+    --bg-overlay: rgba(13, 17, 23, 0.88);
     
-    --border-subtle: #1E293B;
-    --border-medium: #334155;
-    --border-focus: #38BDF8;
+    --border-subtle: #30363D;
+    --border-muted: #21262D;
+    --border-focus: #58A6FF;
     
-    --primary: #38BDF8;
-    --primary-hover: #7DD3FC;
-    --primary-muted: rgba(56, 189, 248, 0.12);
-    --primary-text-dark: #0B0F17;
+    --primary-accent: #58A6FF;
+    --primary-accent-hover: #79C0FF;
+    --primary-accent-subtle: rgba(88, 166, 255, 0.12);
+    --primary-text-on-accent: #0D1117;
     
-    --status-safe: #34D399;
-    --status-warn: #FBBF24;
-    --status-danger: #F87171;
+    --status-success: #3FB950;
+    --status-success-subtle: rgba(63, 185, 80, 0.15);
+    --status-warning: #D29922;
+    --status-warning-subtle: rgba(210, 153, 34, 0.15);
+    --status-danger: #F85149;
+    --status-danger-subtle: rgba(248, 81, 73, 0.15);
     
-    --text-heading: #F8FAFC;
-    --text-body: #CBD5E1;
-    --text-muted: #94A3B8;
-    --text-subtle: #64748B;
+    --text-headings: #F0F6FC;
+    --text-primary: #C9D1D9;
+    --text-muted: #8B949E;
+    --text-link: #58A6FF;
     
-    --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-mono: 'JetBrains Mono', 'Fira Code', Menlo, monospace;
     
-    --radius-sm: 8px;
-    --radius-md: 12px;
-    --radius-lg: 16px;
+    --radius-sm: 6px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
     --radius-pill: 9999px;
     
     --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
-    --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
-    --shadow-lg: 0 12px 36px rgba(0, 0, 0, 0.5);
+    --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.5);
+    --shadow-lg: 0 12px 36px rgba(0, 0, 0, 0.6);
+    --shadow-glow: 0 0 24px rgba(88, 166, 255, 0.25);
+    
+    --transition-fast: all 0.2s ease-in-out;
 }
 
 *, *::before, *::after {
@@ -51,20 +58,35 @@ html {
 }
 
 body {
-    background-color: var(--bg-page);
-    color: var(--text-body);
-    font-family: var(--font-family);
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: var(--font-sans);
     font-size: 15px;
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
     min-height: 100vh;
     overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
 }
 
+/* Background Grid Texture */
+.grid-background {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background-image: 
+        linear-gradient(to right, rgba(48, 54, 61, 0.2) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(48, 54, 61, 0.2) 1px, transparent 1px);
+    background-size: 32px 32px;
+    mask-image: radial-gradient(circle at center, black 40%, transparent 85%);
+    -webkit-mask-image: radial-gradient(circle at center, black 40%, transparent 85%);
+}
+
 /* Focus */
 *:focus-visible {
-    outline: 2px solid var(--primary);
+    outline: 2px solid var(--border-focus);
     outline-offset: 2px;
 }
 
@@ -72,10 +94,12 @@ body {
     max-width: 800px;
     margin: 0 auto;
     padding: 0 20px;
+    position: relative;
+    z-index: 1;
 }
 
 /* ==========================================================================
-   Auth Screen (Login / Register)
+   Auth Screen (Login / Register - webcmd theme)
    ========================================================================== */
 .auth-wrapper {
     min-height: 100vh;
@@ -83,6 +107,8 @@ body {
     align-items: center;
     justify-content: center;
     padding: 32px 16px;
+    position: relative;
+    z-index: 1;
 }
 
 .auth-container {
@@ -102,22 +128,22 @@ body {
     align-items: center;
     gap: 8px;
     text-decoration: none;
-    color: var(--text-heading);
+    color: var(--text-headings);
     font-size: 1.3rem;
     font-weight: 700;
 }
 
-.brand-badge {
-    font-size: 1.5rem;
+.brand-name {
+    font-size: 1.25rem;
+    font-weight: 700;
 }
 
-.brand-name strong {
-    color: var(--primary);
-    font-weight: 800;
+.brand-accent {
+    color: var(--primary-accent);
 }
 
 .card {
-    background-color: var(--bg-surface);
+    background-color: var(--bg-secondary);
     border: 1px solid var(--border-subtle);
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow-lg);
@@ -125,13 +151,14 @@ body {
 }
 
 .card-body {
-    padding: 32px 28px;
+    padding: 28px 24px;
 }
 
 .card-body h2 {
-    font-size: 1.5rem;
-    color: var(--text-heading);
+    font-size: 1.4rem;
+    color: var(--text-headings);
     margin-bottom: 6px;
+    font-weight: 700;
 }
 
 .auth-subtitle {
@@ -151,7 +178,7 @@ body {
 .form-group label {
     font-size: 0.85rem;
     font-weight: 600;
-    color: var(--text-heading);
+    color: var(--text-headings);
 }
 
 input[type="text"],
@@ -160,42 +187,43 @@ input[type="password"],
 input[type="number"],
 textarea {
     width: 100%;
-    background-color: var(--bg-page);
-    border: 1px solid var(--border-medium);
+    background-color: var(--bg-primary);
+    border: 1px solid var(--border-subtle);
     border-radius: var(--radius-sm);
     padding: 10px 14px;
-    font-family: var(--font-family);
-    font-size: 0.92rem;
-    color: var(--text-heading);
-    transition: all 0.15s ease;
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+    color: var(--text-headings);
+    transition: var(--transition-fast);
 }
 
 input:focus,
 textarea:focus {
-    border-color: var(--primary);
+    border-color: var(--border-focus);
     background-color: #0E1422;
 }
 
 input::placeholder,
 textarea::placeholder {
-    color: var(--text-subtle);
+    color: var(--text-muted);
 }
 
 .disabled-input {
     opacity: 0.6;
     cursor: not-allowed;
-    background-color: rgba(15, 23, 42, 0.5) !important;
+    background-color: rgba(13, 17, 23, 0.7) !important;
 }
 
 .error-message {
     display: none;
-    background-color: var(--status-danger-bg);
-    border: 1px solid rgba(248, 113, 113, 0.3);
+    background-color: var(--status-danger-subtle);
+    border: 1px solid rgba(248, 81, 73, 0.3);
     color: var(--status-danger);
     padding: 10px 14px;
     border-radius: var(--radius-sm);
     font-size: 0.84rem;
     margin-bottom: 16px;
+    font-family: var(--font-mono);
 }
 
 .btn {
@@ -203,38 +231,41 @@ textarea::placeholder {
     align-items: center;
     justify-content: center;
     gap: 8px;
-    padding: 10px 18px;
+    padding: 9px 16px;
     border-radius: var(--radius-md);
-    font-family: var(--font-family);
-    font-size: 0.92rem;
+    font-family: var(--font-sans);
+    font-size: 0.88rem;
     font-weight: 600;
     text-decoration: none;
     cursor: pointer;
-    transition: all 0.18s ease;
+    transition: var(--transition-fast);
     border: 1px solid transparent;
 }
 
 .btn-primary {
-    background-color: var(--primary);
-    color: var(--primary-text-dark);
-    box-shadow: 0 2px 8px rgba(56, 189, 248, 0.25);
+    background-color: var(--primary-accent);
+    color: var(--primary-text-on-accent);
+    border-color: var(--primary-accent);
+    box-shadow: 0 2px 8px rgba(88, 166, 255, 0.2);
 }
 
 .btn-primary:hover {
-    background-color: var(--primary-hover);
+    background-color: var(--primary-accent-hover);
+    border-color: var(--primary-accent-hover);
     transform: translateY(-1px);
-    box-shadow: 0 4px 14px rgba(56, 189, 248, 0.4);
+    box-shadow: var(--shadow-glow);
 }
 
 .btn-secondary {
-    background-color: var(--bg-surface-elevated);
-    color: var(--text-heading);
+    background-color: var(--bg-secondary);
+    color: var(--text-headings);
     border: 1px solid var(--border-subtle);
 }
 
 .btn-secondary:hover {
-    background-color: var(--bg-surface-hover);
-    border-color: var(--border-medium);
+    background-color: var(--bg-tertiary);
+    border-color: var(--text-muted);
+    transform: translateY(-1px);
 }
 
 .btn-ghost {
@@ -243,7 +274,7 @@ textarea::placeholder {
 }
 
 .btn-ghost:hover {
-    color: var(--text-heading);
+    color: var(--text-headings);
 }
 
 .btn-sm {
@@ -253,8 +284,8 @@ textarea::placeholder {
 
 .btn-full {
     width: 100%;
-    padding: 12px;
-    font-size: 0.95rem;
+    padding: 11px;
+    font-size: 0.92rem;
     margin-top: 4px;
 }
 
@@ -266,17 +297,19 @@ textarea::placeholder {
 }
 
 .switch-auth a {
-    color: var(--primary);
+    color: var(--primary-accent);
     font-weight: 600;
     cursor: pointer;
     text-decoration: underline;
 }
 
 /* ==========================================================================
-   Profile & Dietary Matrix Page
+   Profile & Dietary Matrix Page (webcmd theme)
    ========================================================================== */
 .page-wrapper {
     padding: 36px 0 60px;
+    position: relative;
+    z-index: 1;
 }
 
 .profile-header {
@@ -291,7 +324,7 @@ textarea::placeholder {
 .header-brand-group {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 6px;
 }
 
 .header-brand-group .logo {
@@ -299,7 +332,7 @@ textarea::placeholder {
     align-items: center;
     gap: 8px;
     text-decoration: none;
-    color: var(--text-heading);
+    color: var(--text-headings);
     font-size: 1.1rem;
     font-weight: 600;
 }
@@ -307,6 +340,7 @@ textarea::placeholder {
 .header-title-block h1 {
     font-size: 1.8rem;
     margin-bottom: 2px;
+    color: var(--text-headings);
 }
 
 .header-sub {
@@ -326,7 +360,7 @@ textarea::placeholder {
 }
 
 .section-card {
-    background-color: var(--bg-surface);
+    background-color: var(--bg-secondary);
     border: 1px solid var(--border-subtle);
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow-sm);
@@ -335,14 +369,14 @@ textarea::placeholder {
 
 .section-card-header {
     padding: 14px 20px;
-    background-color: var(--bg-surface-elevated);
+    background-color: var(--bg-tertiary);
     border-bottom: 1px solid var(--border-subtle);
 }
 
 .section-title {
     font-size: 0.95rem;
     font-weight: 700;
-    color: var(--text-heading);
+    color: var(--text-headings);
 }
 
 .section-card-body {
@@ -359,7 +393,7 @@ textarea::placeholder {
     display: block;
     font-size: 0.88rem;
     font-weight: 600;
-    color: var(--text-heading);
+    color: var(--text-headings);
     margin-bottom: 12px;
 }
 
@@ -382,23 +416,23 @@ textarea::placeholder {
     align-items: center;
     gap: 10px;
     padding: 10px 14px;
-    background-color: var(--bg-page);
+    background-color: var(--bg-primary);
     border: 1px solid var(--border-subtle);
     border-radius: var(--radius-sm);
     cursor: pointer;
     font-size: 0.88rem;
-    color: var(--text-body);
-    transition: all 0.15s ease;
+    color: var(--text-primary);
+    transition: var(--transition-fast);
 }
 
 .checkbox-item:hover {
-    border-color: var(--border-medium);
-    color: var(--text-heading);
+    border-color: rgba(88, 166, 255, 0.35);
+    color: var(--text-headings);
 }
 
 .checkbox-item input {
     cursor: pointer;
-    accent-color: var(--primary);
+    accent-color: var(--primary-accent);
 }
 
 .other-input {
@@ -417,15 +451,15 @@ textarea::placeholder {
 }
 
 .btn-save {
-    padding: 12px 24px;
-    font-size: 0.95rem;
+    padding: 11px 22px;
+    font-size: 0.92rem;
 }
 
 /* Loading Overlay */
 .loading-overlay {
     position: fixed;
     inset: 0;
-    background-color: rgba(11, 15, 23, 0.88);
+    background-color: var(--bg-overlay);
     backdrop-filter: blur(8px);
     display: none;
     flex-direction: column;
@@ -433,15 +467,15 @@ textarea::placeholder {
     align-items: center;
     gap: 14px;
     z-index: 9999;
-    color: var(--text-heading);
+    color: var(--text-headings);
     font-weight: 500;
 }
 
 .loading-overlay .spinner {
-    width: 40px;
-    height: 40px;
-    border: 3px solid rgba(56, 189, 248, 0.2);
-    border-top-color: var(--primary);
+    width: 36px;
+    height: 36px;
+    border: 3px solid rgba(88, 166, 255, 0.2);
+    border-top-color: var(--primary-accent);
     border-radius: 50%;
     animation: spin 0.8s linear infinite;
 }

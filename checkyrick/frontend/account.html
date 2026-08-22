@@ -4,17 +4,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dietary Profile — CheckyRick</title>
+    <title>Dietary Profile — DietXplore</title>
     <meta name="description" content="Manage your personal food allergies, dietary restrictions, and ethical preferences.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/account_style.css">
     <script type="module" src="js/account_auth.js"></script>
     <script type="module" src="js/account.js"></script>
 </head>
 
 <body>
+    <!-- Background Grid Texture -->
+    <div class="grid-background" aria-hidden="true"></div>
+
     <div class="loading-overlay" id="loading-overlay" aria-live="polite">
         <div class="spinner"></div>
         <p>Saving your dietary preferences...</p>
@@ -25,8 +28,8 @@
             <!-- App Header -->
             <header class="profile-header">
                 <div class="header-brand-group">
-                    <a href="scanner.html" class="logo" aria-label="CheckyRick Scanner">
-                        <span class="brand-name">Checky<strong>Rick</strong></span>
+                    <a href="scanner.html" class="logo" aria-label="DietXplore Scanner">
+                        <span class="brand-name">Diet<span class="brand-accent">Xplore</span></span>
                     </a>
                     <div class="header-title-block">
                         <h1>Your Dietary Profile</h1>

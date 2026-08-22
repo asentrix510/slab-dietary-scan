@@ -1,4 +1,4 @@
-// API Configuration for CheckyRick
+// API Configuration for DietXplore
 // Automatically switches between local and production URLs
 
 // Detect if running locally or in production

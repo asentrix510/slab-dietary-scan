@@ -4,21 +4,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Scanner — CheckyRick Food & Ingredient Safety</title>
+    <title>Scanner — DietXplore Food &amp; Ingredient Safety</title>
     <meta name="description" content="Upload any food label to scan for allergens, additives, and regulatory advisories.">
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
+    <!-- Background Grid Texture -->
+    <div class="grid-background" aria-hidden="true"></div>
+
     <div class="app-wrapper">
         <!-- Top App Navigation -->
         <header class="app-nav">
             <div class="nav-container">
                 <a href="index.html" class="nav-brand">
-                    <span class="brand-name">Checky<strong>Rick</strong></span>
+                    <span class="brand-name">Diet<span class="brand-accent">Xplore</span></span>
                 </a>
 
                 <div class="user-controls">
@@ -98,8 +101,8 @@
                 <div class="loading-card">
                     <div class="spinner"></div>
                     <div class="loading-status-text">
-                        <h3 id="loadingTitle">🔍 Extracting Ingredients...</h3>
-                        <p class="loading-step" id="loadingStep">Scanning label image with vision OCR...</p>
+                        <h3>Analyzing Ingredient Label...</h3>
+                        <p class="loading-step">Reading text · Decoding chemicals · Cross-referencing global databases</p>
                     </div>
                 </div>
             </section>
@@ -156,7 +159,7 @@
 
         <!-- Footer -->
         <footer class="app-footer">
-            <p>CheckyRick Food Safety Intelligence • Backed by live regulatory verification</p>
+            <p>DietXplore Food Safety Intelligence • Backed by live WebCMD verification</p>
         </footer>
     </div>
 

@@ -88,7 +88,7 @@ if (logoutBtn) {
 onAuthStateChanged(auth, async (user) => {
     const currentPath = window.location.pathname;
     const isLoginPage = currentPath.includes('account_login.html') || currentPath.endsWith('/login'); // robust check
-    const isLandingPage = currentPath.includes('index.html') || currentPath === '/' || currentPath.endsWith('CheckyRick/'); // landing page detection
+    const isLandingPage = currentPath.includes('index.html') || currentPath === '/' || currentPath.endsWith('DietXplore/') || currentPath.endsWith('checkyrick/'); // landing page detection
     // Actually, landingpage is public.
 
     if (user) {
