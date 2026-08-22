@@ -1,86 +1,120 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="light">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign In / Register — DietXplore</title>
-    <meta name="description" content="Sign in or register for your DietXplore food safety account.">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/account_style.css">
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>AUTH — DIETXPLORE</title>
+    <meta name="description" content="Sign in or register for your DietXplore dietary ruleset account."/>
+    
+    <!-- Tailwind & Google Fonts -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&family=Space+Mono:wght@700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="css/account_style.css"/>
+
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "surface": "#f9f9f9",
+                        "on-surface": "#1b1b1b",
+                        "on-surface-variant": "#3b4b37",
+                        "primary": "#006e16",
+                        "primary-container": "#00ff41",
+                        "on-primary": "#ffffff",
+                        "on-primary-container": "#002203",
+                        "secondary": "#0040e0",
+                        "secondary-container": "#2e5bff",
+                        "tertiary-container": "#ede900",
+                        "surface-container": "#eeeeee",
+                        "surface-container-high": "#e8e8e8",
+                        "surface-container-lowest": "#ffffff"
+                    },
+                    fontFamily: {
+                        "headline-xl": ["Anton", "sans-serif"],
+                        "headline-md": ["Anton", "sans-serif"],
+                        "label-mono": ["Space Mono", "monospace"],
+                        "body-lg": ["Inter", "sans-serif"],
+                        "body-md": ["Inter", "sans-serif"]
+                    }
+                }
+            }
+        }
+    </script>
     <script type="module" src="js/account_auth.js"></script>
 </head>
 
-<body>
-    <!-- Background Grid Texture -->
-    <div class="grid-background" aria-hidden="true"></div>
+<body class="bg-surface text-on-surface font-body-md min-h-screen flex flex-col justify-center items-center p-6 selection:bg-primary-container selection:text-on-primary-container">
 
-    <div class="auth-wrapper">
-        <div class="auth-container">
-            <!-- Brand Header -->
-            <div class="auth-brand">
-                <a href="index.html" class="logo" aria-label="DietXplore Home">
-                    <span class="brand-name">Diet<span class="brand-accent">Xplore</span></span>
-                </a>
-            </div>
+    <div class="w-full max-w-md flex flex-col gap-6">
+        <!-- Brand Header -->
+        <div class="text-center flex flex-col items-center gap-1">
+            <a href="index.html" class="font-headline-xl text-4xl uppercase tracking-tight text-on-surface hover:text-primary transition-colors">
+                DIET<span class="text-primary">XPLORE</span>
+            </a>
+            <span class="bg-primary-container text-on-primary-container font-label-mono text-xs px-3 py-1 neo-border">AUTH TERMINAL</span>
+        </div>
 
-            <!-- Sign In Form -->
-            <div id="login-card" class="card">
-                <div class="card-body">
-                    <h2>Welcome back</h2>
-                    <p class="auth-subtitle">Log in to automatically apply your saved allergies and food preferences.</p>
-                    <div id="login-error" class="error-message" role="alert"></div>
+        <!-- Sign In Form -->
+        <div id="login-card" class="bg-surface-container-lowest neo-border neo-shadow p-6 md:p-8">
+            <h2 class="font-headline-md text-2xl uppercase tracking-tight mb-2">ACCESS TERMINAL</h2>
+            <p class="font-body-md text-xs text-on-surface-variant mb-6">Log in to automatically load your saved food safety directives.</p>
+            
+            <div id="login-error" class="error-message bg-error-container text-on-error-container p-3 neo-border-thin font-label-mono text-xs mb-4" role="alert" style="display: none;"></div>
 
-                    <form id="login-form">
-                        <div class="form-group">
-                            <label for="login-email">Email address</label>
-                            <input type="email" id="login-email" required placeholder="you@example.com" autocomplete="email">
-                        </div>
-                        <div class="form-group">
-                            <label for="login-password">Password</label>
-                            <input type="password" id="login-password" required placeholder="••••••••" autocomplete="current-password">
-                        </div>
-                        <button type="submit" class="btn btn-primary btn-full">
-                            <span>Sign In</span>
-                        </button>
-                    </form>
-
-                    <div class="switch-auth">
-                        <span>Don't have an account?</span> <a id="show-signup" role="button" tabindex="0">Create one for free</a>
-                    </div>
+            <form id="login-form" class="flex flex-col gap-4">
+                <div class="flex flex-col gap-1">
+                    <label for="login-email" class="font-label-mono text-xs uppercase font-bold">EMAIL ADDRESS</label>
+                    <input type="email" id="login-email" required placeholder="operator@dietxplore.dev" autocomplete="email" class="bg-surface text-on-surface font-label-mono text-sm px-4 py-3 neo-border focus:bg-primary-container/20 transition-colors">
                 </div>
-            </div>
-
-            <!-- Sign Up Form (Hidden by default) -->
-            <div id="signup-card" class="card" style="display: none;">
-                <div class="card-body">
-                    <h2>Create your account</h2>
-                    <p class="auth-subtitle">Set up your dietary restrictions once, and we'll apply them to every scan.</p>
-                    <div id="signup-error" class="error-message" role="alert"></div>
-
-                    <form id="signup-form">
-                        <div class="form-group">
-                            <label for="signup-email">Email address</label>
-                            <input type="email" id="signup-email" required placeholder="you@example.com" autocomplete="email">
-                        </div>
-                        <div class="form-group">
-                            <label for="signup-password">Password</label>
-                            <input type="password" id="signup-password" required placeholder="At least 6 characters" minlength="6" autocomplete="new-password">
-                        </div>
-                        <button type="submit" class="btn btn-primary btn-full">
-                            <span>Create Account</span>
-                        </button>
-                    </form>
-
-                    <div class="switch-auth">
-                        <span>Already have an account?</span> <a id="show-login" role="button" tabindex="0">Sign in instead</a>
-                    </div>
+                
+                <div class="flex flex-col gap-1">
+                    <label for="login-password" class="font-label-mono text-xs uppercase font-bold">PASSWORD</label>
+                    <input type="password" id="login-password" required placeholder="••••••••••••" autocomplete="current-password" class="bg-surface text-on-surface font-label-mono text-sm px-4 py-3 neo-border focus:bg-primary-container/20 transition-colors">
                 </div>
+
+                <button type="submit" class="bg-primary text-on-primary font-headline-md text-xl py-3 neo-border neo-shadow neo-shadow-hover neo-shadow-active transition-all mt-2 uppercase">
+                    AUTHENTICATE &rarr;
+                </button>
+            </form>
+
+            <div class="mt-6 pt-4 border-t-[2px] border-on-surface text-center font-label-mono text-xs">
+                <span>NEW OPERATOR?</span> <a id="show-signup" class="text-secondary font-bold underline cursor-pointer hover:text-on-surface">REGISTER PROFILE</a>
+            </div>
+        </div>
+
+        <!-- Sign Up Form (Hidden by default) -->
+        <div id="signup-card" class="bg-surface-container-lowest neo-border neo-shadow p-6 md:p-8" style="display: none;">
+            <h2 class="font-headline-md text-2xl uppercase tracking-tight mb-2">CREATE PROFILE</h2>
+            <p class="font-body-md text-xs text-on-surface-variant mb-6">Define your allergy matrix once — enforce across every scan.</p>
+            
+            <div id="signup-error" class="error-message bg-error-container text-on-error-container p-3 neo-border-thin font-label-mono text-xs mb-4" role="alert" style="display: none;"></div>
+
+            <form id="signup-form" class="flex flex-col gap-4">
+                <div class="flex flex-col gap-1">
+                    <label for="signup-email" class="font-label-mono text-xs uppercase font-bold">EMAIL ADDRESS</label>
+                    <input type="email" id="signup-email" required placeholder="operator@dietxplore.dev" autocomplete="email" class="bg-surface text-on-surface font-label-mono text-sm px-4 py-3 neo-border focus:bg-primary-container/20 transition-colors">
+                </div>
+                
+                <div class="flex flex-col gap-1">
+                    <label for="signup-password" class="font-label-mono text-xs uppercase font-bold">PASSWORD (MIN 6 CHARS)</label>
+                    <input type="password" id="signup-password" required placeholder="••••••••••••" minlength="6" autocomplete="new-password" class="bg-surface text-on-surface font-label-mono text-sm px-4 py-3 neo-border focus:bg-primary-container/20 transition-colors">
+                </div>
+
+                <button type="submit" class="bg-primary-container text-on-primary-container font-headline-md text-xl py-3 neo-border neo-shadow neo-shadow-hover neo-shadow-active transition-all mt-2 uppercase">
+                    INITIALIZE ACCOUNT &rarr;
+                </button>
+            </form>
+
+            <div class="mt-6 pt-4 border-t-[2px] border-on-surface text-center font-label-mono text-xs">
+                <span>ALREADY REGISTERED?</span> <a id="show-login" class="text-secondary font-bold underline cursor-pointer hover:text-on-surface">SIGN IN</a>
             </div>
         </div>
     </div>
+
 </body>
 
 </html>

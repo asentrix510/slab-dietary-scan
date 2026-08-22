@@ -1,48 +1,31 @@
 /* ==========================================================================
-   DietXplore — Account, Auth & Profile Stylesheet (webcmd.dev Theme)
+   DIETXPLORE — Account Stylesheet (Neo-Brutalist Theme)
    ========================================================================== */
 
 :root {
-    --bg-primary: #0D1117;
-    --bg-secondary: #161B22;
-    --bg-tertiary: #21262D;
-    --bg-overlay: rgba(13, 17, 23, 0.88);
+    --color-surface: #f9f9f9;
+    --color-surface-container: #eeeeee;
+    --color-surface-highest: #e2e2e2;
+    --color-on-surface: #1b1b1b;
+    --color-on-surface-variant: #3b4b37;
     
-    --border-subtle: #30363D;
-    --border-muted: #21262D;
-    --border-focus: #58A6FF;
+    --color-primary: #006e16;
+    --color-primary-container: #00ff41;
+    --color-on-primary-container: #002203;
     
-    --primary-accent: #58A6FF;
-    --primary-accent-hover: #79C0FF;
-    --primary-accent-subtle: rgba(88, 166, 255, 0.12);
-    --primary-text-on-accent: #0D1117;
+    --color-secondary: #0040e0;
+    --color-secondary-container: #2e5bff;
     
-    --status-success: #3FB950;
-    --status-success-subtle: rgba(63, 185, 80, 0.15);
-    --status-warning: #D29922;
-    --status-warning-subtle: rgba(210, 153, 34, 0.15);
-    --status-danger: #F85149;
-    --status-danger-subtle: rgba(248, 81, 73, 0.15);
+    --color-tertiary: #636100;
+    --color-tertiary-container: #ede900;
     
-    --text-headings: #F0F6FC;
-    --text-primary: #C9D1D9;
-    --text-muted: #8B949E;
-    --text-link: #58A6FF;
+    --color-error: #ba1a1a;
+    --color-error-container: #ffdad6;
+    --color-on-error-container: #93000a;
     
-    --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    --font-mono: 'JetBrains Mono', 'Fira Code', Menlo, monospace;
-    
-    --radius-sm: 6px;
-    --radius-md: 8px;
-    --radius-lg: 12px;
-    --radius-pill: 9999px;
-    
-    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
-    --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.5);
-    --shadow-lg: 0 12px 36px rgba(0, 0, 0, 0.6);
-    --shadow-glow: 0 0 24px rgba(88, 166, 255, 0.25);
-    
-    --transition-fast: all 0.2s ease-in-out;
+    --font-headline: 'Anton', -apple-system, sans-serif;
+    --font-mono: 'Space Mono', monospace;
+    --font-body: 'Inter', sans-serif;
 }
 
 *, *::before, *::after {
@@ -53,450 +36,49 @@
 
 html {
     scroll-behavior: smooth;
-    color-scheme: dark;
+    color-scheme: light;
     -webkit-text-size-adjust: 100%;
 }
 
 body {
-    background-color: var(--bg-primary);
-    color: var(--text-primary);
-    font-family: var(--font-sans);
+    background-color: var(--color-surface);
+    color: var(--color-on-surface);
+    font-family: var(--font-body);
     font-size: 15px;
-    line-height: 1.6;
+    line-height: 1.5;
     -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
     min-height: 100vh;
-    overflow-x: hidden;
-    -webkit-overflow-scrolling: touch;
 }
 
-/* Background Grid Texture */
-.grid-background {
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    z-index: 0;
-    background-image: 
-        linear-gradient(to right, rgba(48, 54, 61, 0.2) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(48, 54, 61, 0.2) 1px, transparent 1px);
-    background-size: 32px 32px;
-    mask-image: radial-gradient(circle at center, black 40%, transparent 85%);
-    -webkit-mask-image: radial-gradient(circle at center, black 40%, transparent 85%);
+/* Neo-Brutalist Core Utilities */
+.neo-border {
+    border: 3px solid #1b1b1b !important;
+}
+
+.neo-border-thin {
+    border: 2px solid #1b1b1b !important;
+}
+
+.neo-shadow {
+    box-shadow: 4px 4px 0px 0px #000000 !important;
+}
+
+.neo-shadow-hover {
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.neo-shadow-hover:hover {
+    box-shadow: 6px 6px 0px 0px #000000 !important;
+    transform: translate(-2px, -2px) !important;
+}
+
+.neo-shadow-active:active {
+    box-shadow: 0px 0px 0px 0px #000000 !important;
+    transform: translate(4px, 4px) !important;
 }
 
 /* Focus */
 *:focus-visible {
-    outline: 2px solid var(--border-focus);
-    outline-offset: 2px;
-}
-
-.container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 0 20px;
-    position: relative;
-    z-index: 1;
-}
-
-/* ==========================================================================
-   Auth Screen (Login / Register - webcmd theme)
-   ========================================================================== */
-.auth-wrapper {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 32px 16px;
-    position: relative;
-    z-index: 1;
-}
-
-.auth-container {
-    width: 100%;
-    max-width: 420px;
-    margin: 0 auto;
-}
-
-.auth-brand {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 24px;
-}
-
-.auth-brand .logo {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    text-decoration: none;
-    color: var(--text-headings);
-    font-size: 1.3rem;
-    font-weight: 700;
-}
-
-.brand-name {
-    font-size: 1.25rem;
-    font-weight: 700;
-}
-
-.brand-accent {
-    color: var(--primary-accent);
-}
-
-.card {
-    background-color: var(--bg-secondary);
-    border: 1px solid var(--border-subtle);
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-lg);
-    overflow: hidden;
-}
-
-.card-body {
-    padding: 28px 24px;
-}
-
-.card-body h2 {
-    font-size: 1.4rem;
-    color: var(--text-headings);
-    margin-bottom: 6px;
-    font-weight: 700;
-}
-
-.auth-subtitle {
-    font-size: 0.88rem;
-    color: var(--text-muted);
-    line-height: 1.5;
-    margin-bottom: 20px;
-}
-
-.form-group {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    margin-bottom: 16px;
-}
-
-.form-group label {
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: var(--text-headings);
-}
-
-input[type="text"],
-input[type="email"],
-input[type="password"],
-input[type="number"],
-textarea {
-    width: 100%;
-    background-color: var(--bg-primary);
-    border: 1px solid var(--border-subtle);
-    border-radius: var(--radius-sm);
-    padding: 10px 14px;
-    font-family: var(--font-sans);
-    font-size: 0.9rem;
-    color: var(--text-headings);
-    transition: var(--transition-fast);
-}
-
-input:focus,
-textarea:focus {
-    border-color: var(--border-focus);
-    background-color: #0E1422;
-}
-
-input::placeholder,
-textarea::placeholder {
-    color: var(--text-muted);
-}
-
-.disabled-input {
-    opacity: 0.6;
-    cursor: not-allowed;
-    background-color: rgba(13, 17, 23, 0.7) !important;
-}
-
-.error-message {
-    display: none;
-    background-color: var(--status-danger-subtle);
-    border: 1px solid rgba(248, 81, 73, 0.3);
-    color: var(--status-danger);
-    padding: 10px 14px;
-    border-radius: var(--radius-sm);
-    font-size: 0.84rem;
-    margin-bottom: 16px;
-    font-family: var(--font-mono);
-}
-
-.btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    padding: 9px 16px;
-    border-radius: var(--radius-md);
-    font-family: var(--font-sans);
-    font-size: 0.88rem;
-    font-weight: 600;
-    text-decoration: none;
-    cursor: pointer;
-    transition: var(--transition-fast);
-    border: 1px solid transparent;
-}
-
-.btn-primary {
-    background-color: var(--primary-accent);
-    color: var(--primary-text-on-accent);
-    border-color: var(--primary-accent);
-    box-shadow: 0 2px 8px rgba(88, 166, 255, 0.2);
-}
-
-.btn-primary:hover {
-    background-color: var(--primary-accent-hover);
-    border-color: var(--primary-accent-hover);
-    transform: translateY(-1px);
-    box-shadow: var(--shadow-glow);
-}
-
-.btn-secondary {
-    background-color: var(--bg-secondary);
-    color: var(--text-headings);
-    border: 1px solid var(--border-subtle);
-}
-
-.btn-secondary:hover {
-    background-color: var(--bg-tertiary);
-    border-color: var(--text-muted);
-    transform: translateY(-1px);
-}
-
-.btn-ghost {
-    background: transparent;
-    color: var(--text-muted);
-}
-
-.btn-ghost:hover {
-    color: var(--text-headings);
-}
-
-.btn-sm {
-    padding: 6px 12px;
-    font-size: 0.82rem;
-}
-
-.btn-full {
-    width: 100%;
-    padding: 11px;
-    font-size: 0.92rem;
-    margin-top: 4px;
-}
-
-.switch-auth {
-    margin-top: 20px;
-    text-align: center;
-    font-size: 0.84rem;
-    color: var(--text-muted);
-}
-
-.switch-auth a {
-    color: var(--primary-accent);
-    font-weight: 600;
-    cursor: pointer;
-    text-decoration: underline;
-}
-
-/* ==========================================================================
-   Profile & Dietary Matrix Page (webcmd theme)
-   ========================================================================== */
-.page-wrapper {
-    padding: 36px 0 60px;
-    position: relative;
-    z-index: 1;
-}
-
-.profile-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 28px;
-    flex-wrap: wrap;
-    gap: 16px;
-}
-
-.header-brand-group {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-}
-
-.header-brand-group .logo {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    text-decoration: none;
-    color: var(--text-headings);
-    font-size: 1.1rem;
-    font-weight: 600;
-}
-
-.header-title-block h1 {
-    font-size: 1.8rem;
-    margin-bottom: 2px;
-    color: var(--text-headings);
-}
-
-.header-sub {
-    font-size: 0.88rem;
-    color: var(--text-muted);
-}
-
-.header-actions {
-    display: flex;
-    gap: 10px;
-}
-
-.profile-form-layout {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-.section-card {
-    background-color: var(--bg-secondary);
-    border: 1px solid var(--border-subtle);
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-sm);
-    overflow: hidden;
-}
-
-.section-card-header {
-    padding: 14px 20px;
-    background-color: var(--bg-tertiary);
-    border-bottom: 1px solid var(--border-subtle);
-}
-
-.section-title {
-    font-size: 0.95rem;
-    font-weight: 700;
-    color: var(--text-headings);
-}
-
-.section-card-body {
-    padding: 20px;
-}
-
-.form-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-}
-
-.group-label {
-    display: block;
-    font-size: 0.88rem;
-    font-weight: 600;
-    color: var(--text-headings);
-    margin-bottom: 12px;
-}
-
-.helper-text {
-    font-size: 0.82rem;
-    color: var(--text-muted);
-    margin-bottom: 10px;
-    line-height: 1.4;
-}
-
-.checkbox-group {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-    gap: 10px;
-    margin-bottom: 12px;
-}
-
-.checkbox-item {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 10px 14px;
-    background-color: var(--bg-primary);
-    border: 1px solid var(--border-subtle);
-    border-radius: var(--radius-sm);
-    cursor: pointer;
-    font-size: 0.88rem;
-    color: var(--text-primary);
-    transition: var(--transition-fast);
-}
-
-.checkbox-item:hover {
-    border-color: rgba(88, 166, 255, 0.35);
-    color: var(--text-headings);
-}
-
-.checkbox-item input {
-    cursor: pointer;
-    accent-color: var(--primary-accent);
-}
-
-.other-input {
-    margin-top: 4px;
-}
-
-.large-textarea {
-    min-height: 90px;
-    resize: vertical;
-}
-
-.form-actions {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 8px;
-}
-
-.btn-save {
-    padding: 11px 22px;
-    font-size: 0.92rem;
-}
-
-/* Loading Overlay */
-.loading-overlay {
-    position: fixed;
-    inset: 0;
-    background-color: var(--bg-overlay);
-    backdrop-filter: blur(8px);
-    display: none;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 14px;
-    z-index: 9999;
-    color: var(--text-headings);
-    font-weight: 500;
-}
-
-.loading-overlay .spinner {
-    width: 36px;
-    height: 36px;
-    border: 3px solid rgba(88, 166, 255, 0.2);
-    border-top-color: var(--primary-accent);
-    border-radius: 50%;
-    animation: spin 0.8s linear infinite;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-    .profile-header {
-        flex-direction: column;
-        align-items: stretch;
-    }
-
-    .form-row {
-        grid-template-columns: 1fr;
-    }
-
-    .checkbox-group {
-        grid-template-columns: 1fr;
-    }
-
-    .btn-save {
-        width: 100%;
-        min-height: 48px;
-    }
+    outline: 3px solid var(--color-primary-container) !important;
+    outline-offset: 2px !important;
 }

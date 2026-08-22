@@ -1,168 +1,219 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="light">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dietary Profile — DietXplore</title>
-    <meta name="description" content="Manage your personal food allergies, dietary restrictions, and ethical preferences.">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/account_style.css">
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>DIETARY PROFILE — DIETXPLORE</title>
+    <meta name="description" content="Configure your custom dietary restrictions and allergen matrix."/>
+    
+    <!-- Tailwind & Google Fonts -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&family=Space+Mono:wght@700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="css/account_style.css"/>
+
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "surface": "#f9f9f9",
+                        "on-surface": "#1b1b1b",
+                        "on-surface-variant": "#3b4b37",
+                        "primary": "#006e16",
+                        "primary-container": "#00ff41",
+                        "on-primary": "#ffffff",
+                        "on-primary-container": "#002203",
+                        "secondary": "#0040e0",
+                        "secondary-container": "#2e5bff",
+                        "tertiary-container": "#ede900",
+                        "surface-container": "#eeeeee",
+                        "surface-container-high": "#e8e8e8",
+                        "surface-container-lowest": "#ffffff"
+                    },
+                    fontFamily: {
+                        "headline-xl": ["Anton", "sans-serif"],
+                        "headline-md": ["Anton", "sans-serif"],
+                        "display-lg": ["Anton", "sans-serif"],
+                        "label-mono": ["Space Mono", "monospace"],
+                        "body-lg": ["Inter", "sans-serif"],
+                        "body-md": ["Inter", "sans-serif"]
+                    }
+                }
+            }
+        }
+    </script>
     <script type="module" src="js/account_auth.js"></script>
     <script type="module" src="js/account.js"></script>
 </head>
 
-<body>
-    <!-- Background Grid Texture -->
-    <div class="grid-background" aria-hidden="true"></div>
+<body class="bg-surface text-on-surface font-body-md min-h-screen flex flex-col selection:bg-primary-container selection:text-on-primary-container">
 
-    <div class="loading-overlay" id="loading-overlay" aria-live="polite">
-        <div class="spinner"></div>
-        <p>Saving your dietary preferences...</p>
-    </div>
-
-    <div class="page-wrapper">
-        <div class="container profile-container">
-            <!-- App Header -->
-            <header class="profile-header">
-                <div class="header-brand-group">
-                    <a href="scanner.html" class="logo" aria-label="DietXplore Scanner">
-                        <span class="brand-name">Diet<span class="brand-accent">Xplore</span></span>
-                    </a>
-                    <div class="header-title-block">
-                        <h1>Your Dietary Profile</h1>
-                        <p class="header-sub">Saved preferences are automatically checked on every label scan.</p>
-                    </div>
-                </div>
-
-                <div class="header-actions">
-                    <a href="scanner.html" class="btn btn-secondary btn-sm">&larr; Back to Scanner</a>
-                    <button id="logout-btn" class="btn btn-ghost btn-sm" aria-label="Sign Out">Sign Out</button>
-                </div>
-            </header>
-
-            <form id="profile-form" class="profile-form-layout">
-                <!-- 1. Basic Information -->
-                <div class="section-card">
-                    <div class="section-card-header">
-                        <h3 class="section-title">1. Basic Info</h3>
-                    </div>
-                    
-                    <div class="section-card-body">
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="email">Email</label>
-                                <input type="email" id="email" disabled class="disabled-input">
-                            </div>
-                            <div class="form-group">
-                                <label for="fullName">Your Name</label>
-                                <input type="text" id="fullName" required placeholder="Jane Doe">
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="age">Age</label>
-                                <input type="number" id="age" min="1" max="150" placeholder="28">
-                            </div>
-                            <div class="form-group">
-                                <label for="country">Country of Residence (For food safety standards)</label>
-                                <input type="text" id="country" placeholder="e.g. USA, UK, India, Germany, Canada">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 2. Diet Type -->
-                <div class="section-card">
-                    <div class="section-card-header">
-                        <h3 class="section-title">2. Diet Type</h3>
-                    </div>
-
-                    <div class="section-card-body">
-                        <label class="group-label">Choose your general diet:</label>
-                        <div class="checkbox-group">
-                            <label class="checkbox-item">
-                                <input type="radio" name="dietType" value="Vegetarian">
-                                <span>Vegetarian</span>
-                            </label>
-                            <label class="checkbox-item">
-                                <input type="radio" name="dietType" value="Vegan">
-                                <span>Vegan</span>
-                            </label>
-                            <label class="checkbox-item">
-                                <input type="radio" name="dietType" value="Eggetarian">
-                                <span>Eggetarian</span>
-                            </label>
-                            <label class="checkbox-item">
-                                <input type="radio" name="dietType" value="Non-Vegetarian">
-                                <span>Non-Vegetarian</span>
-                            </label>
-                            <label class="checkbox-item">
-                                <input type="radio" name="dietType" value="Pescatarian">
-                                <span>Pescatarian</span>
-                            </label>
-                        </div>
-                        <input type="text" id="dietTypeOther" class="other-input" placeholder="Other diet (e.g. Keto, Mediterranean, Low-FODMAP, Paleo)">
-                    </div>
-                </div>
-
-                <!-- 3. Religious / Ethical Rules -->
-                <div class="section-card">
-                    <div class="section-card-header">
-                        <h3 class="section-title">3. Religious &amp; Ethical Preferences</h3>
-                    </div>
-
-                    <div class="section-card-body">
-                        <label class="group-label">Select all that apply:</label>
-                        <div class="checkbox-group">
-                            <label class="checkbox-item">
-                                <input type="checkbox" name="religiousRules" value="Halal">
-                                <span>Halal</span>
-                            </label>
-                            <label class="checkbox-item">
-                                <input type="checkbox" name="religiousRules" value="Kosher">
-                                <span>Kosher</span>
-                            </label>
-                            <label class="checkbox-item">
-                                <input type="checkbox" name="religiousRules" value="Jain">
-                                <span>Jain (No Root Vegetables)</span>
-                            </label>
-                            <label class="checkbox-item">
-                                <input type="checkbox" name="religiousRules" value="No religious restrictions">
-                                <span>None</span>
-                            </label>
-                        </div>
-                        <input type="text" id="religiousRulesOther" class="other-input" placeholder="Other rules (e.g. No beef, Cruelty-free, Palm oil free)">
-                    </div>
-                </div>
-
-                <!-- 4. Dietary Restrictions / Free Text -->
-                <div class="section-card">
-                    <div class="section-card-header">
-                        <h3 class="section-title">4. Allergies &amp; Custom Ingredients to Flag</h3>
-                    </div>
-
-                    <div class="section-card-body">
-                        <label for="dietaryRestrictions" class="group-label">List any allergies, intolerances, or specific ingredients you want us to watch out for:</label>
-                        <p class="helper-text">Examples: Allergic to peanuts &amp; shellfish, no artificial sweeteners (aspartame, sucralose), avoid high-fructose corn syrup, celiac gluten-free.</p>
-                        <textarea id="dietaryRestrictions" class="large-textarea" placeholder="Type any specific allergies or ingredients to avoid..."></textarea>
-                    </div>
-                </div>
-
-                <!-- Form Action -->
-                <div class="form-actions">
-                    <button type="submit" class="btn btn-primary btn-save">
-                        <span>Save Profile Preferences</span>
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                            <polyline points="20 6 9 17 4 12"></polyline>
-                        </svg>
-                    </button>
-                </div>
-            </form>
+    <!-- Loading Overlay -->
+    <div class="loading-overlay fixed inset-0 bg-on-surface/80 backdrop-blur-sm z-[9999] flex flex-col justify-center items-center gap-4 text-surface font-headline-md text-2xl" id="loading-overlay" style="display: none;" aria-live="polite">
+        <div class="animate-spin text-primary-container">
+            <span class="material-symbols-outlined text-6xl">refresh</span>
         </div>
+        <p>PERSISTING DIETARY DIRECTIVES...</p>
     </div>
+
+    <!-- Navigation -->
+    <header class="w-full top-0 sticky z-50 bg-surface border-b-[3px] border-on-surface shadow-[4px_4px_0px_0px_#000000] flex justify-between items-center px-6 md:px-12 py-4 max-w-full">
+        <div class="flex items-center gap-6">
+            <a href="index.html" class="font-headline-xl text-2xl md:text-4xl uppercase tracking-tight text-on-surface hover:text-primary transition-colors">
+                DIET<span class="text-primary">XPLORE</span>
+            </a>
+            <span class="bg-tertiary-container text-on-tertiary-container font-label-mono text-xs px-2.5 py-1 neo-border">RULES MATRIX</span>
+        </div>
+
+        <div class="flex items-center gap-3">
+            <a href="scanner.html" class="bg-primary-container text-on-primary-container font-label-mono text-xs px-4 py-2 neo-border neo-shadow neo-shadow-hover transition-all">
+                &larr; SCANNER
+            </a>
+            <button id="logout-btn" class="bg-surface-container-high text-on-surface font-label-mono text-xs px-3 py-2 neo-border neo-shadow neo-shadow-hover transition-all">
+                LOGOUT
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="flex-grow p-6 md:p-12 max-w-[1000px] mx-auto w-full flex flex-col gap-8">
+        
+        <div class="flex flex-col gap-2">
+            <h1 class="font-display-lg text-4xl md:text-6xl uppercase tracking-tight">OPERATOR DIETARY MATRIX</h1>
+            <p class="font-body-lg text-on-surface-variant">Configure your strict rules. Every label scan enforces these parameters automatically.</p>
+        </div>
+
+        <form id="profile-form" class="flex flex-col gap-8">
+            
+            <!-- 1. Basic Info -->
+            <section class="bg-surface-container-lowest neo-border neo-shadow p-6 md:p-8 flex flex-col gap-6">
+                <div class="flex justify-between items-center pb-4 border-b-[3px] border-on-surface">
+                    <h2 class="font-headline-md text-2xl uppercase tracking-tight">1. OPERATOR IDENTIFIER</h2>
+                    <span class="bg-surface-container font-label-mono text-xs px-2 py-0.5 neo-border-thin">USER DATA</span>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="flex flex-col gap-1">
+                        <label for="email" class="font-label-mono text-xs uppercase font-bold">EMAIL ADDRESS (LOCKED)</label>
+                        <input type="email" id="email" disabled class="bg-surface-container-high text-on-surface font-label-mono text-sm px-4 py-3 neo-border-thin cursor-not-allowed opacity-75">
+                    </div>
+                    <div class="flex flex-col gap-1">
+                        <label for="fullName" class="font-label-mono text-xs uppercase font-bold">OPERATOR NAME</label>
+                        <input type="text" id="fullName" required placeholder="Alex Mercer" class="bg-surface text-on-surface font-label-mono text-sm px-4 py-3 neo-border focus:bg-primary-container/20 transition-colors">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="flex flex-col gap-1">
+                        <label for="age" class="font-label-mono text-xs uppercase font-bold">AGE</label>
+                        <input type="number" id="age" min="1" max="150" placeholder="28" class="bg-surface text-on-surface font-label-mono text-sm px-4 py-3 neo-border focus:bg-primary-container/20 transition-colors">
+                    </div>
+                    <div class="flex flex-col gap-1">
+                        <label for="country" class="font-label-mono text-xs uppercase font-bold">RESIDENCE JURISDICTION (FOR BAN MATCHING)</label>
+                        <input type="text" id="country" placeholder="USA, UK, India, Germany, Canada..." class="bg-surface text-on-surface font-label-mono text-sm px-4 py-3 neo-border focus:bg-primary-container/20 transition-colors">
+                    </div>
+                </div>
+            </section>
+
+            <!-- 2. Diet Type -->
+            <section class="bg-surface-container-lowest neo-border neo-shadow p-6 md:p-8 flex flex-col gap-6">
+                <div class="flex justify-between items-center pb-4 border-b-[3px] border-on-surface">
+                    <h2 class="font-headline-md text-2xl uppercase tracking-tight">2. PRIMARY DIETARY PROTOCOL</h2>
+                    <span class="bg-primary-container text-on-primary-container font-label-mono text-xs px-2 py-0.5 neo-border-thin">CORE FILTER</span>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+                    <label class="flex items-center gap-3 p-3.5 bg-surface neo-border-thin cursor-pointer hover:bg-primary-container/20 transition-colors">
+                        <input type="radio" name="dietType" value="Vegetarian" class="accent-primary w-4 h-4">
+                        <span class="font-headline-md text-base uppercase">VEGETARIAN</span>
+                    </label>
+                    <label class="flex items-center gap-3 p-3.5 bg-surface neo-border-thin cursor-pointer hover:bg-primary-container/20 transition-colors">
+                        <input type="radio" name="dietType" value="Vegan" class="accent-primary w-4 h-4">
+                        <span class="font-headline-md text-base uppercase">VEGAN</span>
+                    </label>
+                    <label class="flex items-center gap-3 p-3.5 bg-surface neo-border-thin cursor-pointer hover:bg-primary-container/20 transition-colors">
+                        <input type="radio" name="dietType" value="Eggetarian" class="accent-primary w-4 h-4">
+                        <span class="font-headline-md text-base uppercase">EGGETARIAN</span>
+                    </label>
+                    <label class="flex items-center gap-3 p-3.5 bg-surface neo-border-thin cursor-pointer hover:bg-primary-container/20 transition-colors">
+                        <input type="radio" name="dietType" value="Non-Vegetarian" class="accent-primary w-4 h-4">
+                        <span class="font-headline-md text-base uppercase">NON-VEGETARIAN</span>
+                    </label>
+                    <label class="flex items-center gap-3 p-3.5 bg-surface neo-border-thin cursor-pointer hover:bg-primary-container/20 transition-colors">
+                        <input type="radio" name="dietType" value="Pescatarian" class="accent-primary w-4 h-4">
+                        <span class="font-headline-md text-base uppercase">PESCATARIAN</span>
+                    </label>
+                </div>
+
+                <div class="flex flex-col gap-1">
+                    <label for="dietTypeOther" class="font-label-mono text-xs uppercase font-bold">OTHER PROTOCOLS (KETO, MEDITERRANEAN, LOW-FODMAP)</label>
+                    <input type="text" id="dietTypeOther" placeholder="e.g. Strict Keto, Carnivore, Paleo..." class="bg-surface text-on-surface font-label-mono text-sm px-4 py-3 neo-border focus:bg-primary-container/20 transition-colors">
+                </div>
+            </section>
+
+            <!-- 3. Religious / Ethical Rules -->
+            <section class="bg-surface-container-lowest neo-border neo-shadow p-6 md:p-8 flex flex-col gap-6">
+                <div class="flex justify-between items-center pb-4 border-b-[3px] border-on-surface">
+                    <h2 class="font-headline-md text-2xl uppercase tracking-tight">3. ETHICAL &amp; RELIGIOUS RULES</h2>
+                    <span class="bg-tertiary-container text-on-tertiary-container font-label-mono text-xs px-2 py-0.5 neo-border-thin">DIRECTIVES</span>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
+                    <label class="flex items-center gap-3 p-3.5 bg-surface neo-border-thin cursor-pointer hover:bg-tertiary-container/30 transition-colors">
+                        <input type="checkbox" name="religiousRules" value="Halal" class="accent-primary w-4 h-4">
+                        <span class="font-headline-md text-base uppercase">HALAL</span>
+                    </label>
+                    <label class="flex items-center gap-3 p-3.5 bg-surface neo-border-thin cursor-pointer hover:bg-tertiary-container/30 transition-colors">
+                        <input type="checkbox" name="religiousRules" value="Kosher" class="accent-primary w-4 h-4">
+                        <span class="font-headline-md text-base uppercase">KOSHER</span>
+                    </label>
+                    <label class="flex items-center gap-3 p-3.5 bg-surface neo-border-thin cursor-pointer hover:bg-tertiary-container/30 transition-colors">
+                        <input type="checkbox" name="religiousRules" value="Jain" class="accent-primary w-4 h-4">
+                        <span class="font-headline-md text-base uppercase">JAIN (NO ROOTS)</span>
+                    </label>
+                    <label class="flex items-center gap-3 p-3.5 bg-surface neo-border-thin cursor-pointer hover:bg-tertiary-container/30 transition-colors">
+                        <input type="checkbox" name="religiousRules" value="No religious restrictions" class="accent-primary w-4 h-4">
+                        <span class="font-headline-md text-base uppercase">NONE</span>
+                    </label>
+                </div>
+
+                <div class="flex flex-col gap-1">
+                    <label for="religiousRulesOther" class="font-label-mono text-xs uppercase font-bold">OTHER ETHICAL GUIDELINES</label>
+                    <input type="text" id="religiousRulesOther" placeholder="e.g. No beef, Cruelty-free, Zero palm oil..." class="bg-surface text-on-surface font-label-mono text-sm px-4 py-3 neo-border focus:bg-primary-container/20 transition-colors">
+                </div>
+            </section>
+
+            <!-- 4. Allergen & Custom Ingredients -->
+            <section class="bg-surface-container-lowest neo-border neo-shadow p-6 md:p-8 flex flex-col gap-6">
+                <div class="flex justify-between items-center pb-4 border-b-[3px] border-on-surface">
+                    <h2 class="font-headline-md text-2xl uppercase tracking-tight">4. ALLERGEN MATRIX &amp; BANNED COMPOUNDS</h2>
+                    <span class="bg-error-container text-on-error-container font-label-mono text-xs px-2 py-0.5 neo-border-thin">CRITICAL WATCH</span>
+                </div>
+
+                <div class="flex flex-col gap-2">
+                    <label for="dietaryRestrictions" class="font-label-mono text-xs uppercase font-bold">SPECIFY ALLERGIES, TOXINS &amp; SYNONYMS TO FLAG</label>
+                    <p class="font-body-md text-xs text-on-surface-variant">Examples: Severe anaphylactic peanut allergy, dairy whey intolerance, celiac wheat gluten, no aspartame or artificial sweeteners, avoid high fructose corn syrup.</p>
+                    <textarea id="dietaryRestrictions" rows="4" placeholder="Enter custom allergies and ingredients to flag..." class="bg-surface text-on-surface font-label-mono text-sm p-4 neo-border focus:bg-primary-container/20 transition-colors"></textarea>
+                </div>
+            </section>
+
+            <!-- Save CTA -->
+            <button type="submit" class="bg-primary text-on-primary font-headline-md text-2xl py-4 px-8 neo-border neo-shadow neo-shadow-hover neo-shadow-active transition-all flex items-center justify-center gap-3 uppercase w-full">
+                <span>SAVE DIETARY RULES &rarr;</span>
+            </button>
+        </form>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-on-surface w-full mt-16 border-t-[3px] border-on-surface flex justify-between items-center px-6 md:px-12 py-6 text-surface">
+        <div class="font-headline-md text-xl uppercase">DIET<span class="text-primary-container">XPLORE</span></div>
+        <div class="font-label-mono text-xs text-primary-container">PROFILE MATRIX STATUS: ACTIVE</div>
+    </footer>
+
 </body>
 
 </html>

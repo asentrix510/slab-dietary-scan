@@ -1,365 +1,346 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="light">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DietXplore — Smart Dietary &amp; Ingredient Safety Scanner</title>
-    <meta name="description" content="Upload any food label or ingredient list. Instantly check for allergens, hidden chemicals, religious dietary rules, and EU/FDA regulatory bans.">
-    <link rel="stylesheet" href="index.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>DIETXPLORE — AI Food Safety &amp; Ingredient Discovery</title>
+    <meta name="description" content="Neo-brutalist food safety scanner. Scan ingredient labels for allergens, chemical additives, and global bans."/>
+    
+    <!-- Tailwind & Google Fonts -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&family=Space+Mono:wght@700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="index.css"/>
+
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "surface": "#f9f9f9",
+                        "on-surface": "#1b1b1b",
+                        "on-surface-variant": "#3b4b37",
+                        "primary": "#006e16",
+                        "primary-container": "#00ff41",
+                        "on-primary": "#ffffff",
+                        "on-primary-container": "#002203",
+                        "secondary": "#0040e0",
+                        "secondary-container": "#2e5bff",
+                        "on-secondary": "#ffffff",
+                        "tertiary": "#636100",
+                        "tertiary-container": "#ede900",
+                        "on-tertiary-container": "#1d1d00",
+                        "surface-container": "#eeeeee",
+                        "surface-container-high": "#e8e8e8",
+                        "surface-container-lowest": "#ffffff"
+                    },
+                    fontFamily: {
+                        "headline-xl": ["Anton", "sans-serif"],
+                        "headline-md": ["Anton", "sans-serif"],
+                        "display-lg": ["Anton", "sans-serif"],
+                        "label-mono": ["Space Mono", "monospace"],
+                        "body-lg": ["Inter", "sans-serif"],
+                        "body-md": ["Inter", "sans-serif"]
+                    }
+                }
+            }
+        }
+    </script>
 </head>
 
-<body>
-    <!-- Background Grid Texture -->
-    <div class="grid-background" aria-hidden="true"></div>
+<body class="bg-surface text-on-surface font-body-md min-h-screen flex flex-col selection:bg-primary-container selection:text-on-primary-container">
 
-    <!-- Navigation -->
-    <header class="navbar">
-        <div class="nav-container">
-            <a href="index.html" class="nav-brand">
-                <span class="brand-name">Diet<span class="brand-accent">Xplore</span></span>
+    <!-- TopNavBar -->
+    <header class="w-full top-0 sticky z-50 bg-surface border-b-[3px] border-on-surface shadow-[4px_4px_0px_0px_#000000] flex justify-between items-center px-6 md:px-12 py-4 max-w-full">
+        <div class="flex items-center gap-6 md:gap-10">
+            <a href="index.html" class="font-headline-xl text-2xl md:text-4xl uppercase tracking-tight text-on-surface hover:text-primary transition-colors">
+                DIET<span class="text-primary">XPLORE</span>
             </a>
-            
-            <nav class="nav-links">
-                <a href="#how-it-works">How it works</a>
-                <a href="#live-demo">Interactive Demo</a>
-                <a href="#what-we-catch">What We Catch</a>
-                <a href="#faq">FAQ</a>
+            <nav class="hidden md:flex gap-6">
+                <a class="font-headline-md text-lg text-on-surface hover:translate-x-[2px] hover:translate-y-[2px] transition-all" href="#how-it-works">HOW IT WORKS</a>
+                <a class="font-headline-md text-lg text-primary underline underline-offset-4 decoration-[3px] hover:translate-x-[2px] hover:translate-y-[2px] transition-all" href="#live-demo">LIVE DEMO</a>
+                <a class="font-headline-md text-lg text-on-surface hover:translate-x-[2px] hover:translate-y-[2px] transition-all" href="#what-we-catch">WHAT WE CATCH</a>
+                <a class="font-headline-md text-lg text-on-surface hover:translate-x-[2px] hover:translate-y-[2px] transition-all" href="#faq">FAQ</a>
             </nav>
-
-            <div class="nav-actions">
-                <a href="account_login.html" class="btn btn-ghost">Log in</a>
-                <a href="scanner.html" class="btn btn-primary">Open Scanner →</a>
-            </div>
+        </div>
+        <div class="flex items-center gap-3">
+            <a href="account_login.html" class="hidden sm:inline-block font-label-mono text-xs uppercase px-4 py-2 bg-surface-container-high neo-border neo-shadow neo-shadow-hover transition-all">LOG IN</a>
+            <a href="scanner.html" class="bg-primary-container text-on-primary-container font-headline-md text-lg md:text-xl px-5 py-2 neo-border neo-shadow neo-shadow-hover neo-shadow-active transition-all flex items-center gap-2">
+                <span>SCAN FUEL</span>
+                <span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+            </a>
         </div>
     </header>
 
-    <main>
+    <!-- Main Content Canvas -->
+    <main class="flex-grow p-6 md:p-12 max-w-[1440px] mx-auto w-full flex flex-col gap-16">
+
         <!-- Hero Section -->
-        <section class="hero">
-            <div class="container hero-layout">
-                <div class="hero-text">
-                    <div class="pill-tag">
-                        <span>AI label scanner with live web verification</span>
+        <section class="flex flex-col lg:flex-row gap-10 items-stretch">
+            <div class="w-full lg:w-3/5 flex flex-col justify-between gap-6">
+                <div class="flex flex-col gap-4">
+                    <div class="flex items-center gap-2 flex-wrap">
+                        <span class="bg-tertiary-container text-on-tertiary-container font-label-mono text-xs px-3 py-1 neo-border">VERSION 2.0</span>
+                        <span class="bg-primary-container text-on-primary-container font-label-mono text-xs px-3 py-1 neo-border">AI OCR + WEB GROUNDING</span>
                     </div>
 
-                    <h1 class="hero-title">
-                        Stop guessing what's hidden in your <span class="highlight-text">food labels</span>.
+                    <h1 class="font-display-lg text-5xl md:text-7xl lg:text-8xl text-on-surface uppercase tracking-tight leading-[0.9]">
+                        STOP GUESSING. <span class="bg-primary-container px-2 border-b-[3px] border-on-surface">SCAN YOUR FUEL.</span>
                     </h1>
 
-                    <p class="hero-description">
-                        Snap a photo of any ingredient list or paste it in. DietXplore scans for your specific allergies, flags additives banned in Europe or the US, and gives you verified source links.
+                    <p class="font-body-lg text-lg md:text-xl text-on-surface-variant max-w-2xl mt-2 font-medium">
+                        Snap any nutrition label or food packaging. DietXplore exposes hidden chemical additives, detects EU/FDA banned substances, and checks your custom allergy matrix with verified citations.
                     </p>
-
-                    <div class="hero-buttons">
-                        <a href="scanner.html" class="btn btn-primary btn-lg">
-                            <span>Scan a Label Now</span>
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                                <line x1="5" y1="12" x2="19" y2="12"></line>
-                                <polyline points="12 5 19 12 12 19"></polyline>
-                            </svg>
-                        </a>
-                        <a href="#live-demo" class="btn btn-secondary btn-lg">
-                            <span>Try Live Sample</span>
-                        </a>
-                    </div>
-
-                    <div class="social-proof">
-                        <div class="proof-avatars">
-                            <span class="avatar-tag">🌱 Vegan</span>
-                            <span class="avatar-tag">🕌 Halal</span>
-                            <span class="avatar-tag">🌾 Celiac</span>
-                            <span class="avatar-tag">🥜 Allergies</span>
-                        </div>
-                        <p class="proof-text">Customizable for any allergy, diet matrix, or health restriction</p>
-                    </div>
                 </div>
 
-                <!-- Interactive Hero Card -->
-                <div class="hero-card-wrapper">
-                    <div class="interactive-preview-card">
-                        <div class="card-top-bar">
-                            <div class="preview-tag-group">
-                                <span class="badge badge-warning">⚠️ 2 Flags Found</span>
-                                <span class="sample-label">Sample: Nacho Tortilla Chips</span>
-                            </div>
-                            <span class="time-stamp">Verified just now</span>
-                        </div>
+                <div class="flex flex-wrap gap-4 pt-2">
+                    <a href="scanner.html" class="bg-primary text-on-primary font-headline-md text-xl px-8 py-4 neo-border neo-shadow neo-shadow-hover neo-shadow-active transition-all inline-flex items-center gap-2">
+                        <span>LAUNCH SCANNER</span>
+                        <span class="material-symbols-outlined">photo_camera</span>
+                    </a>
+                    <a href="#live-demo" class="bg-surface-container-lowest text-on-surface font-headline-md text-xl px-8 py-4 neo-border neo-shadow neo-shadow-hover neo-shadow-active transition-all">
+                        TRY LIVE DEMO
+                    </a>
+                </div>
 
-                        <div class="preview-results-list">
-                            <div class="preview-item safe">
-                                <div class="item-icon">✓</div>
-                                <div class="item-details">
-                                    <strong>Corn Masa Flour &amp; Sunflower Oil</strong>
-                                    <span>Safe · No common allergens detected</span>
-                                </div>
-                                <span class="tag-status tag-safe">Safe</span>
-                            </div>
+                <div class="flex items-center gap-3 flex-wrap pt-2">
+                    <span class="bg-surface-container-high text-on-surface font-label-mono text-xs px-3 py-1 neo-border-thin">VEGAN</span>
+                    <span class="bg-surface-container-high text-on-surface font-label-mono text-xs px-3 py-1 neo-border-thin">HALAL</span>
+                    <span class="bg-surface-container-high text-on-surface font-label-mono text-xs px-3 py-1 neo-border-thin">CELIAC GLUTEN-FREE</span>
+                    <span class="bg-surface-container-high text-on-surface font-label-mono text-xs px-3 py-1 neo-border-thin">JAIN (NO ALLIUM)</span>
+                    <span class="bg-surface-container-high text-on-surface font-label-mono text-xs px-3 py-1 neo-border-thin">NUT ALLERGY</span>
+                </div>
+            </div>
 
-                            <div class="preview-item danger">
-                                <div class="item-icon">✕</div>
-                                <div class="item-details">
-                                    <strong>Red 40 (Allura Red AC)</strong>
-                                    <span>Banned in EU for children · EFSA warning label required</span>
-                                </div>
-                                <span class="tag-status tag-danger">EU Warning</span>
-                            </div>
+            <!-- Hero Interactive Preview Card -->
+            <div class="w-full lg:w-2/5 flex flex-col">
+                <article class="bg-surface-container-lowest neo-border neo-shadow h-full flex flex-col justify-between">
+                    <div class="bg-on-surface text-surface p-4 flex justify-between items-center border-b-[3px] border-on-surface">
+                        <div class="font-headline-md text-lg tracking-wider text-primary-container">SCAN_RESULT: TORTILLA_CHIPS</div>
+                        <span class="bg-tertiary-container text-on-tertiary-container font-label-mono text-xs px-2 py-0.5 neo-border-thin">2 FLAGS</span>
+                    </div>
 
-                            <div class="preview-item warning">
-                                <div class="item-icon">!</div>
-                                <div class="item-details">
-                                    <strong>Disodium Inosinate (E631)</strong>
-                                    <span>Often animal-derived (meat/fish) · Flagged for Vegan &amp; Halal</span>
-                                </div>
-                                <span class="tag-status tag-warning">Diet Conflict</span>
-                            </div>
-
-                            <div class="preview-item safe">
-                                <div class="item-icon">✓</div>
-                                <div class="item-details">
-                                    <strong>Paprika Extract &amp; Sea Salt</strong>
-                                    <span>Natural flavorings &amp; mineral salts</span>
-                                </div>
-                                <span class="tag-status tag-safe">Safe</span>
+                    <div class="p-5 flex flex-col gap-3 flex-grow">
+                        <div class="bg-surface p-3 neo-border-thin flex items-start gap-3">
+                            <span class="material-symbols-outlined text-primary font-bold">check_circle</span>
+                            <div>
+                                <strong class="font-headline-md text-sm block">CORN MASA FLOUR &amp; SUNFLOWER OIL</strong>
+                                <span class="font-body-md text-xs text-on-surface-variant">Safe · Non-GMO base ingredients</span>
                             </div>
                         </div>
 
-                        <div class="card-citations-bar">
-                            <span class="citation-hint">🔗 Verified with EFSA Food Additive DB &amp; FDA Code 21</span>
+                        <div class="bg-surface p-3 neo-border-thin flex items-start gap-3 border-l-[6px] border-l-[#ba1a1a]">
+                            <span class="material-symbols-outlined text-[#ba1a1a] font-bold">cancel</span>
+                            <div>
+                                <div class="flex justify-between items-center gap-2">
+                                    <strong class="font-headline-md text-sm text-[#ba1a1a]">RED DYE 40 (ALLURA RED)</strong>
+                                    <span class="bg-error-container text-on-error-container font-label-mono text-[10px] px-1.5 neo-border-thin">EU WARNING</span>
+                                </div>
+                                <span class="font-body-md text-xs text-on-surface-variant">EFSA advisory: hyperactivity &amp; banned in EU school rations</span>
+                            </div>
+                        </div>
+
+                        <div class="bg-surface p-3 neo-border-thin flex items-start gap-3 border-l-[6px] border-l-[#d0cc00]">
+                            <span class="material-symbols-outlined text-[#636100] font-bold">warning</span>
+                            <div>
+                                <div class="flex justify-between items-center gap-2">
+                                    <strong class="font-headline-md text-sm text-[#636100]">DISODIUM INOSINATE (E631)</strong>
+                                    <span class="bg-tertiary-container text-on-tertiary-container font-label-mono text-[10px] px-1.5 neo-border-thin">DIET CONFLICT</span>
+                                </div>
+                                <span class="font-body-md text-xs text-on-surface-variant">Often meat/fish derived · Non-compliant for strict Vegan/Halal</span>
+                            </div>
                         </div>
                     </div>
-                </div>
+
+                    <div class="bg-surface-container p-3 border-t-[3px] border-on-surface flex justify-between items-center font-label-mono text-xs">
+                        <span class="text-on-surface-variant">SOURCES: EFSA REG (EC) 1333/2008</span>
+                        <a href="scanner.html" class="text-primary font-bold underline">TRY YOURS &rarr;</a>
+                    </div>
+                </article>
             </div>
         </section>
 
         <!-- Interactive Sample Demo Section -->
-        <section id="live-demo" class="demo-section">
-            <div class="container">
-                <div class="section-heading text-center">
-                    <span class="sub-badge">Try It Yourself</span>
-                    <h2>See how DietXplore analyzes different products</h2>
-                    <p>Click any product below to see the instant ingredient breakdown and flags.</p>
-                </div>
+        <section id="live-demo" class="flex flex-col gap-6 w-full">
+            <div class="flex flex-col gap-2">
+                <span class="bg-tertiary-container text-on-tertiary-container font-label-mono text-xs px-3 py-1 neo-border w-fit">INTERACTIVE BENCHMARK</span>
+                <h2 class="font-display-lg text-4xl md:text-6xl text-on-surface uppercase">DISCOVER RAW DATA</h2>
+                <p class="font-body-lg text-on-surface-variant">Click a test product below to execute a simulated chemical scan.</p>
+            </div>
 
-                <div class="demo-widget">
-                    <!-- Tab buttons -->
-                    <div class="demo-tabs" role="tablist">
-                        <button class="demo-tab-btn active" data-product="ramen">
-                            🍜 Instant Spicy Ramen
-                        </button>
-                        <button class="demo-tab-btn" data-product="energy-bar">
-                            🍫 Protein Energy Bar
-                        </button>
-                        <button class="demo-tab-btn" data-product="cookies">
-                            🍪 Imported Butter Cookies
-                        </button>
-                    </div>
+            <!-- Tabs -->
+            <div class="flex flex-wrap gap-3">
+                <button class="demo-tab-btn active bg-primary-container text-on-primary-container font-headline-md text-lg px-6 py-3 neo-border neo-shadow neo-shadow-hover neo-shadow-active transition-all" data-product="ramen">
+                    🍜 INSTANT SPICY RAMEN
+                </button>
+                <button class="demo-tab-btn bg-surface-container-lowest text-on-surface font-headline-md text-lg px-6 py-3 neo-border neo-shadow neo-shadow-hover neo-shadow-active transition-all" data-product="energy-bar">
+                    🍫 PROTEIN ENERGY BAR
+                </button>
+                <button class="demo-tab-btn bg-surface-container-lowest text-on-surface font-headline-md text-lg px-6 py-3 neo-border neo-shadow neo-shadow-hover neo-shadow-active transition-all" data-product="cookies">
+                    🍪 BUTTER SHORTBREAD
+                </button>
+            </div>
 
-                    <!-- Dynamic Card Content -->
-                    <div class="demo-display" id="demoDisplay">
-                        <!-- Loaded dynamically via index.js -->
-                    </div>
-                </div>
+            <!-- Dynamic Demo Card Container -->
+            <div class="bg-surface-container-lowest neo-border neo-shadow p-6 md:p-8" id="demoDisplay">
+                <!-- Rendered dynamically by index.js -->
             </div>
         </section>
 
-        <!-- How It Works Section -->
-        <section id="how-it-works" class="steps-section">
-            <div class="container">
-                <div class="section-heading text-center">
-                    <span class="sub-badge">Simple &amp; Fast</span>
-                    <h2>How DietXplore keeps you safe in 3 steps</h2>
-                </div>
+        <!-- How It Works Section (Bento 3 Cards) -->
+        <section id="how-it-works" class="flex flex-col gap-6 w-full">
+            <div class="flex flex-col gap-2">
+                <span class="bg-secondary-container text-on-secondary font-label-mono text-xs px-3 py-1 neo-border w-fit">3-STAGE PIPELINE</span>
+                <h2 class="font-display-lg text-4xl md:text-6xl text-on-surface uppercase">HOW WE SCAN</h2>
+            </div>
 
-                <div class="steps-grid">
-                    <div class="step-card">
-                        <div class="step-number">01</div>
-                        <div class="step-illustration">📸</div>
-                        <h3>Upload or snap a label</h3>
-                        <p>Take a picture of any packaging, bottle, or snack wrapper with your phone or laptop camera.</p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <article class="bg-surface-container-lowest neo-border neo-shadow p-6 flex flex-col justify-between gap-6 group hover:bg-primary-container transition-colors">
+                    <div class="flex justify-between items-start">
+                        <span class="font-headline-xl text-5xl text-on-surface leading-none">01</span>
+                        <span class="material-symbols-outlined text-4xl">photo_camera</span>
                     </div>
+                    <div>
+                        <h3 class="font-headline-md text-2xl uppercase mb-2">CAPTURE LABEL</h3>
+                        <p class="font-body-md text-on-surface-variant">Drop any wrapper, can, or nutrition facts photo. Works with low light and curved bottles.</p>
+                    </div>
+                </article>
 
-                    <div class="step-card">
-                        <div class="step-number">02</div>
-                        <div class="step-illustration">🔬</div>
-                        <h3>AI decodes every chemical</h3>
-                        <p>We extract botanical names (like <em>Allium Cepa</em> for onion), E-numbers, and covert derivative compounds.</p>
+                <article class="bg-surface-container-lowest neo-border neo-shadow p-6 flex flex-col justify-between gap-6 group hover:bg-tertiary-container transition-colors">
+                    <div class="flex justify-between items-start">
+                        <span class="font-headline-xl text-5xl text-on-surface leading-none">02</span>
+                        <span class="material-symbols-outlined text-4xl">biotech</span>
                     </div>
+                    <div>
+                        <h3 class="font-headline-md text-2xl uppercase mb-2">AI CHEMICAL OCR</h3>
+                        <p class="font-body-md text-on-surface-variant">Extracts botanical synonyms (Allium Cepa = onion), E-numbers, and covert derivatives.</p>
+                    </div>
+                </article>
 
-                    <div class="step-card">
-                        <div class="step-number">03</div>
-                        <div class="step-illustration">🌐</div>
-                        <h3>Cross-checked with real sources</h3>
-                        <p>Findings are verified against FDA, EFSA, and WHO databases with real clickable citations you can inspect.</p>
+                <article class="bg-surface-container-lowest neo-border neo-shadow p-6 flex flex-col justify-between gap-6 group hover:bg-secondary-container hover:text-on-secondary transition-colors">
+                    <div class="flex justify-between items-start">
+                        <span class="font-headline-xl text-5xl leading-none">03</span>
+                        <span class="material-symbols-outlined text-4xl">travel_explore</span>
                     </div>
-                </div>
+                    <div>
+                        <h3 class="font-headline-md text-2xl uppercase mb-2">WEBCMD VERIFICATION</h3>
+                        <p class="font-body-md text-on-surface-variant group-hover:text-on-secondary">Cross-references EFSA, FDA 21 CFR, and WHO databases with live citations.</p>
+                    </div>
+                </article>
             </div>
         </section>
 
-        <!-- What We Catch (Real use cases) -->
-        <section id="what-we-catch" class="usecases-section">
-            <div class="container">
-                <div class="section-heading">
-                    <span class="sub-badge">Coverage</span>
-                    <h2>Things ingredient labels don't make obvious</h2>
-                    <p>Ingredients hide behind scientific synonyms, E-numbers, and ambiguous category names.</p>
+        <!-- What We Catch Grid -->
+        <section id="what-we-catch" class="flex flex-col gap-6 w-full">
+            <div class="flex flex-col gap-2">
+                <span class="bg-tertiary-container text-on-tertiary-container font-label-mono text-xs px-3 py-1 neo-border w-fit">COVERT ADDITIVES</span>
+                <h2 class="font-display-lg text-4xl md:text-6xl text-on-surface uppercase">WHAT LABELS HIDE</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-surface-container-lowest neo-border neo-shadow p-6 flex flex-col gap-3">
+                    <div class="flex items-center gap-3">
+                        <span class="bg-primary-container text-on-primary-container font-headline-md text-xl p-2 neo-border-thin">VEGAN</span>
+                        <h4 class="font-headline-md text-xl uppercase">HIDDEN ANIMAL DERIVATIVES</h4>
+                    </div>
+                    <p class="font-body-md text-on-surface-variant">Carmine (E120) from crushed cochineal beetles, bone-char sugar, gelatin, and fish isinglass in everyday packaged food.</p>
                 </div>
 
-                <div class="usecase-grid">
-                    <div class="usecase-box">
-                        <div class="usecase-header">
-                            <span class="usecase-emoji">🌱</span>
-                            <div>
-                                <h4>Hidden Non-Vegan Additives</h4>
-                                <span class="usecase-sub">Carmine, Gelatin, Isinglass, Bone-char sugar</span>
-                            </div>
-                        </div>
-                        <p>Did you know E120 red food coloring is made from crushed cochineal insects? We flag hidden animal products instantly.</p>
+                <div class="bg-surface-container-lowest neo-border neo-shadow p-6 flex flex-col gap-3">
+                    <div class="flex items-center gap-3">
+                        <span class="bg-error-container text-on-error-container font-headline-md text-xl p-2 neo-border-thin">BANS</span>
+                        <h4 class="font-headline-md text-xl uppercase">GLOBAL REGULATORY BANS</h4>
                     </div>
+                    <p class="font-body-md text-on-surface-variant">Titanium Dioxide (E171), Brominated Vegetable Oil (BVO), and Potassium Bromate — legal in some zones, banned in Europe.</p>
+                </div>
 
-                    <div class="usecase-box">
-                        <div class="usecase-header">
-                            <span class="usecase-emoji">🚫</span>
-                            <div>
-                                <h4>International Regulatory Bans</h4>
-                                <span class="usecase-sub">Titanium Dioxide (E171), BVO, Potassium Bromate</span>
-                            </div>
-                        </div>
-                        <p>Many additives legal in the US are banned in Europe due to DNA toxicity or hyperactivity studies. DietXplore flags them all.</p>
+                <div class="bg-surface-container-lowest neo-border neo-shadow p-6 flex flex-col gap-3">
+                    <div class="flex items-center gap-3">
+                        <span class="bg-tertiary-container text-on-tertiary-container font-headline-md text-xl p-2 neo-border-thin">RELIGIOUS</span>
+                        <h4 class="font-headline-md text-xl uppercase">JAIN, HALAL &amp; KOSHER RULES</h4>
                     </div>
+                    <p class="font-body-md text-on-surface-variant">Flags allium root plants (garlic, onion, scallions), alcohol carriers in natural flavorings, and uncertified enzymes.</p>
+                </div>
 
-                    <div class="usecase-box">
-                        <div class="usecase-header">
-                            <span class="usecase-emoji">🧅</span>
-                            <div>
-                                <h4>Jain, Halal &amp; Religious Diets</h4>
-                                <span class="usecase-sub">Root extracts, alcohol carriers, enzymes</span>
-                            </div>
-                        </div>
-                        <p>Flags allium family plants (garlic, onion, chives), pork gelatin, alcohol flavor carriers, and uncertified rennet.</p>
+                <div class="bg-surface-container-lowest neo-border neo-shadow p-6 flex flex-col gap-3">
+                    <div class="flex items-center gap-3">
+                        <span class="bg-secondary-fixed text-on-secondary-fixed font-headline-md text-xl p-2 neo-border-thin">ALLERGENS</span>
+                        <h4 class="font-headline-md text-xl uppercase">CELIAC &amp; HIDDEN ALLERGENS</h4>
                     </div>
-
-                    <div class="usecase-box">
-                        <div class="usecase-header">
-                            <span class="usecase-emoji">🌾</span>
-                            <div>
-                                <h4>Celiac &amp; Severe Allergens</h4>
-                                <span class="usecase-sub">Malt extract, modified food starch, cross-contact</span>
-                            </div>
-                        </div>
-                        <p>Catches gluten disguised as barley malt or hydrolyzed wheat protein, plus tree nut and soy derivatives.</p>
-                    </div>
+                    <p class="font-body-md text-on-surface-variant">Disguised barley malt gluten, hydrolyzed wheat proteins, tree nuts, and soy lecithin cross-contact risks.</p>
                 </div>
             </div>
         </section>
 
         <!-- FAQ Section -->
-        <section id="faq" class="faq-section">
-            <div class="container max-w-md">
-                <div class="section-heading text-center">
-                    <span class="sub-badge">Got Questions?</span>
-                    <h2>Frequently Asked Questions</h2>
-                </div>
+        <section id="faq" class="flex flex-col gap-6 w-full max-w-4xl mx-auto">
+            <div class="text-center flex flex-col items-center gap-2">
+                <span class="bg-surface-container-high text-on-surface font-label-mono text-xs px-3 py-1 neo-border">INTEL BRIEFING</span>
+                <h2 class="font-display-lg text-4xl md:text-6xl text-on-surface uppercase">FREQUENTLY ASKED</h2>
+            </div>
 
-                <div class="faq-accordion">
-                    <details class="faq-item" open>
-                        <summary class="faq-question">
-                            <span>How accurate is the label scanning?</span>
-                            <span class="faq-icon">+</span>
-                        </summary>
-                        <div class="faq-answer">
-                            <p>We use state-of-the-art vision OCR to transcribe text even from wrinkled packaging, curved bottles, and low-light photos. The extracted ingredients are then verified against live food safety databases.</p>
-                        </div>
-                    </details>
+            <div class="flex flex-col gap-4">
+                <details class="bg-surface-container-lowest neo-border neo-shadow p-5" open>
+                    <summary class="font-headline-md text-xl uppercase cursor-pointer list-none flex justify-between items-center">
+                        <span>HOW ACCURATE IS THE LABEL SCANNING?</span>
+                        <span class="font-headline-xl text-2xl text-primary">+</span>
+                    </summary>
+                    <p class="font-body-md text-on-surface-variant mt-3 pt-3 border-t-2 border-on-surface">
+                        Multimodal Gemini Vision extracts text from complex labels, curved cans, and wrinkled wrappers. Extracted terms are verified in real time against authoritative food safety records.
+                    </p>
+                </details>
 
-                    <details class="faq-item">
-                        <summary class="faq-question">
-                            <span>Can I customize my personal allergies and restrictions?</span>
-                            <span class="faq-icon">+</span>
-                        </summary>
-                        <div class="faq-answer">
-                            <p>Yes! Under your account profile, you can set custom allergy matrices (peanuts, dairy, shellfish, etc.), religious guidelines (Halal, Kosher, Jain), or medical diets (Celiac, FODMAP, Vegan). Every scan automatically applies your saved profile.</p>
-                        </div>
-                    </details>
+                <details class="bg-surface-container-lowest neo-border neo-shadow p-5">
+                    <summary class="font-headline-md text-xl uppercase cursor-pointer list-none flex justify-between items-center">
+                        <span>CAN I SAVE CUSTOM DIETARY PROFILES?</span>
+                        <span class="font-headline-xl text-2xl text-primary">+</span>
+                    </summary>
+                    <p class="font-body-md text-on-surface-variant mt-3 pt-3 border-t-2 border-on-surface">
+                        Yes! Configure your allergy matrices, religious rules (Halal, Kosher, Jain), and medical diets (Celiac, FODMAP) under your account. All scans apply your rules automatically.
+                    </p>
+                </details>
 
-                    <details class="faq-item">
-                        <summary class="faq-question">
-                            <span>Where do the regulatory citations come from?</span>
-                            <span class="faq-icon">+</span>
-                        </summary>
-                        <div class="faq-answer">
-                            <p>We fetch live verification from authoritative sources including the European Food Safety Authority (EFSA), US Food &amp; Drug Administration (FDA), and World Health Organization (WHO).</p>
-                        </div>
-                    </details>
-
-                    <details class="faq-item">
-                        <summary class="faq-question">
-                            <span>Is DietXplore free to use?</span>
-                            <span class="faq-icon">+</span>
-                        </summary>
-                        <div class="faq-answer">
-                            <p>Yes, the core scanner and dietary profile features are completely free to use for personal dietary safety.</p>
-                        </div>
-                    </details>
-                </div>
+                <details class="bg-surface-container-lowest neo-border neo-shadow p-5">
+                    <summary class="font-headline-md text-xl uppercase cursor-pointer list-none flex justify-between items-center">
+                        <span>WHERE DO CITATIONS COME FROM?</span>
+                        <span class="font-headline-xl text-2xl text-primary">+</span>
+                    </summary>
+                    <p class="font-body-md text-on-surface-variant mt-3 pt-3 border-t-2 border-on-surface">
+                        Directly from official sources including the European Food Safety Authority (EFSA), US Food &amp; Drug Administration (FDA 21 CFR), and the World Health Organization (WHO).
+                    </p>
+                </details>
             </div>
         </section>
 
-        <!-- Bottom CTA -->
-        <section class="bottom-cta-section">
-            <div class="container">
-                <div class="cta-card">
-                    <h2>Ready to check your food?</h2>
-                    <p>Try the scanner right now — no credit card or complicated setup required.</p>
-                    <div class="cta-actions">
-                        <a href="scanner.html" class="btn btn-primary btn-lg">Launch Food Scanner →</a>
-                        <a href="account_login.html" class="btn btn-secondary btn-lg">Create Free Account</a>
-                    </div>
-                </div>
+        <!-- CTA Callout Card -->
+        <section class="bg-primary text-on-primary neo-border neo-shadow flex flex-col justify-center items-center p-8 md:p-14 text-center">
+            <span class="material-symbols-outlined text-[64px] mb-2 text-primary-container">local_fire_department</span>
+            <h2 class="font-display-lg text-4xl md:text-6xl uppercase tracking-tight">READY TO AUDIT YOUR FUEL?</h2>
+            <p class="font-label-mono text-sm md:text-base mt-2 mb-8 max-w-xl text-surface">Instant AI scanning with verified citations. No credit card required.</p>
+            <div class="flex flex-wrap gap-4 justify-center">
+                <a href="scanner.html" class="bg-primary-container text-on-primary-container font-headline-md text-xl px-8 py-4 neo-border neo-shadow-hover neo-shadow-active transition-all">LAUNCH SCANNER &rarr;</a>
+                <a href="account_login.html" class="bg-surface text-on-surface font-headline-md text-xl px-8 py-4 neo-border neo-shadow-hover neo-shadow-active transition-all">CREATE ACCOUNT</a>
             </div>
         </section>
+
     </main>
 
     <!-- Footer -->
-    <footer class="footer">
-        <div class="container footer-container">
-            <div class="footer-left">
-                <div class="brand-footer">
-                    <span class="brand-name">Diet<span class="brand-accent">Xplore</span></span>
-                </div>
-                <p class="footer-desc">An open, accessible food intelligence tool designed to make ingredient transparency simple for everyone.</p>
-                <span class="creator-note">Crafted for health-conscious eaters, expats, and dietary safety.</span>
-            </div>
-
-            <div class="footer-links-group">
-                <div class="link-col">
-                    <h5>Product</h5>
-                    <a href="scanner.html">Label Scanner</a>
-                    <a href="account.html">Dietary Preferences</a>
-                    <a href="account_login.html">Sign In / Register</a>
-                </div>
-                <div class="link-col">
-                    <h5>Resources</h5>
-                    <a href="#how-it-works">How It Works</a>
-                    <a href="#what-we-catch">Additives Guide</a>
-                    <a href="#faq">FAQ</a>
-                </div>
-            </div>
+    <footer class="bg-on-surface w-full mt-12 border-t-[3px] border-on-surface flex flex-col md:flex-row justify-between items-center px-6 md:px-12 py-8 text-surface">
+        <div class="font-headline-md text-2xl uppercase tracking-tight mb-4 md:mb-0">
+            DIET<span class="text-primary-container">XPLORE</span>
         </div>
-        
-        <div class="container footer-bottom-bar">
-            <p>&copy; 2026 DietXplore. Built with Gemini AI &amp; WebCMD Live Web Grounding.</p>
-            <div class="bottom-tags">
-                <span>webcmd theme</span>
-                <span>•</span>
-                <span>Free &amp; Open</span>
-                <span>•</span>
-                <span>Privacy-focused</span>
-            </div>
+        <div class="font-label-mono text-xs text-primary-container text-center md:text-left mb-4 md:mb-0">
+            &copy; 2026 DIETXPLORE. POWERED BY WEBCMD &amp; GEMINI AI.
         </div>
+        <nav class="flex gap-6 font-label-mono text-xs text-surface-container-high">
+            <a class="hover:text-primary-container transition-colors" href="scanner.html">SCANNER</a>
+            <a class="hover:text-primary-container transition-colors" href="account.html">PROFILE</a>
+            <a class="hover:text-primary-container transition-colors" href="#how-it-works">PIPELINE</a>
+            <a class="hover:text-primary-container transition-colors" href="#faq">FAQ</a>
+        </nav>
     </footer>
 
     <script src="index.js"></script>
