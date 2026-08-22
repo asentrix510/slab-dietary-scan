@@ -145,6 +145,23 @@ analyzeBtn.addEventListener('click', async () => {
     await runAnalysis(uploadedFile, activeRestrictions);
 });
 
+function updateLoadingStatus(title, detail) {
+    if (loadingTitle) {
+        loadingTitle.style.opacity = '0';
+        setTimeout(() => {
+            loadingTitle.textContent = title;
+            loadingTitle.style.opacity = '1';
+        }, 150);
+    }
+    if (loadingStep) {
+        loadingStep.style.opacity = '0';
+        setTimeout(() => {
+            loadingStep.textContent = detail;
+            loadingStep.style.opacity = '1';
+        }, 150);
+    }
+}
+
 async function runAnalysis(file, restrictions) {
     // Hide results, show loading
     resultsSection.style.display = 'none';
@@ -168,14 +185,56 @@ async function runAnalysis(file, restrictions) {
             throw new Error(`Server error: ${response.statusText}`);
         }
 
-        const data = await response.json();
+        const contentType = response.headers.get('content-type') || '';
 
-        if (data.error) {
-            throw new Error(data.error);
+        if (contentType.includes('text/event-stream')) {
+            // Real-time server progress stream synced with server status!
+            stopLoadingMessageRotation();
+
+            const reader = response.body.getReader();
+            const decoder = new TextDecoder();
+            let buffer = '';
+            let finalData = null;
+
+            while (true) {
+                const { done, value } = await reader.read();
+                if (done) break;
+
+                buffer += decoder.decode(value, { stream: true });
+                const chunks = buffer.split('\n\n');
+                buffer = chunks.pop() || ''; // keep incomplete chunk in buffer
+
+                for (const chunk of chunks) {
+                    const line = chunk.trim();
+                    if (line.startsWith('data: ')) {
+                        try {
+                            const payload = JSON.parse(line.substring(6));
+                            if (payload.type === 'progress') {
+                                updateLoadingStatus(payload.title, payload.detail);
+                            } else if (payload.type === 'complete') {
+                                finalData = payload.data;
+                            } else if (payload.type === 'error') {
+                                throw new Error(payload.error);
+                            }
+                        } catch (err) {
+                            if (err.message && !err.message.includes('JSON')) throw err;
+                            console.warn('SSE parse note:', err);
+                        }
+                    }
+                }
+            }
+
+            if (finalData) {
+                displayResults(finalData);
+            } else {
+                throw new Error('Analysis completed without returning result data.');
+            }
+        } else {
+            // Standard JSON response fallback
+            const data = await response.json();
+            if (data.error) throw new Error(data.error);
+            displayResults(data);
         }
-
-        // Display results
-        displayResults(data);
 
     } catch (error) {
         console.error('Analysis error:', error);
