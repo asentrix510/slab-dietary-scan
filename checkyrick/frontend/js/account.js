@@ -119,7 +119,7 @@ profileForm.addEventListener('submit', async (e) => {
         await setDoc(doc(db, "users", currentUser.uid), profileData);
 
         // Redirect to scanner
-        window.location.href = 'index.html';
+        window.location.href = 'scanner.html';
 
     } catch (error) {
         console.error("Error saving profile:", error);

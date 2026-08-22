@@ -445,11 +445,13 @@ body {
 .loading-status-text h3 {
     font-size: 1.1rem;
     margin-bottom: 4px;
+    transition: opacity 0.18s ease-in-out;
 }
 
 .loading-step {
     font-size: 0.86rem;
     color: var(--text-muted);
+    transition: opacity 0.18s ease-in-out;
 }
 
 /* ==========================================================================
