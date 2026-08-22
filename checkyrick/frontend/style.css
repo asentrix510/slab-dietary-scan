@@ -19,8 +19,10 @@
     --color-secondary: #0040e0;
     --color-secondary-container: #2e5bff;
     
+    /* Light Mode Yellow */
     --color-tertiary: #636100;
     --color-tertiary-container: #ede900;
+    --color-on-tertiary-container: #1d1d00;
     
     --color-error: #ba1a1a;
     --color-error-container: #ffdad6;
@@ -32,7 +34,7 @@
 }
 
 /* ==========================================================================
-   Dark Theme Overrides
+   Dark Theme Overrides (Eye-Friendly, Refined Tones)
    ========================================================================== */
 html.dark {
     --color-surface: #0f1218;
@@ -41,12 +43,17 @@ html.dark {
     --color-surface-card: #141820;
     --color-on-surface: #f3f4f6;
     --color-on-surface-variant: #9ca3af;
-    --color-border: #384252;
+    --color-border: #475569;
     --color-shadow: #000000;
     
     --color-primary: #00ff41;
     --color-primary-container: #00ff41;
     --color-on-primary-container: #002203;
+    
+    --color-tertiary-container: #26200d;
+    --color-on-tertiary-container: #fbbf24;
+    --color-error-container: #2b1416;
+    --color-on-error-container: #f87171;
 }
 
 *, *::before, *::after {
@@ -65,10 +72,31 @@ body {
     color: var(--color-on-surface);
     font-family: var(--font-body);
     font-size: 15px;
-    line-height: 1.5;
+    line-height: 1.6;
+    letter-spacing: 0.02em;
     -webkit-font-smoothing: antialiased;
     min-height: 100vh;
     transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* Enhanced Font Spacing */
+h1, h2, h3, h4, h5, h6,
+.font-headline-xl, .font-headline-md, .font-display-lg {
+    letter-spacing: 0.04em !important;
+    word-spacing: 0.06em;
+}
+
+p, span, a, button, label, li {
+    letter-spacing: 0.02em;
+}
+
+.font-label-mono,
+code, pre {
+    letter-spacing: 0.07em !important;
+}
+
+button, a.btn, a[class*="neo-border"] {
+    letter-spacing: 0.04em !important;
 }
 
 /* Neo-Brutalist Core Utilities */
@@ -100,30 +128,64 @@ body {
 
 /* Dark mode specific elements */
 html.dark header {
-    background-color: #141820;
-    border-color: var(--color-border);
+    background-color: #141820 !important;
+    border-color: var(--color-border) !important;
 }
 
 html.dark footer {
-    background-color: #0b0d11;
-    border-color: var(--color-border);
+    background-color: #0b0d11 !important;
+    border-color: var(--color-border) !important;
 }
 
 html.dark section.bg-surface-container-lowest,
-html.dark div.bg-surface-container-lowest {
+html.dark div.bg-surface-container-lowest,
+html.dark .bg-surface-container-lowest {
     background-color: var(--color-surface-card) !important;
     border-color: var(--color-border) !important;
     color: var(--color-on-surface) !important;
 }
 
-html.dark .bg-surface {
-    background-color: #181d27 !important;
+/* Dark Mode Tertiary / Warning in Scanner */
+html.dark .bg-tertiary-container {
+    background-color: #26200d !important;
+    color: #fbbf24 !important;
+    border-color: #594516 !important;
 }
 
+html.dark .text-on-tertiary-container {
+    color: #fbbf24 !important;
+}
+
+/* Dark Mode Error / Danger */
+html.dark .bg-error-container {
+    background-color: #2b1416 !important;
+    color: #f87171 !important;
+    border-color: #5c2225 !important;
+}
+
+html.dark .text-on-error-container {
+    color: #f87171 !important;
+}
+
+html.dark a.bg-surface-container-lowest,
+html.dark button.bg-surface-container-lowest,
 html.dark .bg-surface-container-high,
 html.dark .bg-surface-container-highest,
 html.dark .bg-surface-container {
-    background-color: var(--color-surface-highest) !important;
+    background-color: #222936 !important;
+    color: #f3f4f6 !important;
+    border-color: var(--color-border) !important;
+}
+
+html.dark a.bg-surface-container-lowest:hover,
+html.dark button.bg-surface-container-lowest:hover {
+    background-color: #2f384a !important;
+    color: #ffffff !important;
+}
+
+html.dark .bg-surface {
+    background-color: #181d27 !important;
+    border-color: var(--color-border) !important;
     color: var(--color-on-surface) !important;
 }
 
@@ -142,7 +204,20 @@ html.dark .text-on-surface-variant {
     padding: 6px 10px;
     font-family: var(--font-mono);
     font-size: 12px;
+    letter-spacing: 0.04em;
     color: var(--color-on-surface);
+}
+
+html.dark #ingredientsList li {
+    background-color: #181d27 !important;
+    color: #f3f4f6 !important;
+    border-color: var(--color-border) !important;
+}
+
+/* Drop Zone preview image */
+html.dark #previewImg {
+    background-color: #181d27 !important;
+    border-color: var(--color-border) !important;
 }
 
 /* Focus */

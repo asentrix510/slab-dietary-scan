@@ -21,6 +21,7 @@
     --color-secondary-fixed: #dde1ff;
     --color-on-secondary-fixed: #001356;
     
+    /* Light Mode Yellow */
     --color-tertiary: #636100;
     --color-tertiary-container: #ede900;
     --color-on-tertiary-container: #1d1d00;
@@ -35,7 +36,7 @@
 }
 
 /* ==========================================================================
-   Dark Theme Overrides
+   Dark Theme Overrides (Eye-Friendly, Refined Tones)
    ========================================================================== */
 html.dark {
     --color-surface: #0f1218;
@@ -44,7 +45,7 @@ html.dark {
     --color-surface-card: #141820;
     --color-on-surface: #f3f4f6;
     --color-on-surface-variant: #9ca3af;
-    --color-border: #384252;
+    --color-border: #475569;
     --color-shadow: #000000;
     
     --color-primary: #00ff41;
@@ -52,8 +53,10 @@ html.dark {
     --color-on-primary-container: #002203;
     
     --color-secondary-container: #3b82f6;
-    --color-tertiary-container: #eab308;
-    --color-error-container: #ef4444;
+    --color-tertiary-container: #26200d;
+    --color-on-tertiary-container: #fbbf24;
+    --color-error-container: #2b1416;
+    --color-on-error-container: #f87171;
 }
 
 *, *::before, *::after {
@@ -72,11 +75,32 @@ body {
     color: var(--color-on-surface);
     font-family: var(--font-body);
     font-size: 16px;
-    line-height: 1.5;
+    line-height: 1.6;
+    letter-spacing: 0.02em;
     -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
     min-height: 100vh;
     transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* Enhanced Font Spacing */
+h1, h2, h3, h4, h5, h6,
+.font-headline-xl, .font-headline-md, .font-display-lg {
+    letter-spacing: 0.04em !important;
+    word-spacing: 0.06em;
+}
+
+p, span, a, button, label, li {
+    letter-spacing: 0.02em;
+}
+
+.font-label-mono,
+code, pre {
+    letter-spacing: 0.07em !important;
+}
+
+button, a.btn, a[class*="neo-border"] {
+    letter-spacing: 0.04em !important;
 }
 
 /* Neo-Brutalist Core Utilities */
@@ -101,39 +125,107 @@ body {
     transform: translate(-2px, -2px) !important;
 }
 
+details[open] .faq-icon {
+    transform: rotate(45deg);
+}
+
 .neo-shadow-active:active {
     box-shadow: 0px 0px 0px 0px var(--color-shadow) !important;
     transform: translate(4px, 4px) !important;
 }
 
-/* Dark mode specific elements */
+/* ==========================================================================
+   Dark Mode Elements High-Contrast & Eye-Friendly Overrides
+   ========================================================================== */
 html.dark header {
-    background-color: #141820;
-    border-color: var(--color-border);
+    background-color: #141820 !important;
+    border-color: var(--color-border) !important;
 }
 
 html.dark footer {
-    background-color: #0b0d11;
-    border-color: var(--color-border);
+    background-color: #0b0d11 !important;
+    border-color: var(--color-border) !important;
 }
 
+/* All cards, articles, sections and modals */
 html.dark article,
 html.dark section.bg-surface-container-lowest,
 html.dark div.bg-surface-container-lowest,
-html.dark details.bg-surface-container-lowest {
+html.dark details.bg-surface-container-lowest,
+html.dark .bg-surface-container-lowest {
     background-color: var(--color-surface-card) !important;
     border-color: var(--color-border) !important;
     color: var(--color-on-surface) !important;
 }
 
-html.dark .bg-surface {
-    background-color: #181d27 !important;
+/* Dark Mode Tertiary Badge / Warning (Soothing Amber, no blinding yellow) */
+html.dark .bg-tertiary-container {
+    background-color: #26200d !important;
+    color: #fbbf24 !important;
+    border-color: #594516 !important;
 }
 
+html.dark .text-on-tertiary-container {
+    color: #fbbf24 !important;
+}
+
+html.dark .text-\[\#636100\] {
+    color: #fbbf24 !important;
+}
+
+html.dark .border-l-\[\#d0cc00\],
+html.dark .border-l-\[\#636100\] {
+    border-left-color: #fbbf24 !important;
+}
+
+/* Dark Mode Error Badge (Soothing Rose/Coral) */
+html.dark .bg-error-container {
+    background-color: #2b1416 !important;
+    color: #f87171 !important;
+    border-color: #5c2225 !important;
+}
+
+html.dark .text-on-error-container {
+    color: #f87171 !important;
+}
+
+html.dark .text-\[\#ba1a1a\] {
+    color: #f87171 !important;
+}
+
+/* Dark Mode Secondary Fixed Badge */
+html.dark .bg-secondary-fixed {
+    background-color: #1a2238 !important;
+    color: #93c5fd !important;
+    border-color: #2b3960 !important;
+}
+
+html.dark .text-on-secondary-fixed {
+    color: #93c5fd !important;
+}
+
+/* Buttons and Clickable Controls */
+html.dark a.bg-surface-container-lowest,
+html.dark button.bg-surface-container-lowest,
+html.dark .demo-tab-btn:not(.active),
 html.dark .bg-surface-container-high,
 html.dark .bg-surface-container-highest,
 html.dark .bg-surface-container {
-    background-color: var(--color-surface-highest) !important;
+    background-color: #222936 !important;
+    color: #f3f4f6 !important;
+    border-color: var(--color-border) !important;
+}
+
+html.dark a.bg-surface-container-lowest:hover,
+html.dark button.bg-surface-container-lowest:hover,
+html.dark .demo-tab-btn:not(.active):hover {
+    background-color: #2f384a !important;
+    color: #ffffff !important;
+}
+
+html.dark .bg-surface {
+    background-color: #181d27 !important;
+    border-color: var(--color-border) !important;
     color: var(--color-on-surface) !important;
 }
 
@@ -143,6 +235,13 @@ html.dark .text-on-surface {
 
 html.dark .text-on-surface-variant {
     color: var(--color-on-surface-variant) !important;
+}
+
+/* High-contrast active demo tab in dark mode */
+html.dark .demo-tab-btn.active {
+    background-color: #00ff41 !important;
+    color: #002203 !important;
+    border-color: #00ff41 !important;
 }
 
 /* Focus */

@@ -61,7 +61,6 @@
             </a>
             <nav class="hidden md:flex gap-6">
                 <a class="font-headline-md text-lg text-on-surface hover:translate-x-[2px] hover:translate-y-[2px] transition-all" href="#how-it-works">HOW IT WORKS</a>
-                <a class="font-headline-md text-lg text-primary underline underline-offset-4 decoration-[3px] hover:translate-x-[2px] hover:translate-y-[2px] transition-all" href="#live-demo">LIVE DEMO</a>
                 <a class="font-headline-md text-lg text-on-surface hover:translate-x-[2px] hover:translate-y-[2px] transition-all" href="#what-we-catch">WHAT WE CATCH</a>
                 <a class="font-headline-md text-lg text-on-surface hover:translate-x-[2px] hover:translate-y-[2px] transition-all" href="#faq">FAQ</a>
             </nav>
@@ -90,8 +89,9 @@
                         <span class="bg-primary-container text-on-primary-container font-label-mono text-xs px-3 py-1 neo-border">AI OCR + WEB GROUNDING</span>
                     </div>
 
-                    <h1 class="font-display-lg text-5xl md:text-7xl lg:text-8xl text-on-surface uppercase tracking-tight leading-[0.9]">
-                        STOP GUESSING. <span class="bg-primary-container px-2 border-b-[3px] border-on-surface">SCAN YOUR FUEL.</span>
+                    <h1 class="font-display-lg text-4xl sm:text-6xl md:text-7xl uppercase tracking-tight leading-[1.1] text-on-surface">
+                        STOP GUESSING.<br/>
+                        <span class="bg-primary-container text-on-primary-container px-3 py-1 neo-border-thin inline-block mt-2">SCAN YOUR FUEL.</span>
                     </h1>
 
                     <p class="font-body-lg text-lg md:text-xl text-on-surface-variant max-w-2xl mt-2 font-medium">
@@ -103,9 +103,6 @@
                     <a href="scanner.html" class="bg-primary text-on-primary font-headline-md text-xl px-8 py-4 neo-border neo-shadow neo-shadow-hover neo-shadow-active transition-all inline-flex items-center gap-2">
                         <span>LAUNCH SCANNER</span>
                         <span class="material-symbols-outlined">photo_camera</span>
-                    </a>
-                    <a href="#live-demo" class="bg-surface-container-lowest text-on-surface font-headline-md text-xl px-8 py-4 neo-border neo-shadow neo-shadow-hover neo-shadow-active transition-all">
-                        TRY LIVE DEMO
                     </a>
                 </div>
 
@@ -286,30 +283,30 @@
             </div>
 
             <div class="flex flex-col gap-4">
-                <details class="bg-surface-container-lowest neo-border neo-shadow p-5" open>
-                    <summary class="font-headline-md text-xl uppercase cursor-pointer list-none flex justify-between items-center">
+                <details class="faq-accordion-item bg-surface-container-lowest neo-border neo-shadow p-5 cursor-pointer">
+                    <summary class="font-headline-md text-xl uppercase cursor-pointer list-none flex justify-between items-center select-none">
                         <span>HOW ACCURATE IS THE LABEL SCANNING?</span>
-                        <span class="font-headline-xl text-2xl text-primary">+</span>
+                        <span class="faq-icon font-headline-xl text-2xl text-primary transition-transform duration-200 inline-block">+</span>
                     </summary>
                     <p class="font-body-md text-on-surface-variant mt-3 pt-3 border-t-2 border-on-surface">
                         Multimodal Gemini Vision extracts text from complex labels, curved cans, and wrinkled wrappers. Extracted terms are verified in real time against authoritative food safety records.
                     </p>
                 </details>
 
-                <details class="bg-surface-container-lowest neo-border neo-shadow p-5">
-                    <summary class="font-headline-md text-xl uppercase cursor-pointer list-none flex justify-between items-center">
+                <details class="faq-accordion-item bg-surface-container-lowest neo-border neo-shadow p-5 cursor-pointer">
+                    <summary class="font-headline-md text-xl uppercase cursor-pointer list-none flex justify-between items-center select-none">
                         <span>CAN I SAVE CUSTOM DIETARY PROFILES?</span>
-                        <span class="font-headline-xl text-2xl text-primary">+</span>
+                        <span class="faq-icon font-headline-xl text-2xl text-primary transition-transform duration-200 inline-block">+</span>
                     </summary>
                     <p class="font-body-md text-on-surface-variant mt-3 pt-3 border-t-2 border-on-surface">
                         Yes! Configure your allergy matrices, religious rules (Halal, Kosher, Jain), and medical diets (Celiac, FODMAP) under your account. All scans apply your rules automatically.
                     </p>
                 </details>
 
-                <details class="bg-surface-container-lowest neo-border neo-shadow p-5">
-                    <summary class="font-headline-md text-xl uppercase cursor-pointer list-none flex justify-between items-center">
+                <details class="faq-accordion-item bg-surface-container-lowest neo-border neo-shadow p-5 cursor-pointer">
+                    <summary class="font-headline-md text-xl uppercase cursor-pointer list-none flex justify-between items-center select-none">
                         <span>WHERE DO CITATIONS COME FROM?</span>
-                        <span class="font-headline-xl text-2xl text-primary">+</span>
+                        <span class="faq-icon font-headline-xl text-2xl text-primary transition-transform duration-200 inline-block">+</span>
                     </summary>
                     <p class="font-body-md text-on-surface-variant mt-3 pt-3 border-t-2 border-on-surface">
                         Directly from official sources including the European Food Safety Authority (EFSA), US Food &amp; Drug Administration (FDA 21 CFR), and the World Health Organization (WHO).
