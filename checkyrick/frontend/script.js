@@ -87,21 +87,6 @@ function clearImage() {
     imagePreview.style.display = 'none';
 }
 
-// ===== QUICK DIETARY TAGS HANDLING =====
-const selectedChips = new Set();
-document.querySelectorAll('.tag-chip').forEach(chip => {
-    chip.addEventListener('click', () => {
-        const rule = chip.dataset.rule;
-        if (chip.classList.contains('active')) {
-            chip.classList.remove('active');
-            selectedChips.delete(rule);
-        } else {
-            chip.classList.add('active');
-            selectedChips.add(rule);
-        }
-    });
-});
-
 // ===== ANALYSIS HANDLING =====
 analyzeBtn.addEventListener('click', async () => {
     if (!uploadedFile) {
@@ -109,16 +94,7 @@ analyzeBtn.addEventListener('click', async () => {
         return;
     }
 
-    // Combine user profile restrictions with any clicked quick tags
-    let activeRestrictions = userRestrictions || '';
-    if (selectedChips.size > 0) {
-        const extraRules = Array.from(selectedChips).join(', ');
-        activeRestrictions = activeRestrictions ? `${activeRestrictions}. Additional focus: ${extraRules}` : `Dietary focus: ${extraRules}`;
-    }
-
-    if (!activeRestrictions) {
-        activeRestrictions = 'Check for harmful additives, EU/FDA regulatory bans, hidden chemical synonyms, and common allergens.';
-    }
+    const activeRestrictions = userRestrictions || 'Check for harmful additives, EU/FDA regulatory bans, hidden chemical synonyms, and common allergens.';
 
     await runAnalysis(uploadedFile, activeRestrictions);
 });
