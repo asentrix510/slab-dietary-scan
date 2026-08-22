@@ -727,18 +727,94 @@ body {
     color: var(--text-muted);
 }
 
+/* Responsive Design & Media Queries */
+@media (max-width: 1024px) {
+    .container {
+        padding: 0 20px;
+    }
+    
+    .engine-header {
+        margin: 32px 0 24px;
+    }
+}
+
 @media (max-width: 768px) {
+    html {
+        font-size: 14px;
+    }
+    
+    .app-nav .nav-container {
+        padding: 0 16px;
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+    
+    .user-controls {
+        width: 100%;
+        justify-content: space-between;
+    }
+    
+    .engine-title {
+        font-size: 1.8rem;
+    }
+    
+    .engine-subtitle {
+        font-size: 0.95rem;
+    }
+    
+    .scan-card-body {
+        padding: 16px;
+    }
+    
+    .drop-zone {
+        padding: 28px 16px;
+    }
+    
     .results-toolbar {
         flex-direction: column;
-        gap: 12px;
-        align-items: flex-start;
+        gap: 14px;
+        align-items: stretch;
     }
     
     .results-actions {
         width: 100%;
+        display: flex;
+        gap: 8px;
     }
     
     .results-actions button {
         flex: 1;
+        min-height: 44px;
+    }
+    
+    .report-container {
+        padding: 18px 14px;
+    }
+    
+    .ingredients-grid {
+        grid-template-columns: 1fr;
     }
 }
+
+@media (max-width: 480px) {
+    .container {
+        padding: 0 12px;
+    }
+    
+    .engine-title {
+        font-size: 1.5rem;
+    }
+    
+    .btn-analyze {
+        width: 100%;
+        min-height: 48px;
+    }
+    
+    .results-actions {
+        flex-direction: column;
+    }
+    
+    .results-actions button {
+        width: 100%;
+    }
+}

@@ -549,21 +549,62 @@ textarea.large-textarea {
 }
 
 @media (max-width: 768px) {
+    .auth-wrapper {
+        padding: 20px 14px;
+        min-height: auto;
+    }
+
+    .page-wrapper {
+        padding: 24px 14px 60px;
+    }
+
     .profile-header {
         flex-direction: column;
-        align-items: flex-start;
-        gap: 14px;
+        align-items: stretch;
+        gap: 16px;
+    }
+    
+    .header-actions {
+        width: 100%;
+        justify-content: space-between;
     }
     
     .form-row {
         grid-template-columns: 1fr;
+        gap: 14px;
     }
     
     .checkbox-group {
         grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .checkbox-item {
+        padding: 12px 14px;
+        min-height: 48px;
     }
     
     .btn-save {
         width: 100%;
+        min-height: 48px;
+    }
+
+    .section-card-body {
+        padding: 16px 14px;
     }
 }
+
+@media (max-width: 480px) {
+    .auth-card-body {
+        padding: 20px 16px;
+    }
+
+    .tab-btn {
+        padding: 10px;
+        font-size: 0.85rem;
+    }
+    
+    .header-info h1 {
+        font-size: 1.4rem;
+    }
+}

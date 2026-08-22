@@ -287,23 +287,17 @@ function generateReportHTML(analysis, restrictions, citations = []) {
     let html = `
         <div style="font-family: 'Inter', -apple-system, sans-serif; color: #C9D1D9; max-width: 100%; overflow-x: hidden; ${textWrapStyle}">
             <!-- Header -->
-<<<<<<< Updated upstream
-            <div style="background: linear-gradient(135deg, ${statusColor}, ${statusColor}dd); color: white; padding: 2rem; border-radius: 10px; margin-bottom: 2rem; max-width: 100%; ${textWrapStyle}">
-                <h1 style="margin: 0 0 0.5rem 0; ${textWrapStyle}">Dietary Deep Scan Report</h1>
-                <p style="margin: 0; opacity: 0.9; ${textWrapStyle}">Analysis completed • Verified with WebCMD web research</p>
-=======
             <div style="background: #161B22; border: 1px solid #30363D; border-left: 4px solid ${statusColor}; color: #F0F6FC; padding: 1.5rem; border-radius: 8px; margin-bottom: 1.5rem; max-width: 100%; ${textWrapStyle}">
                 <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
                     <h2 style="margin: 0; font-size: 1.3rem; font-weight: 700; color: #F0F6FC; ${textWrapStyle}">Dietary Deep Scan Report</h2>
-                    <span style="font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; background: rgba(88, 166, 255, 0.15); color: #58A6FF; padding: 2px 8px; border-radius: 4px; border: 1px solid rgba(88, 166, 255, 0.3);">Google Grounded</span>
+                    <span style="font-size: 0.8rem; background: rgba(88, 166, 255, 0.15); color: #58A6FF; padding: 4px 10px; border-radius: 9999px; border: 1px solid rgba(88, 166, 255, 0.3);">Verified Research</span>
                 </div>
                 <p style="margin: 0.5rem 0 0 0; color: #8B949E; font-size: 0.88rem; ${textWrapStyle}">Analysis completed • Verified against global regulatory directives</p>
->>>>>>> Stashed changes
             </div>
             
             <!-- User Restrictions -->
             <div style="background: #161B22; border: 1px solid #30363D; padding: 1.25rem; border-radius: 8px; margin-bottom: 1.5rem; border-left: 3px solid #58A6FF; max-width: 100%; ${textWrapStyle}">
-                <h3 style="margin: 0 0 0.5rem 0; color: #F0F6FC; font-size: 0.95rem; font-family: 'JetBrains Mono', monospace; ${textWrapStyle}">TARGET DIETARY RULESET</h3>
+                <h3 style="margin: 0 0 0.5rem 0; color: #F0F6FC; font-size: 0.95rem; font-weight: 600; ${textWrapStyle}">TARGET DIETARY RULESET</h3>
                 <p style="margin: 0; font-size: 1rem; color: #C9D1D9; ${textWrapStyle}">${restrictions}</p>
             </div>
             
@@ -336,9 +330,9 @@ function generateReportHTML(analysis, restrictions, citations = []) {
             const severityColor = conflict.severity === 'high' ? '#F85149' : conflict.severity === 'medium' ? '#D29922' : '#E3B341';
             html += `
                 <div style="background: #0D1117; border: 1px solid #30363D; padding: 0.9rem; border-radius: 6px; margin-bottom: 0.75rem; border-left: 3px solid ${severityColor}; max-width: 100%; ${textWrapStyle}">
-                    <strong style="color: ${severityColor}; font-family: 'JetBrains Mono', monospace; ${textWrapStyle}">${conflict.ingredient}</strong>
+                    <strong style="color: ${severityColor}; ${textWrapStyle}">${conflict.ingredient}</strong>
                     <p style="margin: 0.4rem 0 0 0; color: #C9D1D9; ${textWrapStyle}">${conflict.issue}</p>
-                    <small style="color: #8B949E; font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; ${textWrapStyle}">Severity tier: ${conflict.severity}</small>
+                    <small style="color: #8B949E; font-size: 0.75rem; ${textWrapStyle}">Severity tier: ${conflict.severity}</small>
                 </div>
             `;
         });
@@ -354,7 +348,7 @@ function generateReportHTML(analysis, restrictions, citations = []) {
         safeAnalysis.regulatory_bans.forEach(ban => {
             html += `
                 <div style="background: #0D1117; border: 1px solid #30363D; padding: 0.9rem; border-radius: 6px; margin-bottom: 0.75rem; border-left: 3px solid #F85149; max-width: 100%; ${textWrapStyle}">
-                    <strong style="color: #F85149; font-family: 'JetBrains Mono', monospace; ${textWrapStyle}">${ban.ingredient}</strong>
+                    <strong style="color: #F85149; ${textWrapStyle}">${ban.ingredient}</strong>
                     <p style="margin: 0.4rem 0; color: #C9D1D9; ${textWrapStyle}"><strong style="color: #8B949E;">Jurisdictions:</strong> ${Array.isArray(ban.countries) ? ban.countries.join(', ') : ban.countries || 'N/A'}</p>
                     <p style="margin: 0; color: #8B949E; font-size: 0.9rem; ${textWrapStyle}">${ban.reason}</p>
                 </div>
@@ -372,7 +366,7 @@ function generateReportHTML(analysis, restrictions, citations = []) {
         safeAnalysis.regulatory_restrictions.forEach(restriction => {
             html += `
                 <div style="background: #0D1117; border: 1px solid #30363D; padding: 0.9rem; border-radius: 6px; margin-bottom: 0.75rem; border-left: 3px solid #D29922; max-width: 100%; ${textWrapStyle}">
-                    <strong style="color: #D29922; font-family: 'JetBrains Mono', monospace; ${textWrapStyle}">${restriction.ingredient || 'Unknown'}</strong>
+                    <strong style="color: #D29922; ${textWrapStyle}">${restriction.ingredient || 'Unknown'}</strong>
                     <p style="margin: 0.4rem 0; color: #C9D1D9; ${textWrapStyle}"><strong style="color: #8B949E;">Type:</strong> ${restriction.type || 'N/A'} • <strong style="color: #8B949E;">Jurisdictions:</strong> ${Array.isArray(restriction.countries) ? restriction.countries.join(', ') : restriction.countries || 'N/A'}</p>
                     <p style="margin: 0; color: #8B949E; font-size: 0.9rem; ${textWrapStyle}">${restriction.reason || 'No reason provided'}</p>
                 </div>
@@ -391,7 +385,7 @@ function generateReportHTML(analysis, restrictions, citations = []) {
             const typeColor = note.type === 'positive' ? '#3FB950' : note.type === 'negative' ? '#F85149' : '#58A6FF';
             html += `
                 <div style="background: #0D1117; border: 1px solid #30363D; padding: 0.9rem; border-radius: 6px; margin-bottom: 0.75rem; border-left: 3px solid ${typeColor}; max-width: 100%; ${textWrapStyle}">
-                    <strong style="color: ${typeColor}; font-family: 'JetBrains Mono', monospace; ${textWrapStyle}">${note.ingredient || 'Unknown'}</strong>
+                    <strong style="color: ${typeColor}; ${textWrapStyle}">${note.ingredient || 'Unknown'}</strong>
                     <p style="margin: 0.4rem 0 0 0; color: #C9D1D9; font-size: 0.92rem; ${textWrapStyle}">${note.note || 'No information provided'}</p>
                 </div>
             `;
@@ -403,10 +397,10 @@ function generateReportHTML(analysis, restrictions, citations = []) {
     if (safeAnalysis.raw_response && safeAnalysis.parse_error) {
         html += `
             <div style="background: #161B22; border: 1px solid #30363D; padding: 1.25rem; border-radius: 8px; margin-bottom: 1.5rem; border-left: 4px solid #8B949E; max-width: 100%; ${textWrapStyle}">
-                <h3 style="color: #F0F6FC; margin-top: 0; font-size: 1rem; ${textWrapStyle}">📄 Raw Response Tensor</h3>
+                <h3 style="color: #F0F6FC; margin-top: 0; font-size: 1rem; ${textWrapStyle}">📄 Raw Response Data</h3>
                 <details>
-                    <summary style="cursor: pointer; color: #8B949E; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; margin-bottom: 0.5rem; ${textWrapStyle}">Click to view raw payload stream</summary>
-                    <pre style="background: #0D1117; border: 1px solid #30363D; color: #C9D1D9; padding: 1rem; border-radius: 6px; overflow-x: auto; white-space: pre-wrap; font-family: 'JetBrains Mono', monospace; font-size: 0.84rem; line-height: 1.5; ${textWrapStyle}">${escapeHtml(safeAnalysis.raw_response)}</pre>
+                    <summary style="cursor: pointer; color: #8B949E; font-size: 0.85rem; margin-bottom: 0.5rem; ${textWrapStyle}">Click to view raw data</summary>
+                    <pre style="background: #0D1117; border: 1px solid #30363D; color: #C9D1D9; padding: 1rem; border-radius: 6px; overflow-x: auto; white-space: pre-wrap; font-size: 0.84rem; line-height: 1.5; ${textWrapStyle}">${escapeHtml(safeAnalysis.raw_response)}</pre>
                 </details>
             </div>
         `;
@@ -424,7 +418,7 @@ function generateReportHTML(analysis, restrictions, citations = []) {
                 <div style="background: #0D1117; border: 1px solid #30363D; padding: 0.85rem; border-radius: 6px; margin-bottom: 0.6rem; border-left: 3px solid #58A6FF; max-width: 100%; ${textWrapStyle}">
                     <strong style="color: #F0F6FC; font-size: 0.9rem; ${textWrapStyle}">[${idx + 1}] ${citation.title || 'Source'}</strong>
                     <br>
-                    <a href="${citation.uri || '#'}" target="_blank" style="color: #58A6FF; text-decoration: underline; font-family: 'JetBrains Mono', monospace; font-size: 0.82rem; ${textWrapStyle}; display: inline-block; margin-top: 4px; max-width: 100%;">
+                    <a href="${citation.uri || '#'}" target="_blank" rel="noopener noreferrer" style="color: #58A6FF; text-decoration: underline; font-size: 0.82rem; ${textWrapStyle}; display: inline-block; margin-top: 4px; max-width: 100%;">
                         🔗 ${citation.uri || 'No URL available'}
                     </a>
                 </div>
@@ -435,13 +429,8 @@ function generateReportHTML(analysis, restrictions, citations = []) {
 
     // Footer
     html += `
-<<<<<<< Updated upstream
-        <div style="background: #ecf0f1; padding: 1rem; border-radius: 10px; text-align: center; color: #7f8c8d; font-size: 0.9rem; max-width: 100%; ${textWrapStyle}">
-            <p style="margin: 0; ${textWrapStyle}">Information verified using WebCMD web research + Gemini AI.</p>
-=======
-        <div style="background: #161B22; border: 1px solid #30363D; padding: 1rem; border-radius: 8px; text-align: center; color: #8B949E; font-size: 0.84rem; font-family: 'JetBrains Mono', monospace; max-width: 100%; ${textWrapStyle}">
-            <p style="margin: 0; ${textWrapStyle}">verified: google_grounding_engine • webcmd.dev design system</p>
->>>>>>> Stashed changes
+        <div style="background: #161B22; border: 1px solid #30363D; padding: 1rem; border-radius: 8px; text-align: center; color: #8B949E; font-size: 0.84rem; max-width: 100%; ${textWrapStyle}">
+            <p style="margin: 0; ${textWrapStyle}">Verified with live web research and regulatory cross-checks</p>
         </div>
     </div>
     `;
