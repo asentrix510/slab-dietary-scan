@@ -1,13 +1,16 @@
 /* ==========================================================================
-   DIETXPLORE — Neo-Brutalist Stylesheet (DIETCOMMAND Theme)
+   DIETXPLORE — Neo-Brutalist Theme (Light & Dark System)
    ========================================================================== */
 
 :root {
     --color-surface: #f9f9f9;
     --color-surface-container: #eeeeee;
     --color-surface-highest: #e2e2e2;
+    --color-surface-card: #ffffff;
     --color-on-surface: #1b1b1b;
     --color-on-surface-variant: #3b4b37;
+    --color-border: #1b1b1b;
+    --color-shadow: #000000;
     
     --color-primary: #006e16;
     --color-primary-container: #00ff41;
@@ -31,6 +34,28 @@
     --font-body: 'Inter', sans-serif;
 }
 
+/* ==========================================================================
+   Dark Theme Overrides
+   ========================================================================== */
+html.dark {
+    --color-surface: #0f1218;
+    --color-surface-container: #171c24;
+    --color-surface-highest: #222936;
+    --color-surface-card: #141820;
+    --color-on-surface: #f3f4f6;
+    --color-on-surface-variant: #9ca3af;
+    --color-border: #384252;
+    --color-shadow: #000000;
+    
+    --color-primary: #00ff41;
+    --color-primary-container: #00ff41;
+    --color-on-primary-container: #002203;
+    
+    --color-secondary-container: #3b82f6;
+    --color-tertiary-container: #eab308;
+    --color-error-container: #ef4444;
+}
+
 *, *::before, *::after {
     box-sizing: border-box;
     margin: 0;
@@ -39,7 +64,6 @@
 
 html {
     scroll-behavior: smooth;
-    color-scheme: light;
     -webkit-text-size-adjust: 100%;
 }
 
@@ -52,19 +76,20 @@ body {
     -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
     min-height: 100vh;
+    transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 /* Neo-Brutalist Core Utilities */
 .neo-border {
-    border: 3px solid #1b1b1b !important;
+    border: 3px solid var(--color-border) !important;
 }
 
 .neo-border-thin {
-    border: 2px solid #1b1b1b !important;
+    border: 2px solid var(--color-border) !important;
 }
 
 .neo-shadow {
-    box-shadow: 4px 4px 0px 0px #000000 !important;
+    box-shadow: 4px 4px 0px 0px var(--color-shadow) !important;
 }
 
 .neo-shadow-hover {
@@ -72,13 +97,52 @@ body {
 }
 
 .neo-shadow-hover:hover {
-    box-shadow: 6px 6px 0px 0px #000000 !important;
+    box-shadow: 6px 6px 0px 0px var(--color-shadow) !important;
     transform: translate(-2px, -2px) !important;
 }
 
 .neo-shadow-active:active {
-    box-shadow: 0px 0px 0px 0px #000000 !important;
+    box-shadow: 0px 0px 0px 0px var(--color-shadow) !important;
     transform: translate(4px, 4px) !important;
+}
+
+/* Dark mode specific elements */
+html.dark header {
+    background-color: #141820;
+    border-color: var(--color-border);
+}
+
+html.dark footer {
+    background-color: #0b0d11;
+    border-color: var(--color-border);
+}
+
+html.dark article,
+html.dark section.bg-surface-container-lowest,
+html.dark div.bg-surface-container-lowest,
+html.dark details.bg-surface-container-lowest {
+    background-color: var(--color-surface-card) !important;
+    border-color: var(--color-border) !important;
+    color: var(--color-on-surface) !important;
+}
+
+html.dark .bg-surface {
+    background-color: #181d27 !important;
+}
+
+html.dark .bg-surface-container-high,
+html.dark .bg-surface-container-highest,
+html.dark .bg-surface-container {
+    background-color: var(--color-surface-highest) !important;
+    color: var(--color-on-surface) !important;
+}
+
+html.dark .text-on-surface {
+    color: var(--color-on-surface) !important;
+}
+
+html.dark .text-on-surface-variant {
+    color: var(--color-on-surface-variant) !important;
 }
 
 /* Focus */

@@ -44,18 +44,47 @@
             }
         }
     </script>
+    <script src="js/theme.js"></script>
     <script type="module" src="js/account_auth.js"></script>
 </head>
 
-<body class="bg-surface text-on-surface font-body-md min-h-screen flex flex-col justify-center items-center p-6 selection:bg-primary-container selection:text-on-primary-container">
+<body class="bg-surface text-on-surface font-body-md min-h-screen flex flex-col justify-between items-center p-6 selection:bg-primary-container selection:text-on-primary-container">
 
-    <div class="w-full max-w-md flex flex-col gap-6">
+    <!-- Top Theme Bar -->
+    <div class="w-full max-w-md flex justify-between items-center">
+        <a href="index.html" class="font-headline-md text-xl uppercase tracking-tight text-on-surface hover:text-primary transition-colors flex items-center gap-1">
+            <span class="material-symbols-outlined text-base">arrow_back</span>
+            <span>HOME</span>
+        </a>
+        <button class="theme-toggle-btn bg-surface-container-high text-on-surface p-2 neo-border-thin neo-shadow-hover transition-all flex items-center gap-1.5" aria-label="Toggle Theme">
+            <span class="material-symbols-outlined theme-toggle-icon text-lg">dark_mode</span>
+        </button>
+    </div>
+
+    <!-- Auth Loader Overlay -->
+    <div id="auth-loading-overlay" class="fixed inset-0 bg-on-surface/85 backdrop-blur-sm z-[9999] flex flex-col justify-center items-center p-6 text-surface" style="display: none;" aria-live="polite">
+        <div class="bg-surface text-on-surface neo-border neo-shadow p-8 max-w-sm w-full flex flex-col items-center gap-4 text-center">
+            <div class="relative w-16 h-16 flex items-center justify-center">
+                <div class="w-16 h-16 border-4 border-on-surface border-t-primary rounded-full animate-spin"></div>
+                <span class="material-symbols-outlined text-primary text-2xl absolute">lock_open</span>
+            </div>
+            <div>
+                <h3 id="auth-loader-title" class="font-headline-md text-2xl uppercase tracking-tight">AUTHENTICATING...</h3>
+                <p id="auth-loader-status" class="font-label-mono text-xs text-on-surface-variant mt-1">VERIFYING CREDENTIALS WITH SECURE AUTH...</p>
+            </div>
+            <div class="w-full bg-surface-container-high h-2 neo-border-thin overflow-hidden mt-2">
+                <div class="bg-primary-container h-full w-full animate-pulse"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="w-full max-w-md flex flex-col gap-6 my-auto">
         <!-- Brand Header -->
         <div class="text-center flex flex-col items-center gap-1">
             <a href="index.html" class="font-headline-xl text-4xl uppercase tracking-tight text-on-surface hover:text-primary transition-colors">
                 DIET<span class="text-primary">XPLORE</span>
             </a>
-            <span class="bg-primary-container text-on-primary-container font-label-mono text-xs px-3 py-1 neo-border">AUTH TERMINAL</span>
+            <span class="bg-primary-container text-on-primary-container font-label-mono text-xs px-3 py-1 neo-border">SECURE ACCESS</span>
         </div>
 
         <!-- Sign In Form -->
@@ -76,8 +105,9 @@
                     <input type="password" id="login-password" required placeholder="••••••••••••" autocomplete="current-password" class="bg-surface text-on-surface font-label-mono text-sm px-4 py-3 neo-border focus:bg-primary-container/20 transition-colors">
                 </div>
 
-                <button type="submit" class="bg-primary text-on-primary font-headline-md text-xl py-3 neo-border neo-shadow neo-shadow-hover neo-shadow-active transition-all mt-2 uppercase">
-                    AUTHENTICATE &rarr;
+                <button type="submit" id="login-submit-btn" class="bg-primary text-on-primary font-headline-md text-xl py-3 neo-border neo-shadow neo-shadow-hover neo-shadow-active transition-all mt-2 uppercase flex items-center justify-center gap-2">
+                    <span>AUTHENTICATE</span>
+                    <span class="material-symbols-outlined text-xl">login</span>
                 </button>
             </form>
 
@@ -104,8 +134,9 @@
                     <input type="password" id="signup-password" required placeholder="••••••••••••" minlength="6" autocomplete="new-password" class="bg-surface text-on-surface font-label-mono text-sm px-4 py-3 neo-border focus:bg-primary-container/20 transition-colors">
                 </div>
 
-                <button type="submit" class="bg-primary-container text-on-primary-container font-headline-md text-xl py-3 neo-border neo-shadow neo-shadow-hover neo-shadow-active transition-all mt-2 uppercase">
-                    INITIALIZE ACCOUNT &rarr;
+                <button type="submit" id="signup-submit-btn" class="bg-primary-container text-on-primary-container font-headline-md text-xl py-3 neo-border neo-shadow neo-shadow-hover neo-shadow-active transition-all mt-2 uppercase flex items-center justify-center gap-2">
+                    <span>INITIALIZE ACCOUNT</span>
+                    <span class="material-symbols-outlined text-xl">person_add</span>
                 </button>
             </form>
 
@@ -113,6 +144,11 @@
                 <span>ALREADY REGISTERED?</span> <a id="show-login" class="text-secondary font-bold underline cursor-pointer hover:text-on-surface">SIGN IN</a>
             </div>
         </div>
+    </div>
+
+    <!-- Mini Footer -->
+    <div class="text-center font-label-mono text-xs text-on-surface-variant">
+        DIETXPLORE AUTH v2.0 • 256-BIT ENCRYPTION
     </div>
 
 </body>

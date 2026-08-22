@@ -48,6 +48,7 @@
             }
         }
     </script>
+    <script src="js/theme.js"></script>
 </head>
 
 <body class="bg-surface text-on-surface font-body-md min-h-screen flex flex-col selection:bg-primary-container selection:text-on-primary-container">
@@ -62,6 +63,9 @@
         </div>
 
         <div class="flex items-center gap-3">
+            <button class="theme-toggle-btn bg-surface-container-high text-on-surface p-2 neo-border-thin neo-shadow-hover transition-all flex items-center justify-center" aria-label="Toggle Theme">
+                <span class="material-symbols-outlined theme-toggle-icon text-lg">dark_mode</span>
+            </button>
             <a href="account.html" class="bg-surface-container-lowest text-on-surface font-label-mono text-xs px-4 py-2 neo-border neo-shadow neo-shadow-hover transition-all flex items-center gap-2">
                 <span class="material-symbols-outlined text-[18px]">tune</span>
                 <span id="headerUserName">MY PROFILE</span>

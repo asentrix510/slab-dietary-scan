@@ -31,16 +31,38 @@ if (loginForm && signupForm) {
         clearErrors();
     });
 
+    const authOverlay = document.getElementById('auth-loading-overlay');
+    const authTitle = document.getElementById('auth-loader-title');
+    const authStatus = document.getElementById('auth-loader-status');
+
+    function showAuthLoader(title, status) {
+        if (authOverlay) {
+            if (authTitle) authTitle.textContent = title;
+            if (authStatus) authStatus.textContent = status;
+            authOverlay.style.display = 'flex';
+        }
+    }
+
+    function hideAuthLoader() {
+        if (authOverlay) {
+            authOverlay.style.display = 'none';
+        }
+    }
+
     // Handle Login
     loginForm.addEventListener('submit', async (e) => {
         e.preventDefault();
+        clearErrors();
         const email = document.getElementById('login-email').value;
         const password = document.getElementById('login-password').value;
+
+        showAuthLoader('AUTHENTICATING...', 'VERIFYING CREDENTIALS & LOADING DIETARY DIRECTIVES...');
 
         try {
             await signInWithEmailAndPassword(auth, email, password);
             // successful login will trigger onAuthStateChanged
         } catch (error) {
+            hideAuthLoader();
             showError(loginError, error.message);
         }
     });
@@ -48,22 +70,34 @@ if (loginForm && signupForm) {
     // Handle Signup
     signupForm.addEventListener('submit', async (e) => {
         e.preventDefault();
+        clearErrors();
         const email = document.getElementById('signup-email').value;
         const password = document.getElementById('signup-password').value;
 
+        showAuthLoader('CREATING PROFILE...', 'INITIALIZING SECURE USER MATRIX...');
+
         try {
             const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-            // successful signup will trigger onAuthStateChanged
             console.log("User created:", userCredential.user.uid);
             // We rely on onAuthStateChanged to redirect
         } catch (error) {
+            hideAuthLoader();
             showError(signupError, error.message);
         }
     });
 }
 
 function showError(element, message) {
-    element.textContent = message;
+    if (!element) return;
+    let cleanMessage = message;
+    if (message.includes('auth/invalid-credential') || message.includes('auth/wrong-password') || message.includes('auth/user-not-found')) {
+        cleanMessage = 'Invalid email or password. Please check your credentials.';
+    } else if (message.includes('auth/email-already-in-use')) {
+        cleanMessage = 'An account with this email already exists. Please sign in instead.';
+    } else if (message.includes('auth/weak-password')) {
+        cleanMessage = 'Password must be at least 6 characters long.';
+    }
+    element.textContent = cleanMessage;
     element.style.display = 'block';
 }
 
