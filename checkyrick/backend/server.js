@@ -3,6 +3,7 @@ import express from 'express';
 import cors from 'cors';
 import multer from 'multer';
 import { GoogleGenAI } from '@google/genai';
+import { Telegraf } from 'telegraf';
 import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
 import path from 'node:path';
@@ -626,6 +627,301 @@ app.get('/health', (req, res) => {
   res.json({ status: 'ok' });
 });
 
+// ===== TELEGRAM BOT INTEGRATION =====
+
+function formatTelegramReport(data) {
+  let analysisObj;
+  try {
+    analysisObj = typeof data.analysis === 'string' ? JSON.parse(data.analysis) : data.analysis;
+  } catch (e) {
+    analysisObj = {
+      compliance_status: 'WARNING',
+      summary: String(data.analysis),
+      restriction_conflicts: [],
+      regulatory_bans: [],
+      regulatory_restrictions: [],
+      health_notes: [],
+    };
+  }
+
+  const statusEmoji = {
+    SAFE: '✅',
+    WARNING: '⚠️',
+    DANGER: '❌',
+  }[analysisObj.compliance_status] || '⚠️';
+
+  let msg = `${statusEmoji} *COMPLIANCE STATUS: ${analysisObj.compliance_status}*\n\n`;
+  msg += `*Summary:*\n${analysisObj.summary}\n\n`;
+
+  if (analysisObj.restriction_conflicts && analysisObj.restriction_conflicts.length > 0) {
+    msg += `⚠️ *Restriction Conflicts:*\n`;
+    analysisObj.restriction_conflicts.forEach((item) => {
+      msg += `• *${item.ingredient}*: ${item.issue} _(Severity: ${item.severity})_\n`;
+    });
+    msg += `\n`;
+  }
+
+  if (analysisObj.regulatory_bans && analysisObj.regulatory_bans.length > 0) {
+    msg += `🚫 *Global Regulatory Bans:*\n`;
+    analysisObj.regulatory_bans.forEach((item) => {
+      const countries = Array.isArray(item.countries) ? item.countries.join(', ') : item.countries;
+      msg += `• *${item.ingredient}* (${countries}): ${item.reason}\n`;
+    });
+    msg += `\n`;
+  }
+
+  if (analysisObj.regulatory_restrictions && analysisObj.regulatory_restrictions.length > 0) {
+    msg += `⚡ *Regulatory Advisories:*\n`;
+    analysisObj.regulatory_restrictions.forEach((item) => {
+      const countries = Array.isArray(item.countries) ? item.countries.join(', ') : item.countries;
+      msg += `• *${item.ingredient}* (${item.type || 'Advisory'} - ${countries}): ${item.reason}\n`;
+    });
+    msg += `\n`;
+  }
+
+  if (analysisObj.health_notes && analysisObj.health_notes.length > 0) {
+    msg += `💊 *Health & Chemical Insights:*\n`;
+    analysisObj.health_notes.forEach((item) => {
+      msg += `• *${item.ingredient}*: ${item.note}\n`;
+    });
+    msg += `\n`;
+  }
+
+  if (data.citations && data.citations.length > 0) {
+    msg += `📚 *Live Citations & Sources:*\n`;
+    data.citations.slice(0, 6).forEach((c, idx) => {
+      msg += `[${idx + 1}] [${c.title}](${c.uri})\n`;
+    });
+    msg += `\n`;
+  }
+
+  msg += `_Verified with WebCMD web research + Gemini 3.6 Flash_`;
+  return msg;
+}
+
+function initTelegramBot(apiKeyManager) {
+  const token = process.env.TELEGRAM_BOT_TOKEN;
+  if (!token) {
+    console.log('ℹ️ Telegram Bot disabled (set TELEGRAM_BOT_TOKEN in .env to enable)');
+    return null;
+  }
+
+  const bot = new Telegraf(token);
+  const userProfiles = new Map(); // chatId -> restrictions string
+  const scanner = new DietaryScanner(apiKeyManager);
+
+  const DEFAULT_RESTRICTIONS = 'Check for harmful additives, EU/FDA regulatory bans, hidden chemical synonyms, and common allergens.';
+
+  // Command: /start
+  bot.command('start', (ctx) => {
+    ctx.replyWithMarkdownV2(
+      `🥗 *Welcome to CheckyRick Food Safety Bot\\!*\n\n` +
+      `Send a photo of any food label to scan ingredients for allergens, chemical additives, and regulatory bans\\.\n\n` +
+      `*Commands:*\n` +
+      `• \`/setprofile <rules>\` \\- Set your dietary rules \\(e\\.g\\. \`/setprofile Keto, No Palm Oil, No Ginger\`\\)\n` +
+      `• \`/myprofile\` \\- View active dietary rules\n` +
+      `• \`/help\` \\- Quick guide\n\n` +
+      `_Snap a food label photo now to test\\!_`
+    );
+  });
+
+  // Command: /help
+  bot.command('help', (ctx) => {
+    ctx.replyWithMarkdownV2(
+      `📖 *CheckyRick Telegram Guide*\n\n` +
+      `1\\. *Scan Food Label*: Send a photo of the ingredients label directly in this chat\\.\n` +
+      `2\\. *Scan Text List*: Type ingredients directly \\(e\\.g\\. \`Scan: Pasta, Whole wheat, Celery\`\\)\\.\n` +
+      `3\\. *Dietary Profile*: Use \`/setprofile Keto, No Gluten\` to customize your rules\\.`
+    );
+  });
+
+  // Command: /setprofile or /profile
+  const handleSetProfile = (ctx) => {
+    const text = ctx.message.text;
+    const rules = text.replace(/^\/(setprofile|profile)\s*/i, '').trim();
+
+    if (!rules) {
+      return ctx.replyWithMarkdownV2(
+        `⚠️ *Usage:* \`/setprofile <your rules>\`\n\n*Example:* \`/setprofile Keto, Non\\-Vegetarian, No Palm Oil, No Ginger\``
+      );
+    }
+
+    userProfiles.set(ctx.chat.id, rules);
+    ctx.reply(`✅ Saved your dietary rules:\n"${rules}"`);
+  };
+
+  bot.command('setprofile', handleSetProfile);
+  bot.command('profile', handleSetProfile);
+
+  // Command: /myprofile or /rules
+  const handleMyProfile = (ctx) => {
+    const rules = userProfiles.get(ctx.chat.id) || DEFAULT_RESTRICTIONS;
+    ctx.reply(`📋 Your active dietary ruleset:\n"${rules}"`);
+  };
+
+  bot.command('myprofile', handleMyProfile);
+  bot.command('rules', handleMyProfile);
+
+  // Photo Handler
+  bot.on('photo', async (ctx) => {
+    let statusMsg;
+    try {
+      const chatId = ctx.chat.id;
+      const restrictions = userProfiles.get(chatId) || DEFAULT_RESTRICTIONS;
+
+      statusMsg = await ctx.reply('🔍 Step 1: Extracting Ingredients with Gemini Vision OCR...');
+
+      // Get highest resolution photo
+      const photoArray = ctx.message.photo;
+      const highestResPhoto = photoArray[photoArray.length - 1];
+      const fileId = highestResPhoto.file_id;
+
+      // Get file link from Telegram
+      const fileLink = await ctx.telegram.getFileLink(fileId);
+      const response = await fetch(fileLink.href);
+      const buffer = Buffer.from(await response.arrayBuffer());
+      const mimeType = 'image/jpeg';
+
+      // Step 1: OCR
+      const ingredients = await scanner.extractIngredients(buffer, mimeType);
+
+      await ctx.telegram.editMessageText(
+        chatId,
+        statusMsg.message_id,
+        null,
+        `🌐 Step 2: WebCMD Researching ${ingredients.length} ingredients...`
+      );
+
+      // Step 2: Research
+      const researchData = await researchAllIngredients(ingredients, (title, detail) => {
+        ctx.telegram.editMessageText(
+          chatId,
+          statusMsg.message_id,
+          null,
+          `${title}\n${detail}`
+        ).catch(() => {});
+      });
+
+      await ctx.telegram.editMessageText(
+        chatId,
+        statusMsg.message_id,
+        null,
+        `🧪 Step 3: Analyzing compliance with Gemini 3.6 Flash...`
+      );
+
+      // Step 3: Compliance Analysis
+      const { analysis, citations } = await scanner.analyzeIngredients(ingredients, restrictions, researchData);
+
+      const formattedReport = formatTelegramReport({
+        ingredients,
+        analysis,
+        citations,
+        restrictions,
+      });
+
+      // Send formatted report
+      await ctx.telegram.editMessageText(
+        chatId,
+        statusMsg.message_id,
+        null,
+        formattedReport,
+        { parse_mode: 'Markdown', disable_web_page_preview: true }
+      );
+
+    } catch (err) {
+      console.error('Telegram bot photo scan error:', err);
+      if (statusMsg) {
+        ctx.telegram.editMessageText(
+          ctx.chat.id,
+          statusMsg.message_id,
+          null,
+          `❌ Scan failed: ${err.message}`
+        ).catch(() => {});
+      } else {
+        ctx.reply(`❌ Scan failed: ${err.message}`);
+      }
+    }
+  });
+
+  // Text Ingredient Handler (e.g. "Scan: Pasta, Whole wheat, Celery")
+  bot.on('text', async (ctx) => {
+    const text = ctx.message.text.trim();
+    if (text.startsWith('/')) return; // ignore unhandled commands
+
+    let statusMsg;
+    try {
+      const chatId = ctx.chat.id;
+      const restrictions = userProfiles.get(chatId) || DEFAULT_RESTRICTIONS;
+
+      // Extract ingredient list from text
+      const cleanInput = text.replace(/^scan:\s*/i, '').trim();
+      const ingredients = cleanInput.split(/,|\n/).map(i => i.trim()).filter(i => i.length > 0);
+
+      if (ingredients.length === 0) return;
+
+      statusMsg = await ctx.reply(`🌐 Step 1: WebCMD Researching ${ingredients.length} ingredients...`);
+
+      const researchData = await researchAllIngredients(ingredients, (title, detail) => {
+        ctx.telegram.editMessageText(
+          chatId,
+          statusMsg.message_id,
+          null,
+          `${title}\n${detail}`
+        ).catch(() => {});
+      });
+
+      await ctx.telegram.editMessageText(
+        chatId,
+        statusMsg.message_id,
+        null,
+        `🧪 Step 2: Analyzing compliance with Gemini 3.6 Flash...`
+      );
+
+      const { analysis, citations } = await scanner.analyzeIngredients(ingredients, restrictions, researchData);
+
+      const formattedReport = formatTelegramReport({
+        ingredients,
+        analysis,
+        citations,
+        restrictions,
+      });
+
+      await ctx.telegram.editMessageText(
+        chatId,
+        statusMsg.message_id,
+        null,
+        formattedReport,
+        { parse_mode: 'Markdown', disable_web_page_preview: true }
+      );
+
+    } catch (err) {
+      console.error('Telegram bot text scan error:', err);
+      if (statusMsg) {
+        ctx.telegram.editMessageText(
+          ctx.chat.id,
+          statusMsg.message_id,
+          null,
+          `❌ Analysis failed: ${err.message}`
+        ).catch(() => {});
+      } else {
+        ctx.reply(`❌ Analysis failed: ${err.message}`);
+      }
+    }
+  });
+
+  bot.launch().then(() => {
+    console.log('🤖 Telegram Bot connected and listening for messages!');
+  }).catch((err) => {
+    console.warn('⚠️ Telegram Bot launch warning:', err.message);
+  });
+
+  // Enable graceful stop
+  process.once('SIGINT', () => bot.stop('SIGINT'));
+  process.once('SIGTERM', () => bot.stop('SIGTERM'));
+
+  return bot;
+}
+
 // ===== STATIC FILE SERVING (after API routes) =====
 
 // Serve root as index.html
@@ -657,4 +953,7 @@ app.listen(PORT, '0.0.0.0', () => {
   console.log(`📡 Server running on http://localhost:${PORT}`);
   console.log('🌐 Using WebCMD for web research');
   console.log('💡 Open index.html in your browser to use the application');
+  
+  // Initialize Telegram Bot if TELEGRAM_BOT_TOKEN is provided in .env
+  initTelegramBot(apiKeyManager);
 });
