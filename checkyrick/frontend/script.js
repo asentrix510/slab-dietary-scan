@@ -20,7 +20,53 @@ const logoutBtn = document.getElementById('logoutBtn');
 const analyzeBtn = document.getElementById('analyzeBtn');
 
 const loadingSection = document.getElementById('loadingSection');
+const loadingTitle = document.getElementById('loadingTitle');
+const loadingStep = document.getElementById('loadingStep');
 const resultsSection = document.getElementById('resultsSection');
+
+let loadingInterval = null;
+
+const LOADING_MESSAGES = [
+    { title: "🔍 Extracting Ingredients...", step: "Scanning label image with vision OCR..." },
+    { title: "🌐 Searching WebCMD Index...", step: "Querying live web sources for safety directives..." },
+    { title: "📜 Checking Regulatory Bans...", step: "Cross-referencing FDA, EU, and global additive directives..." },
+    { title: "🧬 Analyzing Chemical Profiles...", step: "Evaluating E-numbers, preservatives, and hidden synonyms..." },
+    { title: "🧪 Matching Your Dietary Rules...", step: "Checking restrictions, allergens, and religious guidelines..." },
+    { title: "⚡ Compiling Safety Report...", step: "Synthesizing verified insights and live citations..." }
+];
+
+function startLoadingMessageRotation() {
+    let index = 0;
+    if (loadingTitle) loadingTitle.textContent = LOADING_MESSAGES[0].title;
+    if (loadingStep) loadingStep.textContent = LOADING_MESSAGES[0].step;
+
+    if (loadingInterval) clearInterval(loadingInterval);
+
+    loadingInterval = setInterval(() => {
+        index = (index + 1) % LOADING_MESSAGES.length;
+        if (loadingTitle) {
+            loadingTitle.style.opacity = '0';
+            setTimeout(() => {
+                loadingTitle.textContent = LOADING_MESSAGES[index].title;
+                loadingTitle.style.opacity = '1';
+            }, 180);
+        }
+        if (loadingStep) {
+            loadingStep.style.opacity = '0';
+            setTimeout(() => {
+                loadingStep.textContent = LOADING_MESSAGES[index].step;
+                loadingStep.style.opacity = '1';
+            }, 180);
+        }
+    }, 2600);
+}
+
+function stopLoadingMessageRotation() {
+    if (loadingInterval) {
+        clearInterval(loadingInterval);
+        loadingInterval = null;
+    }
+}
 
 const ingredientsList = document.getElementById('ingredientsList');
 const ingredientsCount = document.getElementById('ingredientsCount');
@@ -128,6 +174,7 @@ async function runAnalysis(file, restrictions) {
     resultsSection.style.display = 'none';
     loadingSection.style.display = 'block';
     analyzeBtn.disabled = true;
+    startLoadingMessageRotation();
 
     try {
         // Prepare form data
@@ -158,6 +205,7 @@ async function runAnalysis(file, restrictions) {
         console.error('Analysis error:', error);
         alert(`Error: ${error.message}\n\nMake sure the backend is running at ${API_BASE_URL}`);
     } finally {
+        stopLoadingMessageRotation();
         loadingSection.style.display = 'none';
         analyzeBtn.disabled = false;
     }
