@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dietary Deep Scan System</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Animated Background Elements -->
+    <div class="floating-elements">
+        <div class="floating-icon">🥗</div>
+        <div class="floating-icon">🍎</div>
+        <div class="floating-icon">🥑</div>
+        <div class="floating-icon">🥕</div>
+        <div class="floating-icon">🌶️</div>
+        <div class="floating-icon">🧄</div>
+        <div class="floating-icon">🧅</div>
+        <div class="floating-icon">🥬</div>
+    </div>
+
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content" style="display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                    <h1><span class="logo-icon">🧬</span> Dietary Deep Scan System</h1>
+                    <p class="subtitle">Chemical-Level Safety & Global Regulation Scanner with Web Verification</p>
+                </div>
+                <div class="user-controls" style="display: flex; gap: 10px; align-items: center;">
+                    <a href="account.html" class="icon-btn" title="My Profile"
+                        style="text-decoration: none; color: var(--text-primary); font-weight: 500; padding: 8px 16px; border-radius: 8px; transition: all 0.2s;">
+                        <span id="headerUserName">Loading...</span>
+                    </a>
+                    <button id="logoutBtn" style="background: var(--gradient-1); color: white; border: none; padding: 5px 10px; border-radius: 50px; cursor: pointer; font-weight: 600;box-shadow: 0 10px 30px rgba(74, 222, 128, 0.3);
+    font-family: 'Poppins', sans-serif;">Sign
+                        Out</button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Analysis Section -->
+            <section class="analysis-section">
+                <div class="upload-area">
+                    <div class="upload-card">
+                        <h3>📷 Upload Ingredient Label</h3>
+                        <div class="drop-zone" id="dropZone">
+                            <input type="file" id="fileInput" accept="image/*" hidden>
+                            <div class="drop-zone-content">
+                                <svg class="upload-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                    <polyline points="17 8 12 3 7 8"></polyline>
+                                    <line x1="12" y1="3" x2="12" y2="15"></line>
+                                </svg>
+                                <p>Drag & drop image here or click to browse</p>
+                                <small>Supports: PNG, JPG, JPEG</small>
+                            </div>
+                            <div class="image-preview" id="imagePreview" style="display: none;">
+                                <img id="previewImg" alt="Preview">
+                                <button class="remove-btn" id="removeBtn">✕</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Restrictions Card Removed - Loaded from Profile -->
+                    <div class="user-profile-summary" id="userProfileSummary"
+                        style="display: none; margin-bottom: 1rem; padding: 1rem; background: linear-gradient(135deg, rgba(74, 222, 128, 0.15) 0%, rgba(74, 222, 128, 0.1) 100%); border-radius: 8px; border-left: 4px solid #4ade80; border: 1px solid rgba(74, 222, 128, 0.3);">
+                        <strong style="color: #4ade80;"> Scanning for:</strong> <span id="userProfileName" style="color: #f1f5f9;">Loading...</span>
+                        <div style="font-size: 0.9em; color: #cbd5e1; margin-top: 5px;">Using your saved dietary
+                            preferences. <a href="account.html" style="color: #4ade80; text-decoration: none;">Edit Profile</a></div>
+                    </div>
+
+                    <button class="analyze-btn" id="analyzeBtn">
+                        <span class="btn-icon">🔍</span>
+                        <span class="btn-text">Run Deep Analysis with Web Search</span>
+                    </button>
+                </div>
+
+                <!-- Loading Section -->
+                <div class="loading-section" id="loadingSection" style="display: none;">
+                    <div class="loading-card">
+                        <div class="spinner"></div>
+                        <h3>Analyzing...</h3>
+                        <p>This may take up to 30 seconds. We are scanning ingredients and verifying safety regulations.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Results Section -->
+                <div class="results-section" id="resultsSection" style="display: none;">
+                    <div class="results-header">
+                        <h3>✅ Analysis Complete!</h3>
+                        <div class="results-actions">
+                            <button class="action-btn" id="downloadHtmlBtn">
+                                📥 Download HTML Report
+                            </button>
+                            <button class="action-btn" id="downloadTextBtn">
+                                📄 Download Text Summary
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="ingredients-summary" id="ingredientsSummary">
+                        <details>
+                            <summary>📋 Ingredients Detected (<span id="ingredientsCount">0</span>)</summary>
+                            <ul id="ingredientsList"></ul>
+                        </details>
+                    </div>
+
+                    <div class="citations-info">
+                        <p>📚 Found <span id="citationsCount">0</span> web sources with exact URLs</p>
+                    </div>
+
+                    <div class="report-container" id="reportContainer">
+                        <!-- HTML report will be injected here -->
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Made with ❤️ for food safety awareness</p>
+        </footer>
+    </div>
+
+    <script type="module" src="script.js"></script>
+</body>
+
+</html>

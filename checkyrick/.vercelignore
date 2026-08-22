@@ -1,0 +1,11 @@
+app.py
+start_server.py
+requirements.txt
+.env
+.git
+.gitignore
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.Python

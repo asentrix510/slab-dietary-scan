@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Account - Food Safety</title>
+    <!-- Google Fonts: Fredoka -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/account_style.css">
+    <script type="module" src="js/account_auth.js"></script>
+    <script type="module" src="js/account.js"></script>
+</head>
+
+<body>
+    <!-- Animated Background Elements -->
+    <div class="floating-elements">
+        <div class="floating-icon">🥗</div>
+        <div class="floating-icon">🍎</div>
+        <div class="floating-icon">🥑</div>
+        <div class="floating-icon">🥕</div>
+        <div class="floating-icon">🌶️</div>
+        <div class="floating-icon">🧄</div>
+        <div class="floating-icon">🧅</div>
+        <div class="floating-icon">🥬</div>
+    </div>
+
+    <div class="loading-overlay" id="loading-overlay">
+        Loading...
+    </div>
+
+    <div class="container">
+        <header class="profile-header">
+            <div class="header-content">
+                <h2>My Profile</h2>
+                <div class="header-badge">
+                    <span>Personalize Your Experience</span> 
+                </div>
+            </div>
+            <button id="logout-btn" class="logout-btn">Sign Out</button>
+        </header>
+
+        <form id="profile-form">
+            <!-- 1. Basic Information -->
+            <div class="section-card">
+                <h3 class="section-title"><span class="section-icon">👤</span> Basic Information</h3>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="email" disabled>
+                </div>
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" id="fullName" required placeholder="John Doe">
+                </div>
+                <div class="form-group">
+                    <label>Age</label>
+                    <input type="number" id="age" min="1" max="150">
+                </div>
+                <div class="form-group">
+                    <label>Country of Residence</label>
+                    <input type="text" id="country" placeholder="e.g. USA, India, UK">
+                </div>
+            </div>
+
+            <!-- 2. Diet Type -->
+            <div class="section-card">
+                <h3 class="section-title"><span class="section-icon">🥗</span> Diet Type</h3>
+                <label>What best describes your diet?</label>
+                <div class="checkbox-group">
+                    <label class="checkbox-item"><input type="radio" name="dietType" value="Vegetarian">
+                        Vegetarian</label>
+                    <label class="checkbox-item"><input type="radio" name="dietType" value="Vegan"> Vegan</label>
+                    <label class="checkbox-item"><input type="radio" name="dietType" value="Eggetarian">
+                        Eggetarian</label>
+                    <label class="checkbox-item"><input type="radio" name="dietType" value="Non-Vegetarian">
+                        Non-Vegetarian</label>
+                    <label class="checkbox-item"><input type="radio" name="dietType" value="Pescatarian">
+                        Pescatarian</label>
+                </div>
+                <input type="text" id="dietTypeOther" class="other-input"
+                    placeholder="If something else, please specify (optional)">
+            </div>
+
+            <!-- 3. Religious / Ethical Rules -->
+            <div class="section-card">
+                <h3 class="section-title"><span class="section-icon">🕌</span> Religious & Ethical Rules</h3>
+                <label>Do you follow any food rules?</label>
+                <div class="checkbox-group">
+                    <label class="checkbox-item"><input type="checkbox" name="religiousRules" value="Halal">
+                        Halal</label>
+                    <label class="checkbox-item"><input type="checkbox" name="religiousRules" value="Kosher">
+                        Kosher</label>
+                    <label class="checkbox-item"><input type="checkbox" name="religiousRules" value="Jain"> Jain</label>
+                    <label class="checkbox-item"><input type="checkbox" name="religiousRules"
+                            value="No religious restrictions"> No religious restrictions</label>
+                </div>
+                <input type="text" id="religiousRulesOther" class="other-input"
+                    placeholder="Any other food rules? (optional)">
+            </div>
+
+            <!-- 4. Dietary Restrictions (New Free Text Field) -->
+            <div class="section-card">
+                <h3 class="section-title"><span class="section-icon">⚠️</span> Dietary Restrictions or Things We Should Avoid</h3>
+                <label for="dietaryRestrictions">Please clarify what you cannot or do not eat (e.g. allergies,
+                    intolerances, dislikes).</label>
+                <div class="helper-text">Example: no onion, allergic to kiwi, avoid palm oil, halal only</div>
+                <textarea id="dietaryRestrictions" class="large-textarea" placeholder="Type here..."></textarea>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn pulse">
+                    <span class="btn-icon">💾</span>
+                    <span>Save Profile</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>
