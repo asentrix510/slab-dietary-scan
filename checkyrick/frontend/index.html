@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DietaryScan — AI-Powered Food Safety & Ingredient Analysis</title>
-    <meta name="description" content="Scan any food label, detect harmful ingredients, check global regulatory bans, and get verified citations — all in seconds.">
+    <title>CheckyRick — Smart Dietary & Ingredient Safety Scanner</title>
+    <meta name="description" content="Upload any food label or ingredient list. Instantly check for allergens, hidden chemicals, religious dietary rules, and EU/FDA regulatory bans.">
     <link rel="stylesheet" href="index.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,353 +13,309 @@
 </head>
 
 <body>
-    <!-- Background Grid Texture -->
-    <div class="grid-background" aria-hidden="true"></div>
-
     <!-- Navigation -->
     <header class="navbar">
         <div class="nav-container">
-            <div class="nav-brand">
-                <a href="index.html" class="logo" aria-label="DietaryScan Home">
-                    <span class="logo-icon">
-                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2z"></path>
-                            <path d="M12 6v6l4 2"></path>
-                        </svg>
-                    </span>
-                    <span class="logo-text">Dietary<span class="logo-accent">Scan</span></span>
-                </a>
-            </div>
+            <a href="index.html" class="nav-brand">
+                <div class="brand-badge">🥗</div>
+                <span class="brand-name">Checky<strong>Rick</strong></span>
+            </a>
             
-            <nav class="nav-links" aria-label="Main Navigation">
-                <a href="#features">Features</a>
-                <a href="#how-it-works">How It Works</a>
-                <a href="#who-its-for">Who It's For</a>
+            <nav class="nav-links">
+                <a href="#how-it-works">How it works</a>
+                <a href="#live-demo">Interactive Demo</a>
+                <a href="#what-we-catch">What We Catch</a>
+                <a href="#faq">FAQ</a>
             </nav>
 
             <div class="nav-actions">
-                <a href="account_login.html" class="btn btn-secondary nav-btn-login">Sign In</a>
-                <a href="account_login.html" class="btn btn-primary nav-cta">
-                    <span>Get Started</span>
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                        <line x1="5" y1="12" x2="19" y2="12"></line>
-                        <polyline points="12 5 19 12 12 19"></polyline>
-                    </svg>
-                </a>
+                <a href="account_login.html" class="btn btn-ghost">Log in</a>
+                <a href="scanner.html" class="btn btn-primary">Open Scanner →</a>
             </div>
         </div>
     </header>
 
-    <main id="main-content">
+    <main>
         <!-- Hero Section -->
         <section class="hero">
-            <div class="hero-container">
-                <div class="hero-content">
-                    <div class="hero-badge">
-                        <span class="badge-dot"></span>
-                        <span class="badge-text">AI-Powered Food Safety</span>
+            <div class="container hero-layout">
+                <div class="hero-text">
+                    <div class="pill-tag">
+                        <span class="pill-icon">✨</span>
+                        <span>AI label scanner with live web verification</span>
                     </div>
 
                     <h1 class="hero-title">
-                        Know Exactly What's In <span class="gradient-text">Your Food</span>
+                        Stop guessing what's hidden in your <span class="highlight-text">food labels</span>.
                     </h1>
 
-                    <p class="hero-subtitle">
-                        Snap a photo of any ingredient label. Our AI instantly scans, identifies harmful additives, checks global regulatory bans, and delivers a verified safety report — with real citations.
+                    <p class="hero-description">
+                        Snap a photo of any ingredient list or paste it in. CheckyRick scans for your specific allergies, flags additives banned in Europe or the US, and gives you verified source links.
                     </p>
 
-                    <div class="hero-cta">
-                        <a href="account_login.html" class="btn btn-primary btn-large">
-                            <span>📸 Start Scanning</span>
-                        </a>
-                        <a href="#how-it-works" class="btn btn-secondary btn-large">
-                            <span>See How It Works</span>
-                        </a>
-                    </div>
-
-                    <div class="hero-metrics">
-                        <div class="metric-item">
-                            <div class="metric-value">100%</div>
-                            <div class="metric-label">Web-Verified Sources</div>
-                        </div>
-                        <div class="metric-divider"></div>
-                        <div class="metric-item">
-                            <div class="metric-value">&lt; 3s</div>
-                            <div class="metric-label">Full Scan Time</div>
-                        </div>
-                        <div class="metric-divider"></div>
-                        <div class="metric-item">
-                            <div class="metric-value">Global</div>
-                            <div class="metric-label">EU · FDA · WHO Coverage</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Hero Visual — Scan Result Preview Card -->
-                <div class="hero-visual">
-                    <div class="scan-preview-card">
-                        <div class="scan-preview-header">
-                            <div class="scan-preview-title">
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#58A6FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                                    <polyline points="14 2 14 8 20 8"></polyline>
-                                </svg>
-                                <span>Scan Report</span>
-                            </div>
-                            <span class="scan-status-badge warning">⚠ 2 Issues Found</span>
-                        </div>
-                        <div class="scan-preview-body">
-                            <div class="scan-ingredient-row safe">
-                                <span class="ingredient-status-dot safe"></span>
-                                <span class="ingredient-name">Enriched Wheat Flour</span>
-                                <span class="ingredient-verdict safe">Safe</span>
-                            </div>
-                            <div class="scan-ingredient-row safe">
-                                <span class="ingredient-status-dot safe"></span>
-                                <span class="ingredient-name">Cane Sugar</span>
-                                <span class="ingredient-verdict safe">Safe</span>
-                            </div>
-                            <div class="scan-ingredient-row danger">
-                                <span class="ingredient-status-dot danger"></span>
-                                <span class="ingredient-name">Red Dye 40 (Allura Red)</span>
-                                <span class="ingredient-verdict danger">Banned in EU</span>
-                            </div>
-                            <div class="scan-ingredient-row safe">
-                                <span class="ingredient-status-dot safe"></span>
-                                <span class="ingredient-name">Soy Lecithin</span>
-                                <span class="ingredient-verdict safe">Safe</span>
-                            </div>
-                            <div class="scan-ingredient-row warning">
-                                <span class="ingredient-status-dot warning"></span>
-                                <span class="ingredient-name">Palm Oil</span>
-                                <span class="ingredient-verdict warning">EFSA Advisory</span>
-                            </div>
-                            <div class="scan-ingredient-row safe">
-                                <span class="ingredient-status-dot safe"></span>
-                                <span class="ingredient-name">Natural Flavors</span>
-                                <span class="ingredient-verdict safe">Safe</span>
-                            </div>
-                        </div>
-                        <div class="scan-preview-footer">
-                            <div class="scan-footer-stat">
-                                <span class="stat-number">6</span>
-                                <span class="stat-label">Ingredients</span>
-                            </div>
-                            <div class="scan-footer-stat">
-                                <span class="stat-number">3</span>
-                                <span class="stat-label">Citations</span>
-                            </div>
-                            <div class="scan-footer-stat">
-                                <span class="stat-number">1.2s</span>
-                                <span class="stat-label">Scan Time</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Features Grid -->
-        <section id="features" class="features-section">
-            <div class="container">
-                <div class="section-header">
-                    <div class="section-tag">WHAT IT DOES</div>
-                    <h2 class="section-title">Everything You Need to Eat Safely</h2>
-                    <p class="section-subtitle">Powerful food intelligence that protects you, your family, and your dietary choices.</p>
-                </div>
-
-                <div class="features-grid">
-                    <!-- Feature Card 1 -->
-                    <div class="feature-card">
-                        <div class="feature-icon-wrapper">
-                            <svg class="feature-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <circle cx="11" cy="11" r="8"></circle>
-                                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                            </svg>
-                        </div>
-                        <h3 class="feature-title">Instant Label Scanning</h3>
-                        <p class="feature-desc">Just snap a photo of any food label. Our AI reads and identifies every ingredient — even hidden chemicals and scientific names you've never seen before.</p>
-                        <div class="feature-meta">
-                            <span class="meta-tag">AI Vision</span>
-                        </div>
-                    </div>
-
-                    <!-- Feature Card 2 -->
-                    <div class="feature-card">
-                        <div class="feature-icon-wrapper">
-                            <svg class="feature-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <circle cx="12" cy="12" r="10"></circle>
-                                <line x1="2" y1="12" x2="22" y2="12"></line>
-                                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
-                            </svg>
-                        </div>
-                        <h3 class="feature-title">Global Ban Detection</h3>
-                        <p class="feature-desc">Automatically checks ingredients against bans and safety advisories from the EU, FDA, WHO, and EFSA. Know if something is banned in another country.</p>
-                        <div class="feature-meta">
-                            <span class="meta-tag">Multi-Country</span>
-                        </div>
-                    </div>
-
-                    <!-- Feature Card 3 -->
-                    <div class="feature-card">
-                        <div class="feature-icon-wrapper">
-                            <svg class="feature-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M10 2v7.31"></path>
-                                <path d="M14 9.3V1.99"></path>
-                                <path d="M8.5 2h7"></path>
-                                <path d="M14 9.3a6.5 6.5 0 1 1-4 0"></path>
-                                <path d="M5.52 16h12.96"></path>
-                            </svg>
-                        </div>
-                        <h3 class="feature-title">Hidden Chemical Detection</h3>
-                        <p class="feature-desc">Catches what you'd miss: scientific names like "Allium Cepa" (onion), E-numbers, complex emulsifiers, and disguised allergens hiding in plain sight.</p>
-                        <div class="feature-meta">
-                            <span class="meta-tag">Deep Analysis</span>
-                        </div>
-                    </div>
-
-                    <!-- Feature Card 4 -->
-                    <div class="feature-card">
-                        <div class="feature-icon-wrapper">
-                            <svg class="feature-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                                <polyline points="14 2 14 8 20 8"></polyline>
-                                <line x1="16" y1="13" x2="8" y2="13"></line>
-                                <line x1="16" y1="17" x2="8" y2="17"></line>
-                            </svg>
-                        </div>
-                        <h3 class="feature-title">Verified Citations</h3>
-                        <p class="feature-desc">Every flagged ingredient comes with real source links — not AI guesses. Click through to the actual FDA page, EFSA study, or WHO advisory yourself.</p>
-                        <div class="feature-meta">
-                            <span class="meta-tag">Real Sources</span>
-                        </div>
-                    </div>
-
-                    <!-- Feature Card 5 -->
-                    <div class="feature-card">
-                        <div class="feature-icon-wrapper">
-                            <svg class="feature-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-                                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-                            </svg>
-                        </div>
-                        <h3 class="feature-title">Your Dietary Profile</h3>
-                        <p class="feature-desc">Set up your allergies, religious dietary laws (Halal, Kosher, Jain), vegan preferences, or medical diets once — and every scan respects them automatically.</p>
-                        <div class="feature-meta">
-                            <span class="meta-tag">Personalized</span>
-                        </div>
-                    </div>
-
-                    <!-- Feature Card 6 -->
-                    <div class="feature-card">
-                        <div class="feature-icon-wrapper">
-                            <svg class="feature-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
-                            </svg>
-                        </div>
-                        <h3 class="feature-title">Lightning Fast</h3>
-                        <p class="feature-desc">Full ingredient analysis, regulatory cross-check, and report generation in under 3 seconds. Fast enough to use while shopping in the grocery aisle.</p>
-                        <div class="feature-meta">
-                            <span class="meta-tag">Real-Time</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- How It Works Section (replacing code showcase + pipeline) -->
-        <section id="how-it-works" class="workflow-section">
-            <div class="container">
-                <div class="section-header">
-                    <div class="section-tag">HOW IT WORKS</div>
-                    <h2 class="section-title">From Photo to Safety Report in Seconds</h2>
-                    <p class="section-subtitle">Three simple steps to know exactly what's in your food.</p>
-                </div>
-
-                <div class="workflow-grid">
-                    <div class="workflow-card">
-                        <div class="step-badge">01</div>
-                        <div class="workflow-icon">📸</div>
-                        <h3 class="workflow-title">Snap a Photo</h3>
-                        <p class="workflow-desc">Take a picture of any food label, ingredient list, or packaging — even curved bottles and blurry prints work.</p>
-                    </div>
-
-                    <div class="workflow-card">
-                        <div class="step-badge">02</div>
-                        <div class="workflow-icon">🔍</div>
-                        <h3 class="workflow-title">AI Analyzes Everything</h3>
-                        <p class="workflow-desc">Our AI reads every ingredient, decodes scientific names, cross-checks global safety databases, and verifies findings with real web sources.</p>
-                    </div>
-
-                    <div class="workflow-card">
-                        <div class="step-badge">03</div>
-                        <div class="workflow-icon">📊</div>
-                        <h3 class="workflow-title">Get Your Report</h3>
-                        <p class="workflow-desc">Receive a clear, color-coded safety report showing what's safe, what's flagged, and why — with clickable source links for every finding.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Who It's For (Use Cases) -->
-        <section id="who-its-for" class="usecases-section">
-            <div class="container">
-                <div class="section-header">
-                    <div class="section-tag">WHO IT'S FOR</div>
-                    <h2 class="section-title">Built For Every Diet &amp; Lifestyle</h2>
-                </div>
-
-                <div class="usecases-grid">
-                    <div class="usecase-card">
-                        <div class="usecase-icon-badge">🌱</div>
-                        <div class="usecase-text">
-                            <h3>Vegan &amp; Vegetarian</h3>
-                            <p>Detect hidden animal derivatives like gelatin, carmine (E120), bone-char processed sugar, and isinglass in everyday products.</p>
-                        </div>
-                    </div>
-
-                    <div class="usecase-card">
-                        <div class="usecase-icon-badge">🕌</div>
-                        <div class="usecase-text">
-                            <h3>Halal, Kosher &amp; Jain</h3>
-                            <p>Validate religious dietary compliance — flag alcohol carriers, non-certified enzymes, root vegetables, and more.</p>
-                        </div>
-                    </div>
-
-                    <div class="usecase-card">
-                        <div class="usecase-icon-badge">⚠️</div>
-                        <div class="usecase-text">
-                            <h3>Allergies &amp; Celiac</h3>
-                            <p>Identify hidden gluten, tree nuts, cross-contamination warnings, and obscure soy or dairy derivatives that labels don't make obvious.</p>
-                        </div>
-                    </div>
-
-                    <div class="usecase-card">
-                        <div class="usecase-icon-badge">🌍</div>
-                        <div class="usecase-text">
-                            <h3>Travelers &amp; Expats</h3>
-                            <p>Decode foreign food labels instantly. Check if ingredients legal in one country are banned or restricted where you live.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- CTA Section -->
-        <section class="cta-banner-section">
-            <div class="container">
-                <div class="cta-box">
-                    <div class="cta-badge">YOUR HEALTH, VERIFIED</div>
-                    <h2 class="cta-title">Start Scanning Your Food Labels Today</h2>
-                    <p class="cta-desc">Create your free account, set up your dietary profile, and get instant AI-powered safety reports on any food product.</p>
-                    <div class="cta-buttons">
-                        <a href="account_login.html" class="btn btn-primary btn-large">
-                            <span>Get Started Free</span>
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <div class="hero-buttons">
+                        <a href="scanner.html" class="btn btn-primary btn-lg">
+                            <span>Scan a Label Now</span>
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                                 <line x1="5" y1="12" x2="19" y2="12"></line>
                                 <polyline points="12 5 19 12 12 19"></polyline>
                             </svg>
                         </a>
+                        <a href="#live-demo" class="btn btn-secondary btn-lg">
+                            <span>Try Live Sample</span>
+                        </a>
+                    </div>
+
+                    <div class="social-proof">
+                        <div class="proof-avatars">
+                            <span class="avatar-tag">🌱 Vegan</span>
+                            <span class="avatar-tag">🕌 Halal</span>
+                            <span class="avatar-tag">🌾 Celiac</span>
+                            <span class="avatar-tag">🥜 Allergies</span>
+                        </div>
+                        <p class="proof-text">Customizable for any allergy, diet matrix, or health restriction</p>
+                    </div>
+                </div>
+
+                <!-- Interactive Hero Card -->
+                <div class="hero-card-wrapper">
+                    <div class="interactive-preview-card">
+                        <div class="card-top-bar">
+                            <div class="preview-tag-group">
+                                <span class="badge badge-warning">⚠️ 2 Flags Found</span>
+                                <span class="sample-label">Sample: Nacho Tortilla Chips</span>
+                            </div>
+                            <span class="time-stamp">Verified just now</span>
+                        </div>
+
+                        <div class="preview-results-list">
+                            <div class="preview-item safe">
+                                <div class="item-icon">✓</div>
+                                <div class="item-details">
+                                    <strong>Corn Masa Flour &amp; Sunflower Oil</strong>
+                                    <span>Safe · No common allergens detected</span>
+                                </div>
+                                <span class="tag-status tag-safe">Safe</span>
+                            </div>
+
+                            <div class="preview-item danger">
+                                <div class="item-icon">✕</div>
+                                <div class="item-details">
+                                    <strong>Red 40 (Allura Red AC)</strong>
+                                    <span>Banned in EU for children · EFSA warning label required</span>
+                                </div>
+                                <span class="tag-status tag-danger">EU Warning</span>
+                            </div>
+
+                            <div class="preview-item warning">
+                                <div class="item-icon">!</div>
+                                <div class="item-details">
+                                    <strong>Disodium Inosinate (E631)</strong>
+                                    <span>Often animal-derived (meat/fish) · Flagged for Vegan &amp; Halal</span>
+                                </div>
+                                <span class="tag-status tag-warning">Diet Conflict</span>
+                            </div>
+
+                            <div class="preview-item safe">
+                                <div class="item-icon">✓</div>
+                                <div class="item-details">
+                                    <strong>Paprika Extract &amp; Sea Salt</strong>
+                                    <span>Natural flavorings &amp; mineral salts</span>
+                                </div>
+                                <span class="tag-status tag-safe">Safe</span>
+                            </div>
+                        </div>
+
+                        <div class="card-citations-bar">
+                            <span class="citation-hint">🔗 Verified with EFSA Food Additive DB &amp; FDA Code 21</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive Sample Demo Section -->
+        <section id="live-demo" class="demo-section">
+            <div class="container">
+                <div class="section-heading text-center">
+                    <span class="sub-badge">Try It Yourself</span>
+                    <h2>See how CheckyRick analyzes different products</h2>
+                    <p>Click any product below to see the instant ingredient breakdown and flags.</p>
+                </div>
+
+                <div class="demo-widget">
+                    <!-- Tab buttons -->
+                    <div class="demo-tabs" role="tablist">
+                        <button class="demo-tab-btn active" data-product="ramen">
+                            🍜 Instant Spicy Ramen
+                        </button>
+                        <button class="demo-tab-btn" data-product="energy-bar">
+                            🍫 Protein Energy Bar
+                        </button>
+                        <button class="demo-tab-btn" data-product="cookies">
+                            🍪 Imported Butter Cookies
+                        </button>
+                    </div>
+
+                    <!-- Dynamic Card Content -->
+                    <div class="demo-display" id="demoDisplay">
+                        <!-- Loaded dynamically via index.js -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- How It Works Section -->
+        <section id="how-it-works" class="steps-section">
+            <div class="container">
+                <div class="section-heading text-center">
+                    <span class="sub-badge">Simple &amp; Fast</span>
+                    <h2>How CheckyRick keeps you safe in 3 steps</h2>
+                </div>
+
+                <div class="steps-grid">
+                    <div class="step-card">
+                        <div class="step-number">01</div>
+                        <div class="step-illustration">📸</div>
+                        <h3>Upload or snap a label</h3>
+                        <p>Take a picture of any packaging, bottle, or snack wrapper with your phone or laptop camera.</p>
+                    </div>
+
+                    <div class="step-card">
+                        <div class="step-number">02</div>
+                        <div class="step-illustration">🔬</div>
+                        <h3>AI decodes every chemical</h3>
+                        <p>We extract botanical names (like <em>Allium Cepa</em> for onion), E-numbers, and covert derivative compounds.</p>
+                    </div>
+
+                    <div class="step-card">
+                        <div class="step-number">03</div>
+                        <div class="step-illustration">🌐</div>
+                        <h3>Cross-checked with real sources</h3>
+                        <p>Findings are verified against FDA, EFSA, and WHO databases with real clickable citations you can inspect.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- What We Catch (Real use cases) -->
+        <section id="what-we-catch" class="usecases-section">
+            <div class="container">
+                <div class="section-heading">
+                    <span class="sub-badge">Coverage</span>
+                    <h2>Things ingredient labels don't make obvious</h2>
+                    <p>Ingredients hide behind scientific synonyms, E-numbers, and ambiguous category names.</p>
+                </div>
+
+                <div class="usecase-grid">
+                    <div class="usecase-box">
+                        <div class="usecase-header">
+                            <span class="usecase-emoji">🌱</span>
+                            <div>
+                                <h4>Hidden Non-Vegan Additives</h4>
+                                <span class="usecase-sub">Carmine, Gelatin, Isinglass, Bone-char sugar</span>
+                            </div>
+                        </div>
+                        <p>Did you know E120 red food coloring is made from crushed cochineal insects? We flag hidden animal products instantly.</p>
+                    </div>
+
+                    <div class="usecase-box">
+                        <div class="usecase-header">
+                            <span class="usecase-emoji">🚫</span>
+                            <div>
+                                <h4>International Regulatory Bans</h4>
+                                <span class="usecase-sub">Titanium Dioxide (E171), BVO, Potassium Bromate</span>
+                            </div>
+                        </div>
+                        <p>Many additives legal in the US are banned in Europe due to DNA toxicity or hyperactivity studies. CheckyRick flags them all.</p>
+                    </div>
+
+                    <div class="usecase-box">
+                        <div class="usecase-header">
+                            <span class="usecase-emoji">🧅</span>
+                            <div>
+                                <h4>Jain, Halal &amp; Religious Diets</h4>
+                                <span class="usecase-sub">Root extracts, alcohol carriers, enzymes</span>
+                            </div>
+                        </div>
+                        <p>Flags allium family plants (garlic, onion, chives), pork gelatin, alcohol flavor carriers, and uncertified rennet.</p>
+                    </div>
+
+                    <div class="usecase-box">
+                        <div class="usecase-header">
+                            <span class="usecase-emoji">🌾</span>
+                            <div>
+                                <h4>Celiac &amp; Severe Allergens</h4>
+                                <span class="usecase-sub">Malt extract, modified food starch, cross-contact</span>
+                            </div>
+                        </div>
+                        <p>Catches gluten disguised as barley malt or hydrolyzed wheat protein, plus tree nut and soy derivatives.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section id="faq" class="faq-section">
+            <div class="container max-w-md">
+                <div class="section-heading text-center">
+                    <span class="sub-badge">Got Questions?</span>
+                    <h2>Frequently Asked Questions</h2>
+                </div>
+
+                <div class="faq-accordion">
+                    <details class="faq-item" open>
+                        <summary class="faq-question">
+                            <span>How accurate is the label scanning?</span>
+                            <span class="faq-icon">+</span>
+                        </summary>
+                        <div class="faq-answer">
+                            <p>We use state-of-the-art vision OCR to transcribe text even from wrinkled packaging, curved bottles, and low-light photos. The extracted ingredients are then verified against live food safety databases.</p>
+                        </div>
+                    </details>
+
+                    <details class="faq-item">
+                        <summary class="faq-question">
+                            <span>Can I customize my personal allergies and restrictions?</span>
+                            <span class="faq-icon">+</span>
+                        </summary>
+                        <div class="faq-answer">
+                            <p>Yes! Under your account profile, you can set custom allergy matrices (peanuts, dairy, shellfish, etc.), religious guidelines (Halal, Kosher, Jain), or medical diets (Celiac, FODMAP, Vegan). Every scan automatically applies your saved profile.</p>
+                        </div>
+                    </details>
+
+                    <details class="faq-item">
+                        <summary class="faq-question">
+                            <span>Where do the regulatory citations come from?</span>
+                            <span class="faq-icon">+</span>
+                        </summary>
+                        <div class="faq-answer">
+                            <p>We fetch live verification from authoritative sources including the European Food Safety Authority (EFSA), US Food &amp; Drug Administration (FDA), and World Health Organization (WHO).</p>
+                        </div>
+                    </details>
+
+                    <details class="faq-item">
+                        <summary class="faq-question">
+                            <span>Is CheckyRick free to use?</span>
+                            <span class="faq-icon">+</span>
+                        </summary>
+                        <div class="faq-answer">
+                            <p>Yes, the core scanner and dietary profile features are completely free to use for personal dietary safety.</p>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+        <!-- Bottom CTA -->
+        <section class="bottom-cta-section">
+            <div class="container">
+                <div class="cta-card">
+                    <h2>Ready to check your food?</h2>
+                    <p>Try the scanner right now — no credit card or complicated setup required.</p>
+                    <div class="cta-actions">
+                        <a href="scanner.html" class="btn btn-primary btn-lg">Launch Food Scanner →</a>
+                        <a href="account_login.html" class="btn btn-secondary btn-lg">Create Free Account</a>
                     </div>
                 </div>
             </div>
@@ -368,58 +324,38 @@
 
     <!-- Footer -->
     <footer class="footer">
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-col brand-col">
-                    <div class="logo">
-                        <span class="logo-icon">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2z"></path>
-                                <path d="M12 6v6l4 2"></path>
-                            </svg>
-                        </span>
-                        <span class="logo-text">Dietary<span class="logo-accent">Scan</span></span>
-                    </div>
-                    <p class="footer-motto">Making food safety transparent, personal, and backed by real evidence.</p>
-                    <div class="footer-status">
-                        <span class="status-indicator"></span>
-                        <span class="status-text">All Systems Online</span>
-                    </div>
+        <div class="container footer-container">
+            <div class="footer-left">
+                <div class="brand-footer">
+                    <span class="brand-badge">🥗</span>
+                    <span class="brand-name">Checky<strong>Rick</strong></span>
                 </div>
-
-                <div class="footer-col">
-                    <h4>Navigate</h4>
-                    <ul class="footer-links">
-                        <li><a href="#features">Features</a></li>
-                        <li><a href="#how-it-works">How It Works</a></li>
-                        <li><a href="#who-its-for">Who It's For</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-col">
-                    <h4>Product</h4>
-                    <ul class="footer-links">
-                        <li><a href="account_login.html">Sign In / Register</a></li>
-                        <li><a href="scanner.html">Food Scanner</a></li>
-                        <li><a href="account.html">My Diet Profile</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-col">
-                    <h4>Trust &amp; Safety</h4>
-                    <p class="footer-note">All analyses backed by live web research with real citations from official regulatory sources.</p>
-                </div>
+                <p class="footer-desc">An open, accessible food intelligence tool designed to make ingredient transparency simple for everyone.</p>
+                <span class="creator-note">Crafted for health-conscious eaters, expats, and dietary safety.</span>
             </div>
 
-            <div class="footer-bottom">
-                <p>&copy; 2026 DietaryScan. All rights reserved.</p>
-                <div class="footer-bottom-links">
-                    <span>AI-Powered</span>
-                    <span>·</span>
-                    <span>WCAG AA Accessible</span>
-                    <span>·</span>
-                    <span>Web-Verified</span>
+            <div class="footer-links-group">
+                <div class="link-col">
+                    <h5>Product</h5>
+                    <a href="scanner.html">Label Scanner</a>
+                    <a href="account.html">Dietary Preferences</a>
+                    <a href="account_login.html">Sign In / Register</a>
                 </div>
+                <div class="link-col">
+                    <h5>Resources</h5>
+                    <a href="#how-it-works">How It Works</a>
+                    <a href="#what-we-catch">Additives Guide</a>
+                    <a href="#faq">FAQ</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="container footer-bottom-bar">
+            <p>&copy; 2026 CheckyRick. Built with Gemini AI &amp; Live Web Grounding.</p>
+            <div class="bottom-tags">
+                <span>Free &amp; Open</span>
+                <span>•</span>
+                <span>Privacy-focused</span>
             </div>
         </div>
     </footer>

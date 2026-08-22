@@ -4,34 +4,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dietary Deep Scan Engine | Food Safety Scanner</title>
-    <meta name="description" content="Developer-grade chemical food safety scanner with OCR and web-grounded verification.">
+    <title>Scanner — CheckyRick Food & Ingredient Safety</title>
+    <meta name="description" content="Upload any food label to scan for allergens, additives, and regulatory advisories.">
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 
 <body>
-    <!-- Background Grid Texture -->
-    <div class="grid-background" aria-hidden="true"></div>
-
     <div class="app-wrapper">
         <!-- Top App Navigation -->
         <header class="app-nav">
             <div class="nav-container">
-                <div class="nav-brand">
-                    <a href="index.html" class="logo" aria-label="Dietary Deep Scan Home">
-                        <span class="logo-terminal-icon">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <polyline points="4 17 10 11 4 5"></polyline>
-                                <line x1="12" y1="19" x2="20" y2="19"></line>
-                            </svg>
-                        </span>
-                        <span class="logo-text">Dietary<span class="logo-accent">Scan</span></span>
-                        <span class="version-tag">Engine v0.7.4</span>
-                    </a>
-                </div>
+                <a href="index.html" class="nav-brand">
+                    <div class="brand-badge">🥗</div>
+                    <span class="brand-name">Checky<strong>Rick</strong></span>
+                </a>
 
                 <div class="user-controls">
                     <a href="account.html" class="user-profile-btn" title="View Dietary Profile" aria-label="View Dietary Profile">
@@ -39,58 +28,45 @@
                             <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
                             <circle cx="12" cy="7" r="4"></circle>
                         </svg>
-                        <span id="headerUserName">Loading Profile...</span>
+                        <span id="headerUserName">My Profile</span>
                     </a>
-                    <button id="logoutBtn" class="btn btn-secondary btn-sm" aria-label="Sign Out">
+                    <button id="logoutBtn" class="btn btn-ghost btn-sm" aria-label="Sign Out">
                         Sign Out
                     </button>
                 </div>
             </div>
         </header>
 
-        <!-- Main Engine Container -->
+        <!-- Main Container -->
         <main class="container main-container">
             <!-- Header Title -->
             <div class="engine-header">
-                <div class="engine-badge">
-                    <span class="badge-dot"></span>
-                    <span>ACTIVE INSPECTION SESSION</span>
-                </div>
-                <h1 class="engine-title">Chemical-Level Dietary Scan</h1>
-                <p class="engine-subtitle">Upload packaging labels or ingredient lists to run automated chemical breakdown &amp; regulatory verification.</p>
+                <h1>Food &amp; Ingredient Scanner</h1>
+                <p>Upload a clear photo of an ingredient list or nutrition label to check for allergens and global bans.</p>
             </div>
 
             <!-- Analysis Card -->
             <section class="scan-card">
-                <div class="scan-card-header">
-                    <div class="window-controls">
-                        <span class="control-dot close"></span>
-                        <span class="control-dot minimize"></span>
-                        <span class="control-dot maximize"></span>
-                    </div>
-                    <div class="card-terminal-title">input_stream: ingredient_label_image</div>
-                </div>
-
                 <div class="scan-card-body">
                     <!-- Drop Zone -->
                     <div class="upload-section">
-                        <label class="section-label">📷 Image Input Stream</label>
+                        <label class="section-label">1. Upload Label Photo</label>
                         <div class="drop-zone" id="dropZone" tabindex="0" role="button" aria-label="Upload Ingredient Label Image">
                             <input type="file" id="fileInput" accept="image/*" hidden aria-hidden="true">
                             <div class="drop-zone-content">
                                 <div class="drop-icon-wrapper">
-                                    <svg class="upload-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                                        <polyline points="17 8 12 3 7 8"></polyline>
-                                        <line x1="12" y1="3" x2="12" y2="15"></line>
+                                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                                        <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                                        <polyline points="21 15 16 10 5 21"></polyline>
                                     </svg>
                                 </div>
-                                <p class="drop-title">Drag &amp; drop ingredient image here or <span class="drop-browse">browse files</span></p>
-                                <span class="drop-hint">Supports: PNG, JPG, JPEG, WEBP (Max 15MB)</span>
+                                <p class="drop-title">Drop your image here, or <span class="drop-browse">browse files</span></p>
+                                <span class="drop-hint">Works best with clear, well-lit photos (PNG, JPG, WEBP up to 15MB)</span>
                             </div>
                             <div class="image-preview" id="imagePreview" style="display: none;">
                                 <img id="previewImg" alt="Label Preview">
-                                <button class="remove-btn" id="removeBtn" aria-label="Remove Image">✕</button>
+                                <button class="remove-btn" id="removeBtn" aria-label="Remove Image">✕ Remove</button>
                             </div>
                         </div>
                     </div>
@@ -99,34 +75,46 @@
                     <div class="user-profile-summary" id="userProfileSummary" style="display: none;">
                         <div class="profile-summary-header">
                             <span class="profile-icon">⚙️</span>
-                            <span class="profile-label">Active Ruleset Target:</span>
-                            <span id="userProfileName" class="profile-name">Loading...</span>
+                            <span class="profile-label">Your Active Dietary Profile:</span>
+                            <span id="userProfileName" class="profile-name">General Health</span>
                         </div>
-                        <p class="profile-summary-desc">Scanning will automatically apply your saved allergies, diet type, and restrictions. <a href="account.html" class="edit-profile-link">Modify Dietary Matrix &rarr;</a></p>
+                        <p class="profile-summary-desc">Your saved allergies and dietary rules will automatically be cross-referenced during analysis. <a href="account.html" class="edit-profile-link">Edit your profile &rarr;</a></p>
+                    </div>
+
+                    <!-- Quick Dietary Tags helper -->
+                    <div class="quick-tags-container">
+                        <label class="section-label">2. Quick Dietary Rules (Optional)</label>
+                        <div class="quick-tags" id="quickTags">
+                            <button type="button" class="tag-chip" data-rule="vegan">🌱 Vegan</button>
+                            <button type="button" class="tag-chip" data-rule="gluten-free">🌾 Gluten-Free</button>
+                            <button type="button" class="tag-chip" data-rule="halal">🕌 Halal</button>
+                            <button type="button" class="tag-chip" data-rule="no-onion-garlic">🧅 Jain (No Allium)</button>
+                            <button type="button" class="tag-chip" data-rule="nut-allergy">🥜 Peanut &amp; Tree Nut Allergy</button>
+                            <button type="button" class="tag-chip" data-rule="no-palmoil">🚫 No Palm Oil</button>
+                            <button type="button" class="tag-chip" data-rule="dairy-free">🥛 Dairy-Free</button>
+                        </div>
                     </div>
 
                     <!-- Action CTA -->
-                    <button class="btn btn-primary btn-analyze" id="analyzeBtn" aria-label="Run Deep Analysis with Web Search">
-                        <span class="btn-icon">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <div class="action-footer">
+                        <button class="btn btn-primary btn-analyze" id="analyzeBtn" aria-label="Analyze Ingredients">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                                 <circle cx="11" cy="11" r="8"></circle>
                                 <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                             </svg>
-                        </span>
-                        <span class="btn-text">Execute Deep Scan &amp; Verification</span>
-                    </button>
+                            <span class="btn-text">Scan &amp; Check Safety</span>
+                        </button>
+                    </div>
                 </div>
             </section>
 
             <!-- Loading State -->
             <section class="loading-section" id="loadingSection" style="display: none;" aria-live="polite">
-                <div class="loading-terminal-card">
-                    <div class="terminal-loader">
-                        <div class="spinner"></div>
-                        <div class="loading-status-text">
-                            <h3>Executing Multimodal Inspection</h3>
-                            <p class="loading-step"><span class="step-marker">&gt;</span> OCR extraction &rarr; Chemical composition breakdown &rarr; Google Grounding verification</p>
-                        </div>
+                <div class="loading-card">
+                    <div class="spinner"></div>
+                    <div class="loading-status-text">
+                        <h3>Analyzing Ingredient Label...</h3>
+                        <p class="loading-step">Reading text · Decoding chemicals · Cross-referencing global databases</p>
                     </div>
                 </div>
             </section>
@@ -135,8 +123,8 @@
             <section class="results-section" id="resultsSection" style="display: none;" aria-live="polite">
                 <div class="results-toolbar">
                     <div class="results-title-group">
-                        <span class="badge-dot"></span>
-                        <h3>Inspection Output Complete</h3>
+                        <span class="badge-dot-live"></span>
+                        <h2>Analysis Complete</h2>
                     </div>
                     <div class="results-actions">
                         <button class="btn btn-secondary btn-sm" id="downloadHtmlBtn" aria-label="Download HTML Report">
@@ -145,53 +133,49 @@
                                 <polyline points="7 10 12 15 17 10"></polyline>
                                 <line x1="12" y1="15" x2="12" y2="3"></line>
                             </svg>
-                            <span>HTML Report</span>
+                            <span>Download HTML</span>
                         </button>
                         <button class="btn btn-secondary btn-sm" id="downloadTextBtn" aria-label="Download Text Summary">
                             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
                                 <polyline points="14 2 14 8 20 8"></polyline>
                             </svg>
-                            <span>Raw Summary</span>
+                            <span>Download Text</span>
                         </button>
                     </div>
                 </div>
 
                 <!-- Detected Ingredients Accordion -->
-                <div class="ingredients-summary-card" id="ingredientsSummary">
+                <div class="ingredients-summary-card">
                     <details>
-                        <summary>
-                            <div class="summary-toggle-title">
-                                <span class="summary-icon">📋</span>
-                                <span>Detected Ingredients (<span id="ingredientsCount" class="count-pill">0</span>)</span>
+                        <summary class="ingredients-summary-header">
+                            <div class="ingredients-header-title">
+                                <span>📋 Identified Ingredients</span>
+                                <span class="count-pill"><span id="ingredientsCount">0</span> detected</span>
                             </div>
-                            <span class="chevron">&darr;</span>
+                            <span class="toggle-icon">▼</span>
                         </summary>
-                        <ul id="ingredientsList" class="ingredients-grid"></ul>
+                        <ul class="ingredients-grid" id="ingredientsList"></ul>
                     </details>
                 </div>
 
-                <!-- Citations Counter -->
-                <div class="citations-info-card">
-                    <span class="citations-icon">📚</span>
-                    <span>Found <strong id="citationsCount">0</strong> verified live web sources consulted during inference.</span>
+                <!-- Citations Card (if available) -->
+                <div class="citations-info-card" style="display: none;">
+                    <span>📚 Citations fetched: <strong id="citationsCount">0</strong> verified sources</span>
                 </div>
 
-                <!-- Injected Report Container -->
-                <div class="report-container" id="reportContainer">
-                    <!-- Dynamic HTML report injected by script.js -->
-                </div>
+                <!-- Generated Dynamic Report -->
+                <div class="report-container" id="reportContainer"></div>
             </section>
         </main>
 
         <!-- Footer -->
         <footer class="app-footer">
-            <div class="container">
-                <p>&copy; 2026 Dietary Deep Scan System • Developer Edition • webcmd.dev Design System</p>
-            </div>
+            <p>CheckyRick Food Safety Intelligence • Backed by live regulatory verification</p>
         </footer>
     </div>
 
+    <!-- Script Configuration -->
     <script type="module" src="script.js"></script>
 </body>
 

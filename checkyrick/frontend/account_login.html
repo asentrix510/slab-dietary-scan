@@ -4,102 +4,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Account Authentication | Dietary Deep Scan Engine</title>
-    <meta name="description" content="Sign in or register for Dietary Deep Scan food safety scanner.">
+    <title>Sign In / Register — CheckyRick</title>
+    <meta name="description" content="Sign in or register for your CheckyRick food safety account.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/account_style.css">
     <script type="module" src="js/account_auth.js"></script>
 </head>
 
 <body>
-    <!-- Background Grid Texture -->
-    <div class="grid-background" aria-hidden="true"></div>
-
     <div class="auth-wrapper">
         <div class="auth-container">
             <!-- Brand Header -->
             <div class="auth-brand">
-                <a href="index.html" class="logo" aria-label="Dietary Deep Scan Home">
-                    <span class="logo-terminal-icon">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <polyline points="4 17 10 11 4 5"></polyline>
-                            <line x1="12" y1="19" x2="20" y2="19"></line>
-                        </svg>
-                    </span>
-                    <span class="logo-text">Dietary<span class="logo-accent">Scan</span></span>
+                <a href="index.html" class="logo" aria-label="CheckyRick Home">
+                    <span class="brand-badge">🥗</span>
+                    <span class="brand-name">Checky<strong>Rick</strong></span>
                 </a>
             </div>
 
             <!-- Sign In Form -->
             <div id="login-card" class="card">
-                <div class="card-header">
-                    <div class="window-controls">
-                        <span class="control-dot close"></span>
-                        <span class="control-dot minimize"></span>
-                        <span class="control-dot maximize"></span>
-                    </div>
-                    <div class="card-terminal-title">auth_session: sign_in</div>
-                </div>
-
                 <div class="card-body">
-                    <h2>Sign In to Console</h2>
-                    <p class="auth-subtitle">Access your persistent dietary matrix and scanner engine.</p>
+                    <h2>Welcome back</h2>
+                    <p class="auth-subtitle">Log in to automatically apply your saved allergies and food preferences.</p>
                     <div id="login-error" class="error-message" role="alert"></div>
 
                     <form id="login-form">
                         <div class="form-group">
-                            <label for="login-email">Email Address</label>
-                            <input type="email" id="login-email" required placeholder="developer@example.com" autocomplete="email">
+                            <label for="login-email">Email address</label>
+                            <input type="email" id="login-email" required placeholder="you@example.com" autocomplete="email">
                         </div>
                         <div class="form-group">
                             <label for="login-password">Password</label>
                             <input type="password" id="login-password" required placeholder="••••••••" autocomplete="current-password">
                         </div>
-                        <button type="submit" class="btn btn-primary">
-                            <span>Authenticate &amp; Sign In</span>
+                        <button type="submit" class="btn btn-primary btn-full">
+                            <span>Sign In</span>
                         </button>
                     </form>
 
                     <div class="switch-auth">
-                        <span>New to the engine?</span> <a id="show-signup" role="button" tabindex="0">Create an account</a>
+                        <span>Don't have an account?</span> <a id="show-signup" role="button" tabindex="0">Create one for free</a>
                     </div>
                 </div>
             </div>
 
             <!-- Sign Up Form (Hidden by default) -->
             <div id="signup-card" class="card" style="display: none;">
-                <div class="card-header">
-                    <div class="window-controls">
-                        <span class="control-dot close"></span>
-                        <span class="control-dot minimize"></span>
-                        <span class="control-dot maximize"></span>
-                    </div>
-                    <div class="card-terminal-title">auth_session: register</div>
-                </div>
-
                 <div class="card-body">
-                    <h2>Create Developer Account</h2>
-                    <p class="auth-subtitle">Initialize your customized food safety &amp; allergy profile.</p>
+                    <h2>Create your account</h2>
+                    <p class="auth-subtitle">Set up your dietary restrictions once, and we'll apply them to every scan.</p>
                     <div id="signup-error" class="error-message" role="alert"></div>
 
                     <form id="signup-form">
                         <div class="form-group">
-                            <label for="signup-email">Email Address</label>
-                            <input type="email" id="signup-email" required placeholder="developer@example.com" autocomplete="email">
+                            <label for="signup-email">Email address</label>
+                            <input type="email" id="signup-email" required placeholder="you@example.com" autocomplete="email">
                         </div>
                         <div class="form-group">
                             <label for="signup-password">Password</label>
-                            <input type="password" id="signup-password" required placeholder="Minimum 6 characters" minlength="6" autocomplete="new-password">
+                            <input type="password" id="signup-password" required placeholder="At least 6 characters" minlength="6" autocomplete="new-password">
                         </div>
-                        <button type="submit" class="btn btn-primary">
-                            <span>Register &amp; Initialize Profile</span>
+                        <button type="submit" class="btn btn-primary btn-full">
+                            <span>Create Account</span>
                         </button>
                     </form>
 
                     <div class="switch-auth">
-                        <span>Already registered?</span> <a id="show-login" role="button" tabindex="0">Sign In</a>
+                        <span>Already have an account?</span> <a id="show-login" role="button" tabindex="0">Sign in instead</a>
                     </div>
                 </div>
             </div>
