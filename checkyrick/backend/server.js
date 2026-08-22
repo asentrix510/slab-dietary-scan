@@ -87,21 +87,27 @@ function hashCode(str) {
 
 /**
  * Run a webcmd CLI command and return its output.
- * WebCMD has no programmatic SDK yet, so we shell out to the CLI.
+ * Uses cmd.exe /c on Windows so webcmd.cmd batch runner is resolved properly.
  */
 async function runWebcmd(args, timeoutMs = 30000) {
+  const isWin = process.platform === 'win32';
+  const command = isWin ? 'cmd.exe' : 'webcmd';
+  const commandArgs = isWin ? ['/c', 'webcmd', ...args] : args;
+
   try {
-    const { stdout, stderr } = await execFileAsync('webcmd', args, {
+    const { stdout, stderr } = await execFileAsync(command, commandArgs, {
       timeout: timeoutMs,
       maxBuffer: 1024 * 1024 * 5, // 5MB
       env: { ...process.env, PAGER: 'cat' },
     });
     return { success: true, output: stdout.trim(), stderr: stderr?.trim() || '' };
   } catch (err) {
+    const errorMsg = err.stderr?.trim() || err.message || 'Unknown error';
+    console.warn(`⚠️ webcmd error (${args.slice(0, 4).join(' ')}): ${errorMsg.substring(0, 150)}`);
     return {
       success: false,
       output: err.stdout?.trim() || '',
-      stderr: err.stderr?.trim() || err.message,
+      stderr: errorMsg,
       error: err.message,
     };
   }
@@ -113,21 +119,35 @@ async function runWebcmd(args, timeoutMs = 30000) {
  */
 async function researchIngredientWithWebcmd(ingredient) {
   const sources = [];
-  const cleanName = ingredient.replace(/[^\w\s-]/g, '').trim();
 
-  // Phase 1: Search engines (parallel)
+  // Clean parenthetical notes like "Celery (in Chicken Broth)" -> "Celery"
+  // Clean commas like "Pasta, Whole wheat" -> "Pasta Whole wheat"
+  const cleanName = ingredient
+    .replace(/\(.*?\)/g, '')
+    .replace(/,/g, ' ')
+    .replace(/[^\w\s-]/g, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+
+  if (!cleanName) return sources;
+
+  // Phase 1: High-yield search and knowledge targets (parallel)
   const searchQueries = [
     {
-      label: 'Bing - Safety',
-      url: `https://www.bing.com/search?q=${encodeURIComponent(cleanName + ' food additive safety banned countries regulations')}`,
-    },
-    {
-      label: 'Bing - Health',
-      url: `https://www.bing.com/search?q=${encodeURIComponent(cleanName + ' health effects side effects dietary restrictions allergen')}`,
+      label: 'Bing - Safety & Regulations',
+      url: `https://www.bing.com/search?q=${encodeURIComponent(cleanName + ' food safety regulations banned countries')}`,
     },
     {
       label: 'DuckDuckGo Lite',
-      url: `https://lite.duckduckgo.com/lite/?q=${encodeURIComponent(cleanName + ' food safety regulatory status')}`,
+      url: `https://lite.duckduckgo.com/lite/?q=${encodeURIComponent(cleanName + ' food safety regulatory status allergen')}`,
+    },
+    {
+      label: 'Wikipedia',
+      url: `https://en.wikipedia.org/wiki/${encodeURIComponent(cleanName.replace(/\s+/g, '_'))}`,
+    },
+    {
+      label: 'PubChem',
+      url: `https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/${encodeURIComponent(cleanName)}/description/JSON`,
     },
   ];
 
@@ -144,32 +164,6 @@ async function researchIngredientWithWebcmd(ingredient) {
   });
 
   await Promise.allSettled(searchPromises);
-
-  // Phase 2: Authoritative content pages (parallel)
-  const contentUrls = [
-    {
-      label: 'Wikipedia',
-      url: `https://en.wikipedia.org/wiki/${encodeURIComponent(cleanName.replace(/ /g, '_'))}`,
-    },
-    {
-      label: 'PubChem',
-      url: `https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/${encodeURIComponent(cleanName)}/description/JSON`,
-    },
-  ];
-
-  const contentPromises = contentUrls.map(async (item) => {
-    const result = await runWebcmd(['web', 'fetch', '--url', item.url], 15000);
-    if (result.success && result.output && result.output.length > 50) {
-      sources.push({
-        source: item.label,
-        url: item.url,
-        content: result.output.substring(0, 4000),
-      });
-    }
-  });
-
-  await Promise.allSettled(contentPromises);
-
   return sources;
 }
 
@@ -200,7 +194,7 @@ async function researchAllIngredients(ingredients) {
 class DietaryScanner {
   constructor(apiKeyManager) {
     this.apiKeyManager = apiKeyManager;
-    this.modelName = 'gemini-2.5-flash';
+    this.modelName = 'gemini-3.6-flash';
   }
 
   _getClient(operationType = 'default') {
@@ -622,6 +616,6 @@ app.listen(PORT, '0.0.0.0', () => {
     console.log('   GEMINI_API_KEY_2=your_second_key');
   }
   console.log(`📡 Server running on http://localhost:${PORT}`);
-  console.log('🌐 Using WebCMD for web research (replacing Google Search grounding)');
+  console.log('🌐 Using WebCMD for web research');
   console.log('💡 Open index.html in your browser to use the application');
 });
