@@ -4,118 +4,190 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Account - Food Safety</title>
-    <!-- Google Fonts: Fredoka -->
+    <title>Dietary Matrix &amp; Preferences | Dietary Deep Scan Engine</title>
+    <meta name="description" content="Manage your dietary restrictions, allergy matrices, and global safety rules.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/account_style.css">
     <script type="module" src="js/account_auth.js"></script>
     <script type="module" src="js/account.js"></script>
 </head>
 
 <body>
-    <!-- Animated Background Elements -->
-    <div class="floating-elements">
-        <div class="floating-icon">🥗</div>
-        <div class="floating-icon">🍎</div>
-        <div class="floating-icon">🥑</div>
-        <div class="floating-icon">🥕</div>
-        <div class="floating-icon">🌶️</div>
-        <div class="floating-icon">🧄</div>
-        <div class="floating-icon">🧅</div>
-        <div class="floating-icon">🥬</div>
+    <!-- Background Grid Texture -->
+    <div class="grid-background" aria-hidden="true"></div>
+
+    <div class="loading-overlay" id="loading-overlay" aria-live="polite">
+        <div class="spinner"></div>
+        <p>Synchronizing Dietary Matrix...</p>
     </div>
 
-    <div class="loading-overlay" id="loading-overlay">
-        Loading...
-    </div>
+    <div class="page-wrapper">
+        <div class="container profile-container">
+            <!-- App Header -->
+            <header class="profile-header">
+                <div class="header-brand-group">
+                    <a href="scanner.html" class="logo" aria-label="Dietary Deep Scan Scanner">
+                        <span class="logo-terminal-icon">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="4 17 10 11 4 5"></polyline>
+                                <line x1="12" y1="19" x2="20" y2="19"></line>
+                            </svg>
+                        </span>
+                        <span class="logo-text">Dietary<span class="logo-accent">Scan</span></span>
+                    </a>
+                    <div class="header-title-block">
+                        <h1>Dietary Matrix &amp; Ruleset</h1>
+                        <span class="header-badge">Automated Inspection Configuration</span>
+                    </div>
+                </div>
 
-    <div class="container">
-        <header class="profile-header">
-            <div class="header-content">
-                <h2>My Profile</h2>
-                <div class="header-badge">
-                    <span>Personalize Your Experience</span> 
+                <div class="header-actions">
+                    <a href="scanner.html" class="btn btn-secondary btn-sm">&larr; Back to Scanner</a>
+                    <button id="logout-btn" class="btn btn-secondary btn-sm" aria-label="Sign Out">Sign Out</button>
                 </div>
-            </div>
-            <button id="logout-btn" class="logout-btn">Sign Out</button>
-        </header>
+            </header>
 
-        <form id="profile-form">
-            <!-- 1. Basic Information -->
-            <div class="section-card">
-                <h3 class="section-title"><span class="section-icon">👤</span> Basic Information</h3>
-                <div class="form-group">
-                    <label>Email</label>
-                    <input type="email" id="email" disabled>
+            <form id="profile-form" class="profile-form-layout">
+                <!-- 1. Basic Information -->
+                <div class="section-card">
+                    <div class="section-card-header">
+                        <div class="window-controls">
+                            <span class="control-dot close"></span>
+                            <span class="control-dot minimize"></span>
+                            <span class="control-dot maximize"></span>
+                        </div>
+                        <h3 class="section-title">01 / User Identity &amp; Region</h3>
+                    </div>
+                    
+                    <div class="section-card-body">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="email">Registered Email</label>
+                                <input type="email" id="email" disabled class="disabled-input">
+                            </div>
+                            <div class="form-group">
+                                <label for="fullName">Full Name</label>
+                                <input type="text" id="fullName" required placeholder="Alex Mercer">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="age">Age</label>
+                                <input type="number" id="age" min="1" max="150" placeholder="28">
+                            </div>
+                            <div class="form-group">
+                                <label for="country">Primary Country of Residence (Regulatory Benchmark)</label>
+                                <input type="text" id="country" placeholder="e.g. USA, UK, India, Germany">
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label>Full Name</label>
-                    <input type="text" id="fullName" required placeholder="John Doe">
-                </div>
-                <div class="form-group">
-                    <label>Age</label>
-                    <input type="number" id="age" min="1" max="150">
-                </div>
-                <div class="form-group">
-                    <label>Country of Residence</label>
-                    <input type="text" id="country" placeholder="e.g. USA, India, UK">
-                </div>
-            </div>
 
-            <!-- 2. Diet Type -->
-            <div class="section-card">
-                <h3 class="section-title"><span class="section-icon">🥗</span> Diet Type</h3>
-                <label>What best describes your diet?</label>
-                <div class="checkbox-group">
-                    <label class="checkbox-item"><input type="radio" name="dietType" value="Vegetarian">
-                        Vegetarian</label>
-                    <label class="checkbox-item"><input type="radio" name="dietType" value="Vegan"> Vegan</label>
-                    <label class="checkbox-item"><input type="radio" name="dietType" value="Eggetarian">
-                        Eggetarian</label>
-                    <label class="checkbox-item"><input type="radio" name="dietType" value="Non-Vegetarian">
-                        Non-Vegetarian</label>
-                    <label class="checkbox-item"><input type="radio" name="dietType" value="Pescatarian">
-                        Pescatarian</label>
+                <!-- 2. Diet Type -->
+                <div class="section-card">
+                    <div class="section-card-header">
+                        <div class="window-controls">
+                            <span class="control-dot close"></span>
+                            <span class="control-dot minimize"></span>
+                            <span class="control-dot maximize"></span>
+                        </div>
+                        <h3 class="section-title">02 / Baseline Diet Paradigm</h3>
+                    </div>
+
+                    <div class="section-card-body">
+                        <label class="group-label">Select your primary dietary baseline:</label>
+                        <div class="checkbox-group">
+                            <label class="checkbox-item">
+                                <input type="radio" name="dietType" value="Vegetarian">
+                                <span>Vegetarian</span>
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="radio" name="dietType" value="Vegan">
+                                <span>Vegan</span>
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="radio" name="dietType" value="Eggetarian">
+                                <span>Eggetarian</span>
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="radio" name="dietType" value="Non-Vegetarian">
+                                <span>Non-Vegetarian</span>
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="radio" name="dietType" value="Pescatarian">
+                                <span>Pescatarian</span>
+                            </label>
+                        </div>
+                        <input type="text" id="dietTypeOther" class="other-input" placeholder="Other specific diet type (e.g. Keto, Mediterranean, Paleo)">
+                    </div>
                 </div>
-                <input type="text" id="dietTypeOther" class="other-input"
-                    placeholder="If something else, please specify (optional)">
-            </div>
 
-            <!-- 3. Religious / Ethical Rules -->
-            <div class="section-card">
-                <h3 class="section-title"><span class="section-icon">🕌</span> Religious & Ethical Rules</h3>
-                <label>Do you follow any food rules?</label>
-                <div class="checkbox-group">
-                    <label class="checkbox-item"><input type="checkbox" name="religiousRules" value="Halal">
-                        Halal</label>
-                    <label class="checkbox-item"><input type="checkbox" name="religiousRules" value="Kosher">
-                        Kosher</label>
-                    <label class="checkbox-item"><input type="checkbox" name="religiousRules" value="Jain"> Jain</label>
-                    <label class="checkbox-item"><input type="checkbox" name="religiousRules"
-                            value="No religious restrictions"> No religious restrictions</label>
+                <!-- 3. Religious / Ethical Rules -->
+                <div class="section-card">
+                    <div class="section-card-header">
+                        <div class="window-controls">
+                            <span class="control-dot close"></span>
+                            <span class="control-dot minimize"></span>
+                            <span class="control-dot maximize"></span>
+                        </div>
+                        <h3 class="section-title">03 / Religious &amp; Ethical Directives</h3>
+                    </div>
+
+                    <div class="section-card-body">
+                        <label class="group-label">Compliance standard rulesets:</label>
+                        <div class="checkbox-group">
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="religiousRules" value="Halal">
+                                <span>Halal</span>
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="religiousRules" value="Kosher">
+                                <span>Kosher</span>
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="religiousRules" value="Jain">
+                                <span>Jain (No Root Vegetables)</span>
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="religiousRules" value="No religious restrictions">
+                                <span>None</span>
+                            </label>
+                        </div>
+                        <input type="text" id="religiousRulesOther" class="other-input" placeholder="Additional ethical requirements (e.g. Cruelty-free, Palm oil free)">
+                    </div>
                 </div>
-                <input type="text" id="religiousRulesOther" class="other-input"
-                    placeholder="Any other food rules? (optional)">
-            </div>
 
-            <!-- 4. Dietary Restrictions (New Free Text Field) -->
-            <div class="section-card">
-                <h3 class="section-title"><span class="section-icon">⚠️</span> Dietary Restrictions or Things We Should Avoid</h3>
-                <label for="dietaryRestrictions">Please clarify what you cannot or do not eat (e.g. allergies,
-                    intolerances, dislikes).</label>
-                <div class="helper-text">Example: no onion, allergic to kiwi, avoid palm oil, halal only</div>
-                <textarea id="dietaryRestrictions" class="large-textarea" placeholder="Type here..."></textarea>
-            </div>
+                <!-- 4. Dietary Restrictions / Free Text -->
+                <div class="section-card">
+                    <div class="section-card-header">
+                        <div class="window-controls">
+                            <span class="control-dot close"></span>
+                            <span class="control-dot minimize"></span>
+                            <span class="control-dot maximize"></span>
+                        </div>
+                        <h3 class="section-title">04 / Specific Restrictions &amp; Allergens</h3>
+                    </div>
 
-            <div class="form-actions">
-                <button type="submit" class="btn pulse">
-                    <span class="btn-icon">💾</span>
-                    <span>Save Profile</span>
-                </button>
-            </div>
-        </form>
+                    <div class="section-card-body">
+                        <label for="dietaryRestrictions" class="group-label">Detailed exclusion directives (allergies, intolerances, chemicals to flag):</label>
+                        <p class="helper-text">Examples: no onion, allergic to peanuts &amp; kiwi, avoid artificial sweeteners (aspartame), celiac gluten-free</p>
+                        <textarea id="dietaryRestrictions" class="large-textarea" placeholder="Enter explicit exclusion rules..."></textarea>
+                    </div>
+                </div>
+
+                <!-- Form Action -->
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary btn-save">
+                        <span>Save &amp; Apply Dietary Matrix</span>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                    </button>
+                </div>
+            </form>
+        </div>
     </div>
 </body>
 

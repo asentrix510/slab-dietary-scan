@@ -262,9 +262,9 @@ function extractStructuredDataFromText(text) {
 
 function generateReportHTML(analysis, restrictions, citations = []) {
     const statusColors = {
-        'SAFE': '#27ae60',
-        'WARNING': '#e67e22',
-        'DANGER': '#c0392b'
+        'SAFE': '#3FB950',
+        'WARNING': '#D29922',
+        'DANGER': '#F85149'
     };
 
     // Ensure analysis has all required fields
@@ -279,57 +279,66 @@ function generateReportHTML(analysis, restrictions, citations = []) {
         parse_error: analysis.parse_error || null
     };
 
-    const statusColor = statusColors[safeAnalysis.compliance_status] || '#95a5a6';
+    const statusColor = statusColors[safeAnalysis.compliance_status] || '#8B949E';
 
     // Common text wrapping styles
     const textWrapStyle = 'word-wrap: break-word; overflow-wrap: break-word; word-break: break-word; max-width: 100%;';
 
     let html = `
-        <div style="font-family: 'Inter', sans-serif; color: #2c3e50; max-width: 100%; overflow-x: hidden; ${textWrapStyle}">
+        <div style="font-family: 'Inter', -apple-system, sans-serif; color: #C9D1D9; max-width: 100%; overflow-x: hidden; ${textWrapStyle}">
             <!-- Header -->
+<<<<<<< Updated upstream
             <div style="background: linear-gradient(135deg, ${statusColor}, ${statusColor}dd); color: white; padding: 2rem; border-radius: 10px; margin-bottom: 2rem; max-width: 100%; ${textWrapStyle}">
                 <h1 style="margin: 0 0 0.5rem 0; ${textWrapStyle}">Dietary Deep Scan Report</h1>
                 <p style="margin: 0; opacity: 0.9; ${textWrapStyle}">Analysis completed • Verified with WebCMD web research</p>
+=======
+            <div style="background: #161B22; border: 1px solid #30363D; border-left: 4px solid ${statusColor}; color: #F0F6FC; padding: 1.5rem; border-radius: 8px; margin-bottom: 1.5rem; max-width: 100%; ${textWrapStyle}">
+                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+                    <h2 style="margin: 0; font-size: 1.3rem; font-weight: 700; color: #F0F6FC; ${textWrapStyle}">Dietary Deep Scan Report</h2>
+                    <span style="font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; background: rgba(88, 166, 255, 0.15); color: #58A6FF; padding: 2px 8px; border-radius: 4px; border: 1px solid rgba(88, 166, 255, 0.3);">Google Grounded</span>
+                </div>
+                <p style="margin: 0.5rem 0 0 0; color: #8B949E; font-size: 0.88rem; ${textWrapStyle}">Analysis completed • Verified against global regulatory directives</p>
+>>>>>>> Stashed changes
             </div>
             
             <!-- User Restrictions -->
-            <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 10px; margin-bottom: 2rem; border-left: 4px solid #3498db; max-width: 100%; ${textWrapStyle}">
-                <h3 style="margin: 0 0 0.5rem 0; color: #2c3e50; ${textWrapStyle}">Your Dietary Restrictions</h3>
-                <p style="margin: 0; font-size: 1.1rem; ${textWrapStyle}">${restrictions}</p>
+            <div style="background: #161B22; border: 1px solid #30363D; padding: 1.25rem; border-radius: 8px; margin-bottom: 1.5rem; border-left: 3px solid #58A6FF; max-width: 100%; ${textWrapStyle}">
+                <h3 style="margin: 0 0 0.5rem 0; color: #F0F6FC; font-size: 0.95rem; font-family: 'JetBrains Mono', monospace; ${textWrapStyle}">TARGET DIETARY RULESET</h3>
+                <p style="margin: 0; font-size: 1rem; color: #C9D1D9; ${textWrapStyle}">${restrictions}</p>
             </div>
             
             <!-- Parse Error Warning (if any) -->
             ${safeAnalysis.parse_error ? `
-            <div style="background: #fff3cd; padding: 1rem; border-radius: 8px; margin-bottom: 1rem; border-left: 4px solid #ffc107; max-width: 100%; ${textWrapStyle}">
-                <p style="margin: 0; color: #856404; font-size: 0.9rem; ${textWrapStyle}">
-                    ⚠️ Note: Response was parsed from text format. Some structure may be simplified.
+            <div style="background: rgba(210, 153, 34, 0.1); border: 1px solid rgba(210, 153, 34, 0.3); padding: 1rem; border-radius: 8px; margin-bottom: 1rem; border-left: 4px solid #D29922; max-width: 100%; ${textWrapStyle}">
+                <p style="margin: 0; color: #D29922; font-size: 0.88rem; ${textWrapStyle}">
+                    ⚠️ Note: Response was parsed from text stream format.
                 </p>
             </div>
             ` : ''}
             
             <!-- Compliance Status -->
-            <div style="background: ${statusColor}15; padding: 1.5rem; border-radius: 10px; margin-bottom: 2rem; border-left: 4px solid ${statusColor}; max-width: 100%; ${textWrapStyle}">
-                <h2 style="margin: 0 0 1rem 0; color: ${statusColor}; ${textWrapStyle}">
+            <div style="background: #161B22; border: 1px solid #30363D; padding: 1.25rem; border-radius: 8px; margin-bottom: 1.5rem; border-left: 4px solid ${statusColor}; max-width: 100%; ${textWrapStyle}">
+                <h3 style="margin: 0 0 0.75rem 0; color: ${statusColor}; font-size: 1.1rem; font-weight: 700; ${textWrapStyle}">
                     ${safeAnalysis.compliance_status === 'SAFE' ? '✅' : safeAnalysis.compliance_status === 'WARNING' ? '⚠️' : '❌'} 
-                    Compliance Status: ${safeAnalysis.compliance_status}
-                </h2>
-                <p style="margin: 0; ${textWrapStyle}">${safeAnalysis.summary}</p>
+                    COMPLIANCE STATUS: ${safeAnalysis.compliance_status}
+                </h3>
+                <p style="margin: 0; color: #C9D1D9; line-height: 1.6; ${textWrapStyle}">${safeAnalysis.summary}</p>
             </div>
     `;
 
     // Restriction Conflicts
     if (safeAnalysis.restriction_conflicts && safeAnalysis.restriction_conflicts.length > 0) {
         html += `
-            <div style="background: white; padding: 1.5rem; border-radius: 10px; margin-bottom: 2rem; box-shadow: 0 2px 4px rgba(0,0,0,0.1); max-width: 100%; ${textWrapStyle}">
-                <h2 style="color: #c0392b; margin-top: 0; ${textWrapStyle}">⚠️ Restriction Conflicts</h2>
+            <div style="background: #161B22; border: 1px solid #30363D; padding: 1.25rem; border-radius: 8px; margin-bottom: 1.5rem; max-width: 100%; ${textWrapStyle}">
+                <h3 style="color: #F85149; margin: 0 0 1rem 0; font-size: 1.05rem; font-weight: 700; ${textWrapStyle}">⚠️ Restriction Conflicts</h3>
         `;
         safeAnalysis.restriction_conflicts.forEach(conflict => {
-            const severityColor = conflict.severity === 'high' ? '#c0392b' : conflict.severity === 'medium' ? '#e67e22' : '#f39c12';
+            const severityColor = conflict.severity === 'high' ? '#F85149' : conflict.severity === 'medium' ? '#D29922' : '#E3B341';
             html += `
-                <div style="background: ${severityColor}15; padding: 1rem; border-radius: 5px; margin-bottom: 1rem; border-left: 3px solid ${severityColor}; max-width: 100%; ${textWrapStyle}">
-                    <strong style="color: ${severityColor}; ${textWrapStyle}">${conflict.ingredient}</strong>
-                    <p style="margin: 0.5rem 0 0 0; ${textWrapStyle}">${conflict.issue}</p>
-                    <small style="color: #7f8c8d; ${textWrapStyle}">Severity: ${conflict.severity}</small>
+                <div style="background: #0D1117; border: 1px solid #30363D; padding: 0.9rem; border-radius: 6px; margin-bottom: 0.75rem; border-left: 3px solid ${severityColor}; max-width: 100%; ${textWrapStyle}">
+                    <strong style="color: ${severityColor}; font-family: 'JetBrains Mono', monospace; ${textWrapStyle}">${conflict.ingredient}</strong>
+                    <p style="margin: 0.4rem 0 0 0; color: #C9D1D9; ${textWrapStyle}">${conflict.issue}</p>
+                    <small style="color: #8B949E; font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; ${textWrapStyle}">Severity tier: ${conflict.severity}</small>
                 </div>
             `;
         });
@@ -339,15 +348,15 @@ function generateReportHTML(analysis, restrictions, citations = []) {
     // Global Bans
     if (safeAnalysis.regulatory_bans && safeAnalysis.regulatory_bans.length > 0) {
         html += `
-            <div style="background: white; padding: 1.5rem; border-radius: 10px; margin-bottom: 2rem; box-shadow: 0 2px 4px rgba(0,0,0,0.1); max-width: 100%; ${textWrapStyle}">
-                <h2 style="color: #c0392b; margin-top: 0; ${textWrapStyle}">🚫 Global Bans</h2>
+            <div style="background: #161B22; border: 1px solid #30363D; padding: 1.25rem; border-radius: 8px; margin-bottom: 1.5rem; max-width: 100%; ${textWrapStyle}">
+                <h3 style="color: #F85149; margin: 0 0 1rem 0; font-size: 1.05rem; font-weight: 700; ${textWrapStyle}">🚫 Global Regulatory Bans</h3>
         `;
         safeAnalysis.regulatory_bans.forEach(ban => {
             html += `
-                <div style="background: #c0392b15; padding: 1rem; border-radius: 5px; margin-bottom: 1rem; border-left: 3px solid #c0392b; max-width: 100%; ${textWrapStyle}">
-                    <strong style="color: #c0392b; ${textWrapStyle}">${ban.ingredient}</strong>
-                    <p style="margin: 0.5rem 0; ${textWrapStyle}"><strong>Countries:</strong> ${Array.isArray(ban.countries) ? ban.countries.join(', ') : ban.countries || 'N/A'}</p>
-                    <p style="margin: 0; ${textWrapStyle}">${ban.reason}</p>
+                <div style="background: #0D1117; border: 1px solid #30363D; padding: 0.9rem; border-radius: 6px; margin-bottom: 0.75rem; border-left: 3px solid #F85149; max-width: 100%; ${textWrapStyle}">
+                    <strong style="color: #F85149; font-family: 'JetBrains Mono', monospace; ${textWrapStyle}">${ban.ingredient}</strong>
+                    <p style="margin: 0.4rem 0; color: #C9D1D9; ${textWrapStyle}"><strong style="color: #8B949E;">Jurisdictions:</strong> ${Array.isArray(ban.countries) ? ban.countries.join(', ') : ban.countries || 'N/A'}</p>
+                    <p style="margin: 0; color: #8B949E; font-size: 0.9rem; ${textWrapStyle}">${ban.reason}</p>
                 </div>
             `;
         });
@@ -357,16 +366,15 @@ function generateReportHTML(analysis, restrictions, citations = []) {
     // Regulatory Restrictions
     if (safeAnalysis.regulatory_restrictions && safeAnalysis.regulatory_restrictions.length > 0) {
         html += `
-            <div style="background: white; padding: 1.5rem; border-radius: 10px; margin-bottom: 2rem; box-shadow: 0 2px 4px rgba(0,0,0,0.1); max-width: 100%; ${textWrapStyle}">
-                <h2 style="color: #e67e22; margin-top: 0; ${textWrapStyle}">⚡ Regulatory Restrictions</h2>
+            <div style="background: #161B22; border: 1px solid #30363D; padding: 1.25rem; border-radius: 8px; margin-bottom: 1.5rem; max-width: 100%; ${textWrapStyle}">
+                <h3 style="color: #D29922; margin: 0 0 1rem 0; font-size: 1.05rem; font-weight: 700; ${textWrapStyle}">⚡ Regulatory Advisories</h3>
         `;
         safeAnalysis.regulatory_restrictions.forEach(restriction => {
             html += `
-                <div style="background: #e67e2215; padding: 1rem; border-radius: 5px; margin-bottom: 1rem; border-left: 3px solid #e67e22; max-width: 100%; ${textWrapStyle}">
-                    <strong style="color: #e67e22; ${textWrapStyle}">${restriction.ingredient || 'Unknown'}</strong>
-                    <p style="margin: 0.5rem 0; ${textWrapStyle}"><strong>Type:</strong> ${restriction.type || 'N/A'}</p>
-                    <p style="margin: 0.5rem 0; ${textWrapStyle}"><strong>Countries:</strong> ${Array.isArray(restriction.countries) ? restriction.countries.join(', ') : restriction.countries || 'N/A'}</p>
-                    <p style="margin: 0; ${textWrapStyle}">${restriction.reason || 'No reason provided'}</p>
+                <div style="background: #0D1117; border: 1px solid #30363D; padding: 0.9rem; border-radius: 6px; margin-bottom: 0.75rem; border-left: 3px solid #D29922; max-width: 100%; ${textWrapStyle}">
+                    <strong style="color: #D29922; font-family: 'JetBrains Mono', monospace; ${textWrapStyle}">${restriction.ingredient || 'Unknown'}</strong>
+                    <p style="margin: 0.4rem 0; color: #C9D1D9; ${textWrapStyle}"><strong style="color: #8B949E;">Type:</strong> ${restriction.type || 'N/A'} • <strong style="color: #8B949E;">Jurisdictions:</strong> ${Array.isArray(restriction.countries) ? restriction.countries.join(', ') : restriction.countries || 'N/A'}</p>
+                    <p style="margin: 0; color: #8B949E; font-size: 0.9rem; ${textWrapStyle}">${restriction.reason || 'No reason provided'}</p>
                 </div>
             `;
         });
@@ -376,15 +384,15 @@ function generateReportHTML(analysis, restrictions, citations = []) {
     // Health Notes
     if (safeAnalysis.health_notes && safeAnalysis.health_notes.length > 0) {
         html += `
-            <div style="background: white; padding: 1.5rem; border-radius: 10px; margin-bottom: 2rem; box-shadow: 0 2px 4px rgba(0,0,0,0.1); max-width: 100%; ${textWrapStyle}">
-                <h2 style="color: #3498db; margin-top: 0; ${textWrapStyle}">💊 Health Information</h2>
+            <div style="background: #161B22; border: 1px solid #30363D; padding: 1.25rem; border-radius: 8px; margin-bottom: 1.5rem; max-width: 100%; ${textWrapStyle}">
+                <h3 style="color: #58A6FF; margin: 0 0 1rem 0; font-size: 1.05rem; font-weight: 700; ${textWrapStyle}">💊 Chemical &amp; Health Insights</h3>
         `;
         safeAnalysis.health_notes.forEach(note => {
-            const typeColor = note.type === 'positive' ? '#27ae60' : note.type === 'negative' ? '#c0392b' : '#95a5a6';
+            const typeColor = note.type === 'positive' ? '#3FB950' : note.type === 'negative' ? '#F85149' : '#58A6FF';
             html += `
-                <div style="background: ${typeColor}15; padding: 1rem; border-radius: 5px; margin-bottom: 1rem; border-left: 3px solid ${typeColor}; max-width: 100%; ${textWrapStyle}">
-                    <strong style="color: ${typeColor}; ${textWrapStyle}">${note.ingredient || 'Unknown'}</strong>
-                    <p style="margin: 0.5rem 0 0 0; ${textWrapStyle}">${note.note || 'No information provided'}</p>
+                <div style="background: #0D1117; border: 1px solid #30363D; padding: 0.9rem; border-radius: 6px; margin-bottom: 0.75rem; border-left: 3px solid ${typeColor}; max-width: 100%; ${textWrapStyle}">
+                    <strong style="color: ${typeColor}; font-family: 'JetBrains Mono', monospace; ${textWrapStyle}">${note.ingredient || 'Unknown'}</strong>
+                    <p style="margin: 0.4rem 0 0 0; color: #C9D1D9; font-size: 0.92rem; ${textWrapStyle}">${note.note || 'No information provided'}</p>
                 </div>
             `;
         });
@@ -394,11 +402,11 @@ function generateReportHTML(analysis, restrictions, citations = []) {
     // Show raw response if parsing had issues
     if (safeAnalysis.raw_response && safeAnalysis.parse_error) {
         html += `
-            <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 10px; margin-bottom: 2rem; border-left: 4px solid #6c757d; max-width: 100%; ${textWrapStyle}">
-                <h2 style="color: #495057; margin-top: 0; ${textWrapStyle}">📄 Raw Response</h2>
+            <div style="background: #161B22; border: 1px solid #30363D; padding: 1.25rem; border-radius: 8px; margin-bottom: 1.5rem; border-left: 4px solid #8B949E; max-width: 100%; ${textWrapStyle}">
+                <h3 style="color: #F0F6FC; margin-top: 0; font-size: 1rem; ${textWrapStyle}">📄 Raw Response Tensor</h3>
                 <details>
-                    <summary style="cursor: pointer; color: #6c757d; margin-bottom: 0.5rem; ${textWrapStyle}">Click to view raw response</summary>
-                    <pre style="background: white; padding: 1rem; border-radius: 5px; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word; overflow-wrap: break-word; word-break: break-word; max-width: 100%; font-size: 0.9rem;">${escapeHtml(safeAnalysis.raw_response)}</pre>
+                    <summary style="cursor: pointer; color: #8B949E; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; margin-bottom: 0.5rem; ${textWrapStyle}">Click to view raw payload stream</summary>
+                    <pre style="background: #0D1117; border: 1px solid #30363D; color: #C9D1D9; padding: 1rem; border-radius: 6px; overflow-x: auto; white-space: pre-wrap; font-family: 'JetBrains Mono', monospace; font-size: 0.84rem; line-height: 1.5; ${textWrapStyle}">${escapeHtml(safeAnalysis.raw_response)}</pre>
                 </details>
             </div>
         `;
@@ -407,16 +415,16 @@ function generateReportHTML(analysis, restrictions, citations = []) {
     // Citations Section
     if (citations && citations.length > 0) {
         html += `
-            <div style="background: white; padding: 1.5rem; border-radius: 10px; margin-bottom: 2rem; box-shadow: 0 2px 4px rgba(0,0,0,0.1); max-width: 100%; ${textWrapStyle}">
-                <h2 style="color: #3498db; margin-top: 0; ${textWrapStyle}">📚 Sources & Citations</h2>
-                <p style="color: #7f8c8d; margin-bottom: 1rem; ${textWrapStyle}">Information verified from the following sources:</p>
+            <div style="background: #161B22; border: 1px solid #30363D; padding: 1.25rem; border-radius: 8px; margin-bottom: 1.5rem; max-width: 100%; ${textWrapStyle}">
+                <h3 style="color: #58A6FF; margin: 0 0 0.5rem 0; font-size: 1.05rem; font-weight: 700; ${textWrapStyle}">📚 Live Verification Citations</h3>
+                <p style="color: #8B949E; font-size: 0.85rem; margin-bottom: 1rem; ${textWrapStyle}">Direct URLs consulted during deep analysis:</p>
         `;
         citations.forEach((citation, idx) => {
             html += `
-                <div style="background: #f8f9fa; padding: 1rem; border-radius: 5px; margin-bottom: 0.75rem; border-left: 3px solid #3498db; max-width: 100%; ${textWrapStyle}">
-                    <strong style="color: #2c3e50; ${textWrapStyle}">[${idx + 1}] ${citation.title || 'Source'}</strong>
+                <div style="background: #0D1117; border: 1px solid #30363D; padding: 0.85rem; border-radius: 6px; margin-bottom: 0.6rem; border-left: 3px solid #58A6FF; max-width: 100%; ${textWrapStyle}">
+                    <strong style="color: #F0F6FC; font-size: 0.9rem; ${textWrapStyle}">[${idx + 1}] ${citation.title || 'Source'}</strong>
                     <br>
-                    <a href="${citation.uri || '#'}" target="_blank" style="color: #3498db; text-decoration: none; font-size: 0.9rem; ${textWrapStyle}; display: inline-block; max-width: 100%;">
+                    <a href="${citation.uri || '#'}" target="_blank" style="color: #58A6FF; text-decoration: underline; font-family: 'JetBrains Mono', monospace; font-size: 0.82rem; ${textWrapStyle}; display: inline-block; margin-top: 4px; max-width: 100%;">
                         🔗 ${citation.uri || 'No URL available'}
                     </a>
                 </div>
@@ -427,8 +435,13 @@ function generateReportHTML(analysis, restrictions, citations = []) {
 
     // Footer
     html += `
+<<<<<<< Updated upstream
         <div style="background: #ecf0f1; padding: 1rem; border-radius: 10px; text-align: center; color: #7f8c8d; font-size: 0.9rem; max-width: 100%; ${textWrapStyle}">
             <p style="margin: 0; ${textWrapStyle}">Information verified using WebCMD web research + Gemini AI.</p>
+=======
+        <div style="background: #161B22; border: 1px solid #30363D; padding: 1rem; border-radius: 8px; text-align: center; color: #8B949E; font-size: 0.84rem; font-family: 'JetBrains Mono', monospace; max-width: 100%; ${textWrapStyle}">
+            <p style="margin: 0; ${textWrapStyle}">verified: google_grounding_engine • webcmd.dev design system</p>
+>>>>>>> Stashed changes
         </div>
     </div>
     `;

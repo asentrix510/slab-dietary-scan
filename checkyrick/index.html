@@ -4,345 +4,506 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dietary Deep Scan System 🧬 | Food Safety Intelligence</title>
+    <title>Dietary Deep Scan System | Developer-Grade Food Safety Intelligence</title>
+    <meta name="description" content="Self-learning AI dietary analysis and food safety scanner with global ban verification and web-backed citations.">
     <link rel="stylesheet" href="index.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&family=Fredoka:wght@400;500;600;700&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
 </head>
 
 <body>
-    <!-- Video Background Layer -->
-    <div class="video-background">
-        <div class="video-overlay"></div>
-        <!-- Animated food scanning illustration -->
-        <div class="animated-scanning">
-            <div class="scan-beam"></div>
-            <div class="food-particles">
-                <div class="particle"></div>
-                <div class="particle"></div>
-                <div class="particle"></div>
-                <div class="particle"></div>
-                <div class="particle"></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Animated Background Elements -->
-    <div class="floating-elements">
-        <div class="floating-icon">🥗</div>
-        <div class="floating-icon">🍎</div>
-        <div class="floating-icon">🥑</div>
-        <div class="floating-icon">🥕</div>
-        <div class="floating-icon">🌶️</div>
-        <div class="floating-icon">🧄</div>
-        <div class="floating-icon">🧅</div>
-        <div class="floating-icon">🥬</div>
-    </div>
+    <!-- Background Grid Texture -->
+    <div class="grid-background" aria-hidden="true"></div>
 
     <!-- Navigation -->
-    <nav class="navbar">
+    <header class="navbar">
         <div class="nav-container">
-            <div class="logo">
-                <span class="logo-icon">🧬</span>
-                <span class="logo-text">Dietary Deep Scan</span>
+            <div class="nav-brand">
+                <a href="index.html" class="logo" aria-label="Dietary Deep Scan Home">
+                    <span class="logo-terminal-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="4 17 10 11 4 5"></polyline>
+                            <line x1="12" y1="19" x2="20" y2="19"></line>
+                        </svg>
+                    </span>
+                    <span class="logo-text">Dietary<span class="logo-accent">Scan</span></span>
+                    <span class="version-tag">v0.7.4</span>
+                </a>
             </div>
-            <div class="nav-links">
+            
+            <nav class="nav-links" aria-label="Main Navigation">
                 <a href="#features">Features</a>
-                <a href="#how-it-works">How It Works</a>
-                <a href="#demo">Try It</a>
-            </div>
-        </div>
-    </nav>
+                <a href="#code-showcase">CLI & API</a>
+                <a href="#how-it-works">Architecture</a>
+                <a href="#use-cases">Use Cases</a>
+            </nav>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <!-- Food Scanning Process Animation -->
-        <div class="hero-video-bg">
-            <div class="scanning-process">
-                <div class="ingredient-flow">
-                    <div class="flow-item">🥗</div>
-                    <div class="flow-item">🍎</div>
-                    <div class="flow-item">🥑</div>
-                    <div class="flow-item">🥕</div>
-                </div>
-                <div class="analysis-ring"></div>
-            </div>
-        </div>
-        <div class="hero-container">
-            <div class="hero-content">
-                <div class="hero-badge">
-                    <span class="sparkle">✨</span>
-                    <span>AI-Powered Food Intelligence</span>
-                    <span class="sparkle">✨</span>
-                </div>
-                <h1 class="hero-title">
-                    Know What's <span class="gradient-text">Really</span> in Your Food
-                </h1>
-                <p class="hero-subtitle">
-                    Scan ingredients, verify safety, check global bans, and get web-verified research
-                    on every ingredient in seconds. Your dietary restrictions, our mission.
-                </p>
-                <div class="hero-cta">
-                    <a href="account_login.html" class="btn btn-primary pulse">
-                        <span>🚀 Start Scanning Now</span>
-                    </a>
-                    <a href="#features" class="btn btn-secondary">
-                        <span>Learn More</span>
-                    </a>
-                </div>
-                <div class="hero-stats">
-                    <div class="stat-item">
-                        <div class="stat-number">100%</div>
-                        <div class="stat-label">Web-Verified</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number">🌍</div>
-                        <div class="stat-label">Global Coverage</div>
-                    </div>
-                </div>
-            </div>
-            <div class="hero-visual">
-                <div class="scan-animation">
-                    <div class="scan-line"></div>
-                    <div class="ingredient-card floating">
-                        <div class="card-header">📋 Ingredient Analysis</div>
-                        <div class="ingredient-item">
-                            <span class="ingredient-name">Allium Cepa</span>
-                            <span class="status-badge warning">⚠️ Restricted</span>
-                        </div>
-                        <div class="ingredient-item">
-                            <span class="ingredient-name">Palm Oil</span>
-                            <span class="status-badge banned">🚫 Banned in EU</span>
-                        </div>
-                        <div class="ingredient-item">
-                            <span class="ingredient-name">Red Dye 40</span>
-                            <span class="status-badge safe">✅ Safe</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Features Section -->
-    <section id="features" class="features">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Why Choose Dietary Deep Scan?</h2>
-                <p class="section-subtitle">More than just ingredient checking</p>
-            </div>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">🔍</div>
-                    <h3>Web-Verified Research</h3>
-                    <p>Every finding backed by real web sources with exact URLs. No guesswork, just facts.</p>
-                    <div class="feature-highlight">Real-time web searches with Google Search</div>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🌍</div>
-                    <h3>Global Bans & Restrictions</h3>
-                    <p>Know which countries ban or restrict ingredients and why. Stay informed globally.</p>
-                    <div class="feature-highlight">Complete regulatory database</div>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🧪</div>
-                    <h3>Chemical-Level Analysis</h3>
-                    <p>Not just name matching. We analyze chemical composition to catch hidden ingredients.</p>
-                    <div class="feature-highlight">AI-powered composition analysis</div>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">📚</div>
-                    <h3>Exact Citations</h3>
-                    <p>Every claim comes with source URLs. Verify everything yourself with our citations.</p>
-                    <div class="feature-highlight">Transparent sourcing</div>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">📊</div>
-                    <h3>Professional Reports</h3>
-                    <p>Beautiful HTML reports with color-coded findings. Download and share easily.</p>
-                    <div class="feature-highlight">Export-ready formats</div>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">⚡</div>
-                    <h3>Lightning Fast</h3>
-                    <p>Get comprehensive analysis in seconds. No waiting, no delays.</p>
-                    <div class="feature-highlight">Powered by Gemini</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- How It Works -->
-    <section id="how-it-works" class="how-it-works">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">How It Works</h2>
-                <p class="section-subtitle">Simple, fast, and powerful</p>
-            </div>
-            <div class="steps-container">
-                <div class="step-item">
-                    <div class="step-number">1</div>
-                    <div class="step-icon">📸</div>
-                    <h3>Upload Label</h3>
-                    <p>Snap or upload a photo of your ingredient label. Our AI reads it instantly.</p>
-                </div>
-                <div class="step-arrow">→</div>
-                <div class="step-item">
-                    <div class="step-number">2</div>
-                    <div class="step-icon">🔎</div>
-                    <h3>Deep Research</h3>
-                    <p>We search the web for each ingredient, checking bans, restrictions, and health data.</p>
-                </div>
-                <div class="step-arrow">→</div>
-                <div class="step-item">
-                    <div class="step-number">3</div>
-                    <div class="step-icon">🧬</div>
-                    <h3>AI Analysis</h3>
-                    <p>Chemical composition analysis matches your restrictions with scientific precision.</p>
-                </div>
-                <div class="step-arrow">→</div>
-                <div class="step-item">
-                    <div class="step-number">4</div>
-                    <div class="step-icon">📄</div>
-                    <h3>Get Report</h3>
-                    <p>Receive a comprehensive report with citations, ready to download and share.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Demo Section -->
-    <section id="demo" class="demo">
-        <div class="container">
-            <div class="demo-container">
-                <div class="demo-content">
-                    <h2 class="demo-title">Ready to Scan Your Food?</h2>
-                    <p class="demo-subtitle">Join thousands who trust Dietary Deep Scan for food safety</p>
-                    <div class="demo-features">
-                        <div class="demo-feature">✅ Easy to use</div>
-                        <div class="demo-feature">✅ Free to use</div>
-                        <div class="demo-feature">✅ Instant results</div>
-                    </div>
-                    <a href="account_login.html" class="btn btn-primary btn-large pulse">
-                        <span>🚀 Launch Scanner App</span>
-                    </a>
-                    <p class="demo-note">Understand your products better with Dietary Deep Scan</p>
-                </div>
-                <div class="demo-visual">
-                    <div class="report-preview">
-                        <div class="report-header">
-                            <span>📊 Analysis Report</span>
-                        </div>
-                        <div class="report-content">
-                            <div class="report-section">
-                                <h4>🌍 Global Bans</h4>
-                                <div class="report-item">Palm Oil - Banned in EU</div>
-                            </div>
-                            <div class="report-section">
-                                <h4>⚠️ Restrictions</h4>
-                                <div class="report-item">Allium - Restricted (No Onion diet)</div>
-                            </div>
-                            <div class="report-section">
-                                <h4>📚 Citations</h4>
-                                <div class="report-item">🔗 3 verified sources</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Use Cases -->
-    <section class="use-cases">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Perfect For</h2>
-            </div>
-            <div class="use-cases-grid">
-                <div class="use-case-card">
-                    <div class="use-case-icon">🌱</div>
-                    <h3>Vegans & Vegetarians</h3>
-                    <p>Check for hidden animal products and derivatives</p>
-                </div>
-                <div class="use-case-card">
-                    <div class="use-case-icon">🕌</div>
-                    <h3>Halal & Kosher</h3>
-                    <p>Verify compliance with religious dietary laws</p>
-                </div>
-                <div class="use-case-card">
-                    <div class="use-case-icon">🚫</div>
-                    <h3>Food Allergies</h3>
-                    <p>Detect allergens even when not clearly listed</p>
-                </div>
-                <div class="use-case-card">
-                    <div class="use-case-icon">💊</div>
-                    <h3>Medical Diets</h3>
-                    <p>FODMAP, low-sodium, diabetic-friendly checks</p>
-                </div>
-                <div class="use-case-card">
-                    <div class="use-case-icon">🌍</div>
-                    <h3>Global Travelers</h3>
-                    <p>Know what's banned in your destination country</p>
-                </div>
-                <div class="use-case-card">
-                    <div class="use-case-icon">👶</div>
-                    <h3>Parents</h3>
-                    <p>Ensure safe ingredients for your children</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- CTA Section -->
-    <section class="cta-section">
-        <!-- Animated Illustration Background -->
-        <div class="cta-animated-bg">
-            <div class="illustration-circle circle-1"></div>
-            <div class="illustration-circle circle-2"></div>
-            <div class="illustration-circle circle-3"></div>
-            <div class="illustration-wave wave-1"></div>
-            <div class="illustration-wave wave-2"></div>
-        </div>
-        <div class="container">
-            <div class="cta-content">
-                <h2>Start Protecting Your Health Today</h2>
-                <p>Join the food safety revolution. Know what you eat.</p>
-                <a href="account_login.html" class="btn btn-primary btn-large pulse">
-                    <span>🚀 Get Started Free</span>
+            <div class="nav-actions">
+                <a href="account_login.html" class="btn btn-secondary nav-btn-login">Sign In</a>
+                <a href="account_login.html" class="btn btn-primary nav-cta">
+                    <span>Launch App</span>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                        <polyline points="12 5 19 12 12 19"></polyline>
+                    </svg>
                 </a>
             </div>
         </div>
-    </section>
+    </header>
+
+    <main id="main-content">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-container">
+                <div class="hero-content">
+                    <div class="hero-badge">
+                        <span class="badge-dot"></span>
+                        <span class="badge-text">Food Safety Intelligence Runtime</span>
+                        <span class="badge-code">webcmd-native</span>
+                    </div>
+
+                    <h1 class="hero-title">
+                        Deterministic Food Safety &amp; <span class="gradient-text">Chemical Deep Scan</span>
+                    </h1>
+
+                    <p class="hero-subtitle">
+                        Scan ingredient labels with chemical-level precision, cross-reference global regulatory bans, and extract web-verified citations in seconds. Built for developers, travelers, and diet compliance.
+                    </p>
+
+                    <div class="hero-cta">
+                        <a href="account_login.html" class="btn btn-primary btn-large">
+                            <span>🚀 Launch Scanner Engine</span>
+                        </a>
+                        <a href="#code-showcase" class="btn btn-secondary btn-large">
+                            <span class="btn-icon">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+                                    <path d="M10 10l4 2-4 2"></path>
+                                </svg>
+                            </span>
+                            <span>View CLI Demo</span>
+                        </a>
+                    </div>
+
+                    <div class="hero-metrics">
+                        <div class="metric-item">
+                            <div class="metric-value">100%</div>
+                            <div class="metric-label">Web-Verified Citations</div>
+                        </div>
+                        <div class="metric-divider"></div>
+                        <div class="metric-item">
+                            <div class="metric-value">&lt; 3.0s</div>
+                            <div class="metric-label">OCR &amp; Search Latency</div>
+                        </div>
+                        <div class="metric-divider"></div>
+                        <div class="metric-item">
+                            <div class="metric-value">Global</div>
+                            <div class="metric-label">EU / FDA / WHO Bans</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hero Terminal Mockup -->
+                <div class="hero-visual">
+                    <div class="terminal-window">
+                        <div class="terminal-header">
+                            <div class="window-controls">
+                                <span class="control-dot close"></span>
+                                <span class="control-dot minimize"></span>
+                                <span class="control-dot maximize"></span>
+                            </div>
+                            <div class="terminal-title">bash — dietary-scan v0.7.4 (node v22.16.0)</div>
+                            <div class="terminal-actions">
+                                <span class="terminal-badge">LIVE</span>
+                            </div>
+                        </div>
+                        <div class="terminal-body">
+                            <div class="terminal-line">
+                                <span class="t-prompt">$</span> <span class="t-cmd">dietary-scan analyze</span> <span class="t-flag">--image</span> <span class="t-val">nutrition_label.jpg</span> <span class="t-flag">--rules</span> <span class="t-val">"vegan,no-allium,no-palmoil"</span>
+                            </div>
+                            <div class="terminal-output t-info">
+                                <span class="t-arrow">→</span> [OCR] Extracted 14 ingredients from image tensor
+                            </div>
+                            <div class="terminal-output t-info">
+                                <span class="t-arrow">→</span> [WebSearch] Querying regulatory databases &amp; citations...
+                            </div>
+                            <div class="terminal-box">
+                                <div class="t-row"><span class="t-key">Status:</span> <span class="status-pill warning">⚠️ RESTRICTION_CONFLICT</span></div>
+                                <div class="t-row"><span class="t-key">Ingredients:</span> <span class="t-val">14 detected (Allium Cepa, Elaeis Guineensis, Red Dye 40...)</span></div>
+                                <div class="t-row"><span class="t-key">Conflict [1]:</span> <span class="t-danger">Allium Cepa (Onion)</span> <span class="t-dim">violates 'no-allium' restriction</span></div>
+                                <div class="t-row"><span class="t-key">Conflict [2]:</span> <span class="t-danger">Palm Oil</span> <span class="t-dim">flagged in EU Food Safety Directive 2024</span></div>
+                                <div class="t-row"><span class="t-key">Citations:</span> <span class="t-link">3 verified URLs (eur-lex.europa.eu, fda.gov)</span></div>
+                            </div>
+                            <div class="terminal-line">
+                                <span class="t-prompt">$</span> <span class="t-cmd">dietary-scan export</span> <span class="t-flag">--format</span> <span class="t-val">html</span> <span class="t-dim">--output report.html</span> <span class="t-success">[DONE 420ms]</span>
+                            </div>
+                            <div class="terminal-cursor"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Grid (3 Columns) -->
+        <section id="features" class="features-section">
+            <div class="container">
+                <div class="section-header">
+                    <div class="section-tag">ENGINE CAPABILITIES</div>
+                    <h2 class="section-title">Built for Precision, Compliance, and Speed</h2>
+                    <p class="section-subtitle">Everything you need to automate dietary intelligence with zero guesswork.</p>
+                </div>
+
+                <div class="features-grid">
+                    <!-- Feature Card 1 -->
+                    <div class="feature-card">
+                        <div class="feature-icon-wrapper">
+                            <svg class="feature-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="11" cy="11" r="8"></circle>
+                                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                                <polyline points="11 8 11 11 14 11"></polyline>
+                            </svg>
+                        </div>
+                        <h3 class="feature-title">Real-Time Web Verification</h3>
+                        <p class="feature-desc">Every finding is cross-checked across real-time web sources and food safety databases with verifiable URLs and zero hallucinations.</p>
+                        <div class="feature-meta">
+                            <span class="meta-tag">Google Grounding API</span>
+                        </div>
+                    </div>
+
+                    <!-- Feature Card 2 -->
+                    <div class="feature-card">
+                        <div class="feature-icon-wrapper">
+                            <svg class="feature-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="2" y1="12" x2="22" y2="12"></line>
+                                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="feature-title">Global Regulatory Bans</h3>
+                        <p class="feature-desc">Track country-specific bans and safety limits across the EU, FDA, WHO, EFSA, and international food regulatory agencies.</p>
+                        <div class="feature-meta">
+                            <span class="meta-tag">Multi-Jurisdiction</span>
+                        </div>
+                    </div>
+
+                    <!-- Feature Card 3 -->
+                    <div class="feature-card">
+                        <div class="feature-icon-wrapper">
+                            <svg class="feature-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M10 2v7.31"></path>
+                                <path d="M14 9.3V1.99"></path>
+                                <path d="M8.5 2h7"></path>
+                                <path d="M14 9.3a6.5 6.5 0 1 1-4 0"></path>
+                                <path d="M5.52 16h12.96"></path>
+                            </svg>
+                        </div>
+                        <h3 class="feature-title">Chemical Composition Mapping</h3>
+                        <p class="feature-desc">Detect hidden derivatives, complex emulsifiers, and alternate scientific nomenclature (e.g. Allium Cepa for onion extract).</p>
+                        <div class="feature-meta">
+                            <span class="meta-tag">Chemical-Level</span>
+                        </div>
+                    </div>
+
+                    <!-- Feature Card 4 -->
+                    <div class="feature-card">
+                        <div class="feature-icon-wrapper">
+                            <svg class="feature-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                <polyline points="14 2 14 8 20 8"></polyline>
+                                <line x1="16" y1="13" x2="8" y2="13"></line>
+                                <line x1="16" y1="17" x2="8" y2="17"></line>
+                                <polyline points="10 9 9 9 8 9"></polyline>
+                            </svg>
+                        </div>
+                        <h3 class="feature-title">Auditable Citations</h3>
+                        <p class="feature-desc">Export inspection logs with exact source citations, scientific study references, and timestamped regulatory document links.</p>
+                        <div class="feature-meta">
+                            <span class="meta-tag">HTML &amp; TXT Export</span>
+                        </div>
+                    </div>
+
+                    <!-- Feature Card 5 -->
+                    <div class="feature-card">
+                        <div class="feature-icon-wrapper">
+                            <svg class="feature-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                            </svg>
+                        </div>
+                        <h3 class="feature-title">Persistent Preference Profiles</h3>
+                        <p class="feature-desc">Store custom allergy matrices, religious guidelines (Halal, Kosher, Jain), and medical diets securely under your account.</p>
+                        <div class="feature-meta">
+                            <span class="meta-tag">Profile Storage</span>
+                        </div>
+                    </div>
+
+                    <!-- Feature Card 6 -->
+                    <div class="feature-card">
+                        <div class="feature-icon-wrapper">
+                            <svg class="feature-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                            </svg>
+                        </div>
+                        <h3 class="feature-title">High-Throughput Vision OCR</h3>
+                        <p class="feature-desc">Process high-resolution packaging, curved container labels, and multilingual ingredient declarations in sub-second inference time.</p>
+                        <div class="feature-meta">
+                            <span class="meta-tag">Gemini Vision AI</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Code Showcase (Side-by-Side) -->
+        <section id="code-showcase" class="showcase-section">
+            <div class="container">
+                <div class="showcase-layout">
+                    <div class="showcase-text">
+                        <div class="section-tag">DEVELOPER INTEGRATION</div>
+                        <h2 class="showcase-title">Simple to run in UI, powerful via structured payloads</h2>
+                        <p class="showcase-desc">
+                            Dietary Deep Scan parses OCR text into structured JSON arrays, matching each item against your personal dietary rules and regulatory compliance rulesets.
+                        </p>
+                        
+                        <div class="showcase-features">
+                            <div class="showcase-bullet">
+                                <span class="bullet-check">✓</span>
+                                <div>
+                                    <strong>Structured JSON Output</strong>
+                                    <p>Returns machine-readable compliance statuses, severity tiers, and parsed ingredients.</p>
+                                </div>
+                            </div>
+                            <div class="showcase-bullet">
+                                <span class="bullet-check">✓</span>
+                                <div>
+                                    <strong>Real-Time Verification Citations</strong>
+                                    <p>Includes title, direct URI, and excerpt evidence for every flagged item.</p>
+                                </div>
+                            </div>
+                            <div class="showcase-bullet">
+                                <span class="bullet-check">✓</span>
+                                <div>
+                                    <strong>Extensible Regulatory Rules</strong>
+                                    <p>Configurable for Halal, Kosher, Vegan, FODMAP, allergens, and specific country bans.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="showcase-actions">
+                            <a href="account_login.html" class="btn btn-primary">
+                                <span>Try Scanner UI</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="showcase-code">
+                        <div class="code-terminal-wrapper">
+                            <div class="code-header">
+                                <div class="window-controls">
+                                    <span class="control-dot close"></span>
+                                    <span class="control-dot minimize"></span>
+                                    <span class="control-dot maximize"></span>
+                                </div>
+                                <div class="code-title">response.json — Dietary Scan Payload</div>
+                                <button class="copy-btn" id="copyCodeBtn" aria-label="Copy Code Payload">Copy</button>
+                            </div>
+                            <pre class="code-block"><code class="language-json">{
+  <span class="token-key">"compliance_status"</span>: <span class="token-status-warning">"WARNING"</span>,
+  <span class="token-key">"ingredients_detected"</span>: [
+    <span class="token-str">"Enriched Flour"</span>,
+    <span class="token-str">"Palm Oil"</span>,
+    <span class="token-str">"Allium Cepa Extract"</span>,
+    <span class="token-str">"Red Dye 40 (Allura Red)"</span>
+  ],
+  <span class="token-key">"restriction_conflicts"</span>: [
+    {
+      <span class="token-key">"ingredient"</span>: <span class="token-str">"Allium Cepa"</span>,
+      <span class="token-key">"severity"</span>: <span class="token-str">"high"</span>,
+      <span class="token-key">"issue"</span>: <span class="token-str">"Botanical name for onion; violates no-allium profile"</span>
+    }
+  ],
+  <span class="token-key">"regulatory_bans"</span>: [
+    {
+      <span class="token-key">"ingredient"</span>: <span class="token-str">"Red Dye 40"</span>,
+      <span class="token-key">"countries"</span>: [<span class="token-str">"EU"</span>, <span class="token-str">"UK (Warning Label)"</span>],
+      <span class="token-key">"reason"</span>: <span class="token-str">"EFSA hyperactivity warning advisory"</span>
+    }
+  ],
+  <span class="token-key">"citations"</span>: [
+    {
+      <span class="token-key">"title"</span>: <span class="token-str">"EFSA Food Additives Directive"</span>,
+      <span class="token-key">"uri"</span>: <span class="token-str">"https://efsa.europa.eu/en/topics/topic/food-additives"</span>
+    }
+  ]
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- How It Works (4 Steps) -->
+        <section id="how-it-works" class="workflow-section">
+            <div class="container">
+                <div class="section-header">
+                    <div class="section-tag">PIPELINE ARCHITECTURE</div>
+                    <h2 class="section-title">How The Analysis Pipeline Executes</h2>
+                    <p class="section-subtitle">A seamless 4-stage pipeline combining multimodal vision, grounding search, and chemical evaluation.</p>
+                </div>
+
+                <div class="workflow-grid">
+                    <div class="workflow-card">
+                        <div class="step-badge">01</div>
+                        <div class="workflow-icon">📸</div>
+                        <h3 class="workflow-title">Ingest Image</h3>
+                        <p class="workflow-desc">Drop any packaged food label or receipt image. Client extracts high-fidelity raw pixel data for inference.</p>
+                    </div>
+
+                    <div class="workflow-card">
+                        <div class="step-badge">02</div>
+                        <div class="workflow-icon">🔍</div>
+                        <h3 class="workflow-title">OCR &amp; Tokenize</h3>
+                        <p class="workflow-desc">Gemini Vision AI extracts raw ingredients, recognizing botanical names, E-numbers, and obscure synonyms.</p>
+                    </div>
+
+                    <div class="workflow-card">
+                        <div class="step-badge">03</div>
+                        <div class="workflow-icon">🌐</div>
+                        <h3 class="workflow-title">Web-Search Verify</h3>
+                        <p class="workflow-desc">Real-time search verification queries global food safety directives, allergen alerts, and international bans.</p>
+                    </div>
+
+                    <div class="workflow-card">
+                        <div class="step-badge">04</div>
+                        <div class="workflow-icon">📊</div>
+                        <h3 class="workflow-title">Export Report</h3>
+                        <p class="workflow-desc">Receive a color-coded compliance report complete with citations, actionable advice, and downloadable formats.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Use Cases -->
+        <section id="use-cases" class="usecases-section">
+            <div class="container">
+                <div class="section-header">
+                    <div class="section-tag">COMPLIANCE SCENARIOS</div>
+                    <h2 class="section-title">Built For Every Dietary Matrix</h2>
+                </div>
+
+                <div class="usecases-grid">
+                    <div class="usecase-card">
+                        <div class="usecase-icon-badge">🌱</div>
+                        <div class="usecase-text">
+                            <h3>Vegan &amp; Vegetarian</h3>
+                            <p>Detect covert animal derivatives like gelatin, carmine (E120), bone-char sugar, and isinglass.</p>
+                        </div>
+                    </div>
+
+                    <div class="usecase-card">
+                        <div class="usecase-icon-badge">🕌</div>
+                        <div class="usecase-text">
+                            <h3>Halal, Kosher &amp; Jain</h3>
+                            <p>Validate religious compliance and flag root vegetables, alcohol carriers, and non-certified enzymes.</p>
+                        </div>
+                    </div>
+
+                    <div class="usecase-card">
+                        <div class="usecase-icon-badge">⚠️</div>
+                        <div class="usecase-text">
+                            <h3>Severe Allergens &amp; Celiac</h3>
+                            <p>Identify hidden gluten, tree nuts, cross-contamination warnings, and obscure soy/dairy derivatives.</p>
+                        </div>
+                    </div>
+
+                    <div class="usecase-card">
+                        <div class="usecase-icon-badge">🌍</div>
+                        <div class="usecase-text">
+                            <h3>Global Expats &amp; Travelers</h3>
+                            <p>Instantly translate and verify foreign food labels against domestic safety benchmarks.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="cta-banner-section">
+            <div class="container">
+                <div class="cta-box">
+                    <div class="cta-badge">ZERO COMPROMISE FOOD SAFETY</div>
+                    <h2 class="cta-title">Start Scanning Your Food Labels Today</h2>
+                    <p class="cta-desc">Access the scanner interface, configure your dietary profile, and get verified research on any ingredient in seconds.</p>
+                    <div class="cta-buttons">
+                        <a href="account_login.html" class="btn btn-primary btn-large">
+                            <span>Get Started Free</span>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                <polyline points="12 5 19 12 12 19"></polyline>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
 
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <div class="footer-logo">
-                        <span class="logo-icon">🧬</span>
-                        <span class="logo-text">Dietary Deep Scan</span>
+            <div class="footer-grid">
+                <div class="footer-col brand-col">
+                    <div class="logo">
+                        <span class="logo-terminal-icon">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="4 17 10 11 4 5"></polyline>
+                                <line x1="12" y1="19" x2="20" y2="19"></line>
+                            </svg>
+                        </span>
+                        <span class="logo-text">Dietary<span class="logo-accent">Scan</span></span>
                     </div>
-                    <p>Making food safety accessible to everyone</p>
+                    <p class="footer-motto">Making chemical-level food safety and dietary restriction compliance accessible and transparent.</p>
+                    <div class="footer-status">
+                        <span class="status-indicator"></span>
+                        <span class="status-text">Engine Systems Operational</span>
+                    </div>
                 </div>
-                <div class="footer-section">
-                    <h4>Quick Links</h4>
-                    <a href="#features">Features</a>
-                    <a href="#how-it-works">How It Works</a>
-                    <a href="#demo">Try It</a>
+
+                <div class="footer-col">
+                    <h4>Navigation</h4>
+                    <ul class="footer-links">
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#code-showcase">CLI &amp; API</a></li>
+                        <li><a href="#how-it-works">Architecture</a></li>
+                        <li><a href="#use-cases">Use Cases</a></li>
+                    </ul>
                 </div>
-                <div class="footer-section">
-                    <h4>Our Mission</h4>
-                    <p>To empower people with clear, web-verified information about what they eat, using AI to reveal
-                        hidden risks and global food restrictions.</p>
+
+                <div class="footer-col">
+                    <h4>Application</h4>
+                    <ul class="footer-links">
+                        <li><a href="account_login.html">Sign In / Register</a></li>
+                        <li><a href="scanner.html">Scanner Engine</a></li>
+                        <li><a href="account.html">Dietary Preferences</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Verification</h4>
+                    <p class="footer-note">All analyses backed by Google Grounding &amp; live web sources. Designed with developer-grade security.</p>
                 </div>
             </div>
+
             <div class="footer-bottom">
-                <p>Made with ❤️ for food safety awareness</p>
+                <p>&copy; 2026 Dietary Deep Scan System. All rights reserved.</p>
+                <div class="footer-bottom-links">
+                    <span>Dark Mode First</span>
+                    <span>•</span>
+                    <span>WCAG AA Compliant</span>
+                    <span>•</span>
+                    <span>webcmd.dev design system</span>
+                </div>
             </div>
         </div>
     </footer>

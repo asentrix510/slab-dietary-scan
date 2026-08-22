@@ -4,66 +4,104 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Food Safety Account - Login</title>
-    <!-- Google Fonts: Fredoka -->
+    <title>Account Authentication | Dietary Deep Scan Engine</title>
+    <meta name="description" content="Sign in or register for Dietary Deep Scan food safety scanner.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/account_style.css">
     <script type="module" src="js/account_auth.js"></script>
 </head>
 
 <body>
-    <!-- Animated Background Elements -->
-    <div class="floating-elements">
-        <div class="floating-icon">🥗</div>
-        <div class="floating-icon">🍎</div>
-        <div class="floating-icon">🥑</div>
-        <div class="floating-icon">🥕</div>
-        <div class="floating-icon">🌶️</div>
-        <div class="floating-icon">🧄</div>
-        <div class="floating-icon">🧅</div>
-        <div class="floating-icon">🥬</div>
-    </div>
+    <!-- Background Grid Texture -->
+    <div class="grid-background" aria-hidden="true"></div>
 
-    <div class="auth-container">
-        <!-- Sign In Form -->
-        <div id="login-card" class="card">
-            <h2>Welcome Back</h2>
-            <div id="login-error" class="error-message"></div>
-            <form id="login-form">
-                <div class="form-group">
-                    <label for="login-email">Email Address</label>
-                    <input type="email" id="login-email" required placeholder="Enter your email">
-                </div>
-                <div class="form-group">
-                    <label for="login-password">Password</label>
-                    <input type="password" id="login-password" required placeholder="Enter your password">
-                </div>
-                <button type="submit" class="btn">Sign In</button>
-            </form>
-            <div class="switch-auth">
-                Don't have an account? <a id="show-signup">Create one</a>
+    <div class="auth-wrapper">
+        <div class="auth-container">
+            <!-- Brand Header -->
+            <div class="auth-brand">
+                <a href="index.html" class="logo" aria-label="Dietary Deep Scan Home">
+                    <span class="logo-terminal-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="4 17 10 11 4 5"></polyline>
+                            <line x1="12" y1="19" x2="20" y2="19"></line>
+                        </svg>
+                    </span>
+                    <span class="logo-text">Dietary<span class="logo-accent">Scan</span></span>
+                </a>
             </div>
-        </div>
 
-        <!-- Sign Up Form (Hidden by default) -->
-        <div id="signup-card" class="card" style="display: none;">
-            <h2>Create Account</h2>
-            <div id="signup-error" class="error-message"></div>
-            <form id="signup-form">
-                <div class="form-group">
-                    <label for="signup-email">Email Address</label>
-                    <input type="email" id="signup-email" required placeholder="Enter your email">
+            <!-- Sign In Form -->
+            <div id="login-card" class="card">
+                <div class="card-header">
+                    <div class="window-controls">
+                        <span class="control-dot close"></span>
+                        <span class="control-dot minimize"></span>
+                        <span class="control-dot maximize"></span>
+                    </div>
+                    <div class="card-terminal-title">auth_session: sign_in</div>
                 </div>
-                <div class="form-group">
-                    <label for="signup-password">Password</label>
-                    <input type="password" id="signup-password" required placeholder="Create a password (min 6 chars)">
+
+                <div class="card-body">
+                    <h2>Sign In to Console</h2>
+                    <p class="auth-subtitle">Access your persistent dietary matrix and scanner engine.</p>
+                    <div id="login-error" class="error-message" role="alert"></div>
+
+                    <form id="login-form">
+                        <div class="form-group">
+                            <label for="login-email">Email Address</label>
+                            <input type="email" id="login-email" required placeholder="developer@example.com" autocomplete="email">
+                        </div>
+                        <div class="form-group">
+                            <label for="login-password">Password</label>
+                            <input type="password" id="login-password" required placeholder="••••••••" autocomplete="current-password">
+                        </div>
+                        <button type="submit" class="btn btn-primary">
+                            <span>Authenticate &amp; Sign In</span>
+                        </button>
+                    </form>
+
+                    <div class="switch-auth">
+                        <span>New to the engine?</span> <a id="show-signup" role="button" tabindex="0">Create an account</a>
+                    </div>
                 </div>
-                <button type="submit" class="btn">Sign Up</button>
-            </form>
-            <div class="switch-auth">
-                Already have an account? <a id="show-login">Sign In</a>
+            </div>
+
+            <!-- Sign Up Form (Hidden by default) -->
+            <div id="signup-card" class="card" style="display: none;">
+                <div class="card-header">
+                    <div class="window-controls">
+                        <span class="control-dot close"></span>
+                        <span class="control-dot minimize"></span>
+                        <span class="control-dot maximize"></span>
+                    </div>
+                    <div class="card-terminal-title">auth_session: register</div>
+                </div>
+
+                <div class="card-body">
+                    <h2>Create Developer Account</h2>
+                    <p class="auth-subtitle">Initialize your customized food safety &amp; allergy profile.</p>
+                    <div id="signup-error" class="error-message" role="alert"></div>
+
+                    <form id="signup-form">
+                        <div class="form-group">
+                            <label for="signup-email">Email Address</label>
+                            <input type="email" id="signup-email" required placeholder="developer@example.com" autocomplete="email">
+                        </div>
+                        <div class="form-group">
+                            <label for="signup-password">Password</label>
+                            <input type="password" id="signup-password" required placeholder="Minimum 6 characters" minlength="6" autocomplete="new-password">
+                        </div>
+                        <button type="submit" class="btn btn-primary">
+                            <span>Register &amp; Initialize Profile</span>
+                        </button>
+                    </form>
+
+                    <div class="switch-auth">
+                        <span>Already registered?</span> <a id="show-login" role="button" tabindex="0">Sign In</a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
