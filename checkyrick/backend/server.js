@@ -11,6 +11,7 @@ import { fileURLToPath } from 'node:url';
 const execFileAsync = promisify(execFile);
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+const FRONTEND_DIR = path.join(__dirname, '..', 'frontend');
 
 // ===== API KEY MANAGEMENT =====
 
@@ -594,13 +595,13 @@ app.get('/health', (req, res) => {
 
 // ===== STATIC FILE SERVING (after API routes) =====
 
-// Serve root as index.html (matching old start_server.py behavior)
+// Serve root as index.html
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'index.html'));
+  res.sendFile(path.join(FRONTEND_DIR, 'index.html'));
 });
 
-// Serve static files from the project directory
-app.use(express.static(__dirname, {
+// Serve static files from the frontend directory
+app.use(express.static(FRONTEND_DIR, {
   index: false, // Don't auto-serve index.html on /
 }));
 

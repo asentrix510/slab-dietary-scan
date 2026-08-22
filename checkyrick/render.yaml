@@ -3,6 +3,7 @@ services:
     name: checkyrick-api
     runtime: node
     plan: free
+    rootDir: checkyrick/backend
     buildCommand: npm install && npm install -g @agentrhq/webcmd
     startCommand: node server.js
     envVars:
