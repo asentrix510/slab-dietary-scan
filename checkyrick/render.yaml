@@ -7,7 +7,13 @@ services:
     buildCommand: npm install && npm install -g @agentrhq/webcmd
     startCommand: node server.js
     envVars:
-      - key: GEMINI_API_KEY
+      - key: GEMINI_API_KEY_1
+        sync: false
+      - key: GEMINI_API_KEY_2
+        sync: false
+      - key: GEMINI_API_KEY_3
+        sync: false
+      - key: TELEGRAM_BOT_TOKEN
         sync: false
       - key: NODE_VERSION
         value: 20.18.0
