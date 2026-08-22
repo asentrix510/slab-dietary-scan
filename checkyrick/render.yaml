@@ -1,12 +1,12 @@
 services:
   - type: web
     name: checkyrick-api
-    runtime: python
+    runtime: node
     plan: free
-    buildCommand: pip install -r requirements.txt
-    startCommand: python app.py
+    buildCommand: npm install && npm install -g @agentrhq/webcmd
+    startCommand: node server.js
     envVars:
       - key: GEMINI_API_KEY
         sync: false
-      - key: PYTHON_VERSION
-        value: 3.11.0
+      - key: NODE_VERSION
+        value: 20.18.0

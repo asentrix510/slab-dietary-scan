@@ -289,7 +289,7 @@ function generateReportHTML(analysis, restrictions, citations = []) {
             <!-- Header -->
             <div style="background: linear-gradient(135deg, ${statusColor}, ${statusColor}dd); color: white; padding: 2rem; border-radius: 10px; margin-bottom: 2rem; max-width: 100%; ${textWrapStyle}">
                 <h1 style="margin: 0 0 0.5rem 0; ${textWrapStyle}">Dietary Deep Scan Report</h1>
-                <p style="margin: 0; opacity: 0.9; ${textWrapStyle}">Analysis completed • Verified with Google Search</p>
+                <p style="margin: 0; opacity: 0.9; ${textWrapStyle}">Analysis completed • Verified with WebCMD web research</p>
             </div>
             
             <!-- User Restrictions -->
@@ -428,7 +428,7 @@ function generateReportHTML(analysis, restrictions, citations = []) {
     // Footer
     html += `
         <div style="background: #ecf0f1; padding: 1rem; border-radius: 10px; text-align: center; color: #7f8c8d; font-size: 0.9rem; max-width: 100%; ${textWrapStyle}">
-            <p style="margin: 0; ${textWrapStyle}">Information verified using Google Search via Gemini AI.</p>
+            <p style="margin: 0; ${textWrapStyle}">Information verified using WebCMD web research + Gemini AI.</p>
         </div>
     </div>
     `;
@@ -494,7 +494,7 @@ ${analysisText}
 
 Citations: ${analysisResults.citations ? analysisResults.citations.length : 0} sources consulted
 
-All information verified using Google Search via Gemini AI.
+All information verified using WebCMD web research + Gemini AI.
     `.trim();
 
     const blob = new Blob([textSummary], { type: 'text/plain' });
