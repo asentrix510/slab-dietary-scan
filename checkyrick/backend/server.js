@@ -170,16 +170,22 @@ async function researchIngredientWithWebcmd(ingredient) {
 /**
  * Research all ingredients in parallel using WebCMD, with concurrency limiting.
  */
-async function researchAllIngredients(ingredients) {
+async function researchAllIngredients(ingredients, onProgress) {
   const CONCURRENCY = 4;
   const results = {};
   const queue = [...ingredients];
+  let completedCount = 0;
 
   async function worker() {
     while (queue.length > 0) {
       const ingredient = queue.shift();
       if (!ingredient) break;
+      if (onProgress) {
+        const cleanName = ingredient.replace(/\(.*?\)/g, '').replace(/,/g, ' ').replace(/\s+/g, ' ').trim();
+        onProgress(`🌐 WebCMD Researching "${cleanName.substring(0, 25)}"`, `Querying Bing, Wikipedia & PubChem (${completedCount + 1}/${ingredients.length})`);
+      }
       results[ingredient] = await researchIngredientWithWebcmd(ingredient);
+      completedCount++;
     }
   }
 
@@ -532,54 +538,87 @@ const apiKeyManager = new APIKeyManager();
 // ===== API ENDPOINTS (registered BEFORE static middleware) =====
 
 app.post('/analyze', upload.single('image'), async (req, res) => {
+  // Set Server-Sent Events headers for real-time live status updates
+  res.setHeader('Content-Type', 'text/event-stream');
+  res.setHeader('Cache-Control', 'no-cache');
+  res.setHeader('Connection', 'keep-alive');
+  res.setHeader('X-Accel-Buffering', 'no');
+
+  const sendProgress = (title, detail) => {
+    res.write(`data: ${JSON.stringify({ type: 'progress', title, detail })}\n\n`);
+  };
+
+  const sendError = (errorMsg) => {
+    res.write(`data: ${JSON.stringify({ type: 'error', error: errorMsg })}\n\n`);
+    res.end();
+  };
+
   try {
     // Check if API keys are configured
     if (apiKeyManager.getAllKeys().length === 0) {
-      return res.status(500).json({
-        error: 'API keys not configured. Please set GEMINI_API_KEY_1, GEMINI_API_KEY_2, etc. in .env file',
-      });
+      return sendError('API keys not configured. Please set GEMINI_API_KEY_1, GEMINI_API_KEY_2, etc. in .env file');
     }
 
     const restrictions = req.body.restrictions;
     const imageFile = req.file;
 
     if (!restrictions || !imageFile) {
-      return res.status(400).json({ error: 'Missing required fields' });
+      return sendError('Missing required fields (image or restrictions)');
     }
 
     const scanner = new DietaryScanner(apiKeyManager);
 
     // Step 1: Extract ingredients with Gemini OCR
     console.log('🔍 Step 1: Extracting ingredients from image...');
+    sendProgress('🔍 Step 1: Extracting Ingredients...', 'Scanning label image with Gemini Vision OCR...');
+    
     const ingredients = await scanner.extractIngredients(imageFile.buffer, imageFile.mimetype);
     console.log(`✅ Extracted ${ingredients.length} ingredients`);
+    
+    const ingredientsPreview = ingredients.slice(0, 3).join(', ') + (ingredients.length > 3 ? '...' : '');
+    sendProgress('🔍 Ingredients Identified', `Found ${ingredients.length} ingredients: ${ingredientsPreview}`);
 
     // Step 2: Research each ingredient with WebCMD
     console.log('🌐 Step 2: Researching ingredients with WebCMD...');
-    const researchData = await researchAllIngredients(ingredients);
+    sendProgress('🌐 Step 2: WebCMD Researching...', `Querying live web index across ${ingredients.length} ingredients...`);
+
+    const researchData = await researchAllIngredients(ingredients, (title, detail) => {
+      sendProgress(title, detail);
+    });
+
     const totalSources = Object.values(researchData).reduce((sum, s) => sum + s.length, 0);
     console.log(`✅ Gathered ${totalSources} research sources across ${ingredients.length} ingredients`);
+    sendProgress('🌐 WebCMD Research Complete', `Gathered ${totalSources} verified sources across ${ingredients.length} ingredients.`);
 
     // Step 3: Analyze with Gemini (fed WebCMD research data)
     console.log('🧪 Step 3: Analyzing ingredients with Gemini + WebCMD data...');
+    sendProgress('🧪 Step 3: Analyzing Safety & Rules...', 'Evaluating ingredients against your dietary ruleset with Gemini...');
+
     const { analysis, citations } = await scanner.analyzeIngredients(
       ingredients,
       restrictions,
       researchData
     );
     console.log(`✅ Analysis complete with ${citations.length} citations`);
+    sendProgress('⚡ Compiling Safety Report...', 'Finalizing analysis structure and verification citations...');
 
-    return res.json({
-      success: true,
-      ingredients,
-      analysis,
-      citations,
-      restrictions,
-    });
+    // Send complete result
+    res.write(`data: ${JSON.stringify({
+      type: 'complete',
+      data: {
+        success: true,
+        ingredients,
+        analysis,
+        citations,
+        restrictions,
+      }
+    })}\n\n`);
+    res.end();
+
   } catch (e) {
     console.error(`Error: ${e.message}`);
     console.error(e.stack);
-    return res.status(500).json({ error: e.message });
+    sendError(e.message);
   }
 });
 
